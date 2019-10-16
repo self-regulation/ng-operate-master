@@ -1,0 +1,7 @@
+{
+    "/":{
+        "target":"http://10.11.164.165:9091",
+        "secure":false,
+        "logLevel":"debug"
+    }
+}

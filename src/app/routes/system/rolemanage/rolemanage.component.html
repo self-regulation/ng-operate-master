@@ -1,0 +1,131 @@
+<page-header [title]="'角色管理'"></page-header>
+
+<nz-card>
+  <form nz-form [nzLayout]="'inline'" class="search__form" [formGroup]="searchForm">
+    <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
+      <div nz-col nzMd="8" nzSm="12">
+        <nz-form-item>
+          <nz-form-label nzFor="status">角色筛选</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="allRole" nzAllowClear nzPlaceHolder="请选择">
+              <nz-option *ngFor="let opt of allRoleList" [nzValue]="opt.name" [nzLabel]="opt.name"></nz-option>
+            </nz-select>
+          </nz-form-control>
+
+          <!-- <nz-form-control>
+            <nz-select [(ngModel)]="q.status" name="status" id="status" [nzPlaceHolder]="'请选择'" [nzShowSearch]="true">
+              <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
+            </nz-select>
+          </nz-form-control> -->
+        </nz-form-item>
+      </div>
+      <div nz-col nzMd="8" nzSm="12">
+        <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading" (click)="searchRole()">查询</button>
+      </div>
+    </div>
+
+  </form>
+  <!-- <nz-divider nzDashed></nz-divider> -->
+  <button nz-button (click)="batchDelete()" [nzType]="'primary'">
+    <!-- <i nz-icon nzType="minus"></i> -->
+    <span>批量删除</span>
+  </button>
+  <button nz-button (click)="addRole()" [nzType]="'primary'">
+    <i nz-icon nzType="plus"></i>
+    <span>添加</span>
+  </button>
+  <nz-divider nzDashed></nz-divider>
+
+
+  <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="listOfData"
+    [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+    (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changePageSize($event)"
+    [nzPageSizeOptions]="pageSizeOptions">
+    <thead>
+      <tr>
+        <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" (nzCheckedChange)="checkAll($event)"></th>
+        <th>ID</th>
+        <th>角色</th>
+        <th>具体描述</th>
+        <th><span>操作</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- (nzCheckedChange)="refreshStatus(i)" -->
+      <tr *ngFor="let data of listOfData;let i=index">
+        <td nzShowCheckbox [(nzChecked)]="data.checked"></td>
+        <td>{{ data.id }}</td>
+        <td>{{ data?.name }}</td>
+        <td>{{ data?.remarks }}</td>
+        <td>
+          <!-- <a (click)="updateUser(data)">分配</a>
+          <nz-divider nzType="vertical"></nz-divider> -->
+          <a (click)="updateUser(data)">修改</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a nz-popconfirm (nzOnConfirm)="deleteRole(data.id)" nzPopconfirmPlacement="top" nzTitle="确认删除该条数据?"
+            (nzOnCancel)="cancel()">删除</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+
+  <!-- <st #st [columns]="columns" [data]="data" [loading]="loading" (change)="stChange($event)">
+    <ng-template st-row="status" let-i>
+      <nz-badge [nzStatus]="i.statusType" [nzText]="i.statusText"></nz-badge>
+    </ng-template>
+  </st> -->
+</nz-card>
+
+
+<nz-modal *ngIf="isVisible" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="addRolemanage()">
+  <form nz-form [formGroup]="addRoleForm">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">角色名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="角色名称不能为空！">
+        <input nz-input formControlName="name" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="roleType">角色类型</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="角色类型不能为空！">
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="请选择角色类型" [(ngModel)]="selectRoleType"
+          formControlName="selectRole">
+          <nz-option nzLabel="任务分配" nzValue="0"></nz-option>
+          <nz-option nzLabel="管理角色" nzValue="1"></nz-option>
+          <nz-option nzLabel="普通角色" nzValue="2"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="systemData">是否系统数据</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="是否系统数据不能为空！">
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="请选择" [(ngModel)]="systemData" formControlName="systemData">
+          <nz-option nzLabel="是" nzValue="0"></nz-option>
+          <nz-option nzLabel="否" nzValue="1"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="roleAuthor">角色授权</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="角色授权不能为空！">
+        <nz-tree [nzData]="nodes" nzCheckable nzMultiple [nzExpandedKeys]="defaultExpandedKeys"
+          (nzClick)="nzEvent($event)" (nzExpandChange)="nzEvent($event)" (nzCheckBoxChange)="nzEvent($event)">
+        </nz-tree>
+      </nz-form-control>
+    </nz-form-item> -->
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remarks">
+        备注
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <textarea nz-input formControlName="remarks" rows="3"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

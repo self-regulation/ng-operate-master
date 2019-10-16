@@ -1,0 +1,54 @@
+.form-minus {
+  font-size: 20px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  position: relative;
+}
+
+.checkbox-label .new-checkbox {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  background-color: #fff;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  z-index: 1;
+  cursor: pointer;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+.checkbox-label .new-checkbox:hover {
+  border-color: #222b45;
+}
+
+.my-checkbox {
+  opacity: 0;
+}
+
+.my-checkbox:checked+span {
+  border-color: #222b45;
+  background-color: #222b45;
+}
+
+/*关联checkbox的值*/
+.my-checkbox:checked+span::before {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 10px;
+  border-bottom: 2px solid #fff;
+  background-color: #222b45;
+  border-right: 2px solid #fff;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 0;
+  left: 4.5px;
+  box-sizing: border-box;
+}

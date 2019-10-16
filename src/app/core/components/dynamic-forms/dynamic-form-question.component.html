@@ -1,0 +1,291 @@
+<!-- <nz-collapse> -->
+<!-- *ngFor="let panel of panels;let k=index" [nzHeader]="panel.name" [nzActive]="panel.active" -->
+<!-- <nz-collapse-panel *ngFor="let panel of panels;" [nzHeader]="panel.name" nzActive="true"> -->
+
+<!-- <div *ngIf="panel.childPanel && panel.childPanel.length > 0">
+      <app-question [panels]="panel.childPanel">
+      </app-question>
+    </div> -->
+
+<!-- </nz-collapse-panel>
+</nz-collapse> -->
+<ng-container>
+  <div *ngFor="let panel of panels; let pIndex = index">
+    <nz-collapse>
+      <nz-collapse-panel [nzHeader]="panel.name?panel.name:panel.key" [nzActive]="pIndex==0?true:false">
+        <ng-container *ngIf="panel.questions && panel.questions.length > 0">
+          <div [formGroup]="panel.form">
+            <div *ngFor="let question of panel.questions;let q=index">
+              <div [ngSwitch]="question.controlType">
+
+                <nz-form-item *ngSwitchCase="'label'">
+                  <nz-form-label [nzSm]="6" [nzXs]="24">
+                    <nz-tooltip *ngIf="question.des" [nzTitle]="question.des">
+                      <i nz-tooltip nz-icon nzType="info-circle"></i>
+                    </nz-tooltip>
+                    {{question.label?question.label:question.key}}
+                  </nz-form-label>
+                  <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <span>
+                      {{question.value}}
+                    </span>
+                  </nz-form-control>
+
+                  <nz-form-control [nzSm]="2" [nzXs]="24" *ngIf="isDelete">
+                    <i class="form-minus" nz-icon nzType="minus-circle" nz-popconfirm
+                      (nzOnConfirm)="removeItem(pIndex,q)" nzPopconfirmPlacement="top" nzTitle="确认删除该条数据?"></i>
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item *ngSwitchCase="'input'">
+                  <nz-form-label [nzSm]="6" [nzXs]="24">
+                    <nz-tooltip *ngIf="question.des" [nzTitle]="question.des">
+                      <i nz-tooltip nz-icon nzType="info-circle"></i>
+                    </nz-tooltip>
+                    {{question.label?question.label:question.key}}
+                  </nz-form-label>
+
+                  <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input [formControlName]="question.key" [ngModel]="question.value?question.value:'' "
+                      [disabled]="disabled" />
+                  </nz-form-control>
+
+                  <nz-form-control [nzSm]="2" [nzXs]="24" *ngIf="isDelete">
+                    <i class="form-minus" nz-icon nzType="minus-circle" nz-popconfirm
+                      (nzOnConfirm)="removeItem(pIndex,q)" nzPopconfirmPlacement="top" nzTitle="确认删除该条数据?"></i>
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item *ngSwitchCase="'inputgroup'">
+                  <nz-form-label [nzSm]="6" [nzXs]="24">
+                    <nz-tooltip *ngIf="question.des" [nzTitle]="question.des">
+                      <i nz-tooltip nz-icon nzType="info-circle"></i>
+                    </nz-tooltip>
+                    {{question.label?question.label:question.key}}
+                  </nz-form-label>
+                  <nz-form-item *ngFor="let v of question.value;let i=index">
+                    <nz-form-control [nzSm]="{ span: 12,offset: (i>0 ? 6 : 0)}" [nzXs]="24">
+                      <input nz-input [formControlName]="question.key" [value]="v"
+                        (change)="getInput($event,pIndex,q,i)" [disabled]="disabled" />
+                    </nz-form-control>
+                    <nz-form-control *ngIf="!disabled" [nzSm]="2" [nzXs]="24">
+                      <i class="form-minus" nz-icon nzType="minus-circle" nz-popconfirm
+                        (nzOnConfirm)="removeField($event,pIndex,q,i)" nzPopconfirmPlacement="top"
+                        nzTitle="确认删除该条数据?"></i>
+                    </nz-form-control>
+                  </nz-form-item>
+
+                  <nz-form-control [nzXs]="24" class="text-center" [nzSm]="{ span: 12, offset: 6 }">
+                    <button nz-button nzType="dashed" (click)="addField($event,pIndex,q)" [disabled]="disabled" nzBlock>
+                      <i nz-icon nzType="plus"></i>
+                      添&nbsp;加
+                    </button>
+                  </nz-form-control>
+
+                  <nz-form-control [nzSm]="3" [nzXs]="24" *ngIf="isDelete" class="text-right">
+                    <i class="form-minus" nz-icon nzType="minus-circle" nz-popconfirm
+                      (nzOnConfirm)="removeItem(pIndex,q)" nzPopconfirmPlacement="top" nzTitle="确认删除该条数据?"
+                      style="margin-right: 6px;"></i>
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item *ngSwitchCase="'select'">
+                  <nz-form-label [nzSm]="6" [nzXs]="24" [attr.for]="question.key">
+                    <nz-tooltip *ngIf="question.des" [nzTitle]="question.des">
+                      <i nz-tooltip nz-icon nzType="info-circle"></i>
+                    </nz-tooltip>
+                    {{question.label?question.label:question.key}}
+                  </nz-form-label>
+                  <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-select [formControlName]="question.key" nzPlaceHolder="请选择" [nzDisabled]="disabled">
+                      <nz-option *ngFor="let opt of question.options" [nzValue]="opt.value" [nzLabel]="opt.label">
+                      </nz-option>
+                    </nz-select>
+                  </nz-form-control>
+
+
+                  <nz-form-control [nzXs]="2" *ngIf="isDelete">
+                    <i class="form-minus" nz-icon nzType="minus-circle" nz-popconfirm
+                      (nzOnConfirm)="removeItem(pIndex,q)" nzPopconfirmPlacement="top" nzTitle="确认删除该条数据?"></i>
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item *ngSwitchCase="'checkbox'">
+                  <nz-form-label [nzSm]="6" [nzXs]="24" [attr.for]="question.key">
+                    <nz-tooltip *ngIf="question.des" [nzTitle]="question.des">
+                      <i nz-tooltip nz-icon nzType="info-circle"></i>
+                    </nz-tooltip>
+                    {{question.label?question.label:question.key}}
+                  </nz-form-label>
+
+                  <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <div *ngFor="let opt of question.options; let op=index" style="display: inline-block;">
+                      <label class="checkbox-label">
+                        <input type="checkbox" [checked]="opt.checked" class="my-checkbox"
+                          (click)="changeCheckbox(question.key,pIndex,op,$event.target.checked)" [disabled]="disabled">
+                        <span class="new-checkbox"></span>&nbsp;&nbsp;<span>{{opt.label}}</span></label>
+                    </div>
+                  </nz-form-control>
+
+                  <nz-form-control [nzSm]="2" [nzXs]="24" *ngIf="isDelete">
+                    <i class="form-minus" nz-icon nzType="minus-circle" nz-popconfirm
+                      (nzOnConfirm)="removeItem(pIndex,q)" nzPopconfirmPlacement="top" nzTitle="确认删除该条数据?"></i>
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item *ngSwitchCase="'radio'">
+                  <nz-form-label [nzSm]="6" [nzXs]="24" [attr.for]="question.key">
+                    <nz-tooltip *ngIf="question.des" [nzTitle]="question.des">
+                      <i nz-tooltip nz-icon nzType="info-circle"></i>
+                    </nz-tooltip>
+                    {{question.label?question.label:question.key}}
+                  </nz-form-label>
+                  <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-radio-group [formControlName]="question.key">
+                      <label *ngFor="let opt of question.options" nz-radio [nzValue]="opt.value"
+                        [nzDisabled]="disabled">{{opt.label}}</label>
+                    </nz-radio-group>
+                  </nz-form-control>
+
+                  <nz-form-control [nzSm]="2" [nzXs]="24" *ngIf="isDelete">
+                    <i class="form-minus" nz-icon nzType="minus-circle" nz-popconfirm
+                      (nzOnConfirm)="removeItem(pIndex,q)" nzPopconfirmPlacement="top" nzTitle="确认删除该条数据?"></i>
+                  </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item *ngSwitchCase="'textarea'">
+                  <nz-form-label [nzSm]="6" [nzXs]="24">
+                    <nz-tooltip *ngIf="question.des" [nzTitle]="question.des">
+                      <i nz-tooltip nz-icon nzType="info-circle"></i>
+                    </nz-tooltip>
+                    {{question.label?question.label:question.key}}
+                  </nz-form-label>
+                  <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <textarea nz-input [formControlName]="question.key" rows="3" [disabled]="disabled"></textarea>
+                  </nz-form-control>
+
+                  <nz-form-control [nzSm]="2" [nzXs]="24" *ngIf="isDelete">
+                    <i class="form-minus" nz-icon nzType="minus-circle" nz-popconfirm
+                      (nzOnConfirm)="removeItem(pIndex,q)" nzPopconfirmPlacement="top" nzTitle="确认删除该条数据?"></i>
+                  </nz-form-control>
+                </nz-form-item>
+
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <form nz-form *ngIf="isDelete">
+          <nz-form-item class="text-center">
+            <button nz-button nzType="dashed" (click)="addConfig(panel,pIndex)">
+              <i nz-icon nzType="plus"></i>
+              添加配置项
+            </button>
+          </nz-form-item>
+        </form>
+
+        <form nz-form class="mt-15" *ngIf="isDelete">
+          <nz-form-item class="text-center">
+            <button nz-button nzType="dashed" nz-popconfirm nzTitle="您确定要删除此配置模板吗?" nzPopconfirmPlacement="top"
+              (nzOnConfirm)="deletePanelsConfig(panel,pIndex)">
+              <i nz-icon nzType="minus"></i>
+              删除配置面板
+            </button>
+          </nz-form-item>
+        </form>
+      </nz-collapse-panel>
+    </nz-collapse>
+  </div>
+</ng-container>
+
+<!-- 添加配置项 -->
+<nz-modal nzWidth="1000px" [(nzVisible)]="addConfigVisible" nzTitle="添加配置项" (nzOnCancel)="addConfigCancel()"
+  (nzOnOk)="addConfigOk()">
+  <form nz-form [formGroup]="configForm">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="key">Key</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Key不能为空！">
+        <input nz-input formControlName="key" placeholder="请填入Key" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="controlType">元素类型</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="元素类型不能为空！">
+        <nz-select style="width: 200px;" formControlName="controlType" nzPlaceHolder="请选择"
+          (ngModelChange)="changeControlType($event)">
+          <nz-option nzValue="input" nzLabel="输入框"></nz-option>
+          <nz-option nzValue="select" nzLabel="下拉框"></nz-option>
+          <nz-option nzValue="checkbox" nzLabel="多选框"></nz-option>
+          <nz-option nzValue="radio" nzLabel="单选框"></nz-option>
+          <nz-option nzValue="textarea" nzLabel="文本框"></nz-option>
+          <nz-option nzValue="label" nzLabel="只读文本"></nz-option>
+          <nz-option nzValue="inputgroup" nzLabel="输入组"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-card *ngIf="controlType==='select' || controlType==='checkbox' || controlType==='radio'">
+      <form nz-form [formGroup]="optionFormGroup">
+        <nz-form-item *ngFor="let option of listOfControl; let i = index">
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>
+
+            <nz-tooltip nzTitle="label为键值对的键">
+              <i nz-tooltip nz-icon nzType="info-circle"></i>
+            </nz-tooltip>
+            label
+          </nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input placeholder="请填入标签名" [formControlName]="option.label" />
+          </nz-form-control>
+
+
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>
+            <nz-tooltip nzTitle="value为键值对的值">
+              <i nz-tooltip nz-icon nzType="info-circle"></i>
+            </nz-tooltip>
+            value
+          </nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input placeholder="请填入值" [formControlName]="option.value" />
+          </nz-form-control>
+
+          <nz-form-control [nzSm]="2" [nzXs]="24" style="margin-top: -20px;margin-left: 15px;">
+            <i class="form-minus" style="font-size: 20px;" nz-icon nzType="minus-circle"
+              (click)="removeOption(option,$event)"></i>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+
+      <nz-form-item class="text-center">
+        <button nz-button nzType="dashed" (click)="addOption()">
+          <i nz-icon nzType="plus"></i>
+          添加选项
+        </button>
+      </nz-form-item>
+    </nz-card>
+
+
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="des">描述</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="des" placeholder="请填入描述" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="label">label</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="label不能为空！">
+        <input nz-input formControlName="label" placeholder="请填入label" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="value">默认值</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="value" placeholder="请填入默认值" />
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

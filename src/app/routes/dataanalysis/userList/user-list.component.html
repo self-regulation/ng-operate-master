@@ -1,0 +1,67 @@
+<page-header [title]="'用户列表'" [breadcrumb]="breadcrumb">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item routerLink="/dashboard"><a>首页</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item routerLink="/analysis/userRetain"><a>留存分析</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item><a>用户列表</a></nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="userListForm">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label nzFor="initialAction" [nzSpan]="4">用户ID</nz-form-label>
+          <nz-form-control [nzSpan]="20">
+            <input nz-input formControlName="userId" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSpan]="4">用户名称</nz-form-label>
+          <nz-form-control [nzSpan]="20">
+            <input nz-input formControlName="userName" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+    <div nz-row [nzGutter]="24">
+      <nz-form-item nzFlex>
+        <div nz-col [nzSpan]="24" class="text-right">
+          <button nz-button type="submit" [nzType]="'primary'">查询</button>
+        </div>
+      </nz-form-item>
+    </div>
+  </form>
+  <nz-divider nzDashed></nz-divider>
+  <nz-table #headerTable nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzFrontPagination]="false"
+    [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th nzLeft="0px">玩家Id</th>
+        <th>玩家名称</th>
+        <th>帮会id</th>
+        <th>帮会名称</th>
+        <th>历史充值金额</th>
+        <th>天梯分</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userInfoList;let i=index">
+        <td nzWidth="100px" nzLeft="0px">{{ user.id }}</td>
+        <td><a routerLink="/analysis/userDetail">{{ user.profiles.union_name }}</a></td>
+        <td>{{user.profiles.union_id}}</td>
+        <td>{{user.profiles.union_name}}</td>
+        <td>{{user.profiles.accumulated_recharge_amount}}</td>
+        <td>{{user.profiles.ranknum}}</td>
+
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

@@ -1,0 +1,117 @@
+<page-header [title]="'留存分析'" [breadcrumb]="breadcrumb">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item routerLink="/dashboard"><a>首页</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item><a>留存分析</a></nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+<nz-card>
+  <form nz-form [formGroup]="userRetainForm">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label nzFor="initialAction" [nzSpan]="4">初始行为</nz-form-label>
+          <nz-form-control [nzSpan]="20">
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="选择用户行为" formControlName="initialAction">
+              <nz-option nzLabel="启动游戏" nzValue="0"></nz-option>
+              <nz-option nzLabel="退出游戏" nzValue="1"></nz-option>
+              <nz-option nzLabel="登录账号" nzValue="2"></nz-option>
+              <nz-option nzLabel="完成日常任务" nzValue="3"></nz-option>
+              <nz-option nzLabel="创建角色" nzValue="4"></nz-option>
+              <nz-option nzLabel="PVP战斗" nzValue="5"></nz-option>
+              <nz-option nzLabel="分享游戏" nzValue="6"></nz-option>
+              <nz-option nzLabel="装备道具抽取" nzValue="7"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSpan]="4">后续行为</nz-form-label>
+          <nz-form-control [nzSpan]="20">
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="选择用户行为" formControlName="finallyAction">
+              <nz-option nzLabel="启动游戏" nzValue="0"></nz-option>
+              <nz-option nzLabel="退出游戏" nzValue="1"></nz-option>
+              <nz-option nzLabel="登录账号" nzValue="2"></nz-option>
+              <nz-option nzLabel="完成日常任务" nzValue="3"></nz-option>
+              <nz-option nzLabel="创建角色" nzValue="4"></nz-option>
+              <nz-option nzLabel="PVP战斗" nzValue="5"></nz-option>
+              <nz-option nzLabel="分享游戏" nzValue="6"></nz-option>
+              <nz-option nzLabel="装备道具抽取" nzValue="7"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSpan]="4">同时显示</nz-form-label>
+          <nz-form-control [nzSpan]="20">
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="选择用户行为" formControlName="sameDisplay">
+              <nz-option nzLabel="启动游戏" nzValue="0"></nz-option>
+              <nz-option nzLabel="退出游戏" nzValue="1"></nz-option>
+              <nz-option nzLabel="登录账号" nzValue="2"></nz-option>
+              <nz-option nzLabel="完成日常任务" nzValue="3"></nz-option>
+              <nz-option nzLabel="创建角色" nzValue="4"></nz-option>
+              <nz-option nzLabel="PVP战斗" nzValue="5"></nz-option>
+              <nz-option nzLabel="分享游戏" nzValue="6"></nz-option>
+              <nz-option nzLabel="装备道具抽取" nzValue="7"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label nzFor="initialAction" [nzSpan]="4">日期</nz-form-label>
+          <nz-form-control [nzSpan]="20">
+            <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm"
+              formControlName="dateRange" [nzPlaceHolder]="['开始时间', '结束时间']" ngModel (ngModelChange)="clear($event)">
+            </nz-range-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="24">
+      <nz-form-item nzFlex>
+        <div nz-col [nzSpan]="24" class="text-right">
+          <button nz-button type="submit" [nzType]="'primary'">查询</button>
+        </div>
+      </nz-form-item>
+    </div>
+  </form>
+  <nz-divider nzDashed></nz-divider>
+  <nz-table #headerTable nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzFrontPagination]="false"
+    [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th nzLeft="0px">日期</th>
+        <th>总人数</th>
+        <th>第1天</th>
+        <th>第2天</th>
+        <th>第3天</th>
+        <th>第4天</th>
+        <th>第5天</th>
+        <th>第6天</th>
+        <th>第7天</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userRetainList;let i=index">
+        <td nzWidth="100px" nzLeft="0px">{{ user.by_value }}</td>
+        <td><a routerLink="/analysis/userList">{{ user?.total_people }}人</a></td>
+        <ng-container *ngFor="let data of user.cells;let j=index">
+          <td *ngIf="j<7">{{data.people +'人('+data.percent+'%)'}}</td>
+        </ng-container>
+
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<!-- <router-outlet></router-outlet> -->

@@ -1,0 +1,34 @@
+<form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">
+  <!-- <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert> -->
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请输入账号！">
+      <nz-input-group nzSize="large" nzPrefixIcon="user">
+        <input nz-input formControlName="username" placeholder="请输入账号" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请输入密码！">
+      <nz-input-group nzSize="large" nzPrefixIcon="lock">
+        <input nz-input type="password" formControlName="password" placeholder="请输入密码" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <input type="text" [maxLength]="4" nz-input formControlName="validateCode" placeholder="请输入验证码"
+        class="input_code">
+      <img class="img_code" id="captcha" [src]="mycaptcha" title="换一张" (click)="refresh()">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-col [nzSpan]="12">
+      <label nz-checkbox formControlName="remember" style="color: #ffffff">自动登录</label>
+    </nz-col>
+  </nz-form-item>
+  <nz-form-item class="text-right">
+    <button class="login-button" nz-button type="submit" nzType="primary" nzSize="large" nzBlock>
+      登录
+    </button>
+  </nz-form-item>
+</form>

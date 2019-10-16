@@ -1,0 +1,160 @@
+<page-header [title]="'用户行为序列'" [breadcrumb]="breadcrumb">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item routerLink="/dashboard"><a>首页</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item routerLink="/analysis/userRetain"><a>留存分析</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item routerLink="/analysis/userList"><a>用户列表</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item><a>用户行为序列</a></nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card>
+  <div class="mt-15">
+    <nz-radio-group [(ngModel)]="unit" [nzButtonStyle]="'solid'">
+      <label nz-radio-button nzValue="hour">1小时</label>
+      <label nz-radio-button nzValue="day">1天</label>
+      <label nz-radio-button nzValue="week">1周</label>
+    </nz-radio-group>
+  </div>
+  <nz-spin nzSimple [nzSize]="'large'" *ngIf="devDetailLoading" class="text-center"></nz-spin>
+  <div echarts [options]="userActionData" style="height: 400px"></div>
+  <nz-divider nzDashed></nz-divider>
+  <nz-card>
+    <div class="mb-20">
+      <nz-radio-group [(ngModel)]="actionUnit" [nzButtonStyle]="'solid'" (ngModelChange)="changeActionUnit($event)">
+        <label nz-radio-button nzValue="sequence">行为序列</label>
+        <label nz-radio-button nzValue="statistic">行为统计</label>
+      </nz-radio-group>
+    </div>
+    <ng-container *ngIf="actionUnit == 'sequence'">
+      <nz-timeline>
+        <nz-timeline-item [nzDot]="dotTemplate" style="padding-bottom: 10px;">
+          <nz-collapse>
+            <nz-collapse-panel nzHeader="2019-10-15 10:20:59    启动APP" [nzActive]="false" [nzShowArrow]="false">
+              <form>
+                <div nz-row [nzGutter]="24">
+                  <div nz-col [nzSpan]="12">
+                    <nz-form-item nzFlex>
+                      <nz-form-label nz-col [nzSpan]="12">
+                        玩家IP
+                      </nz-form-label>
+                      <nz-form-control nz-col [nzSpan]="12">
+                        <span>
+                          127.0.0.1
+                        </span>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col [nzSpan]="12">
+                    <nz-form-item nzFlex>
+                      <nz-form-label nz-col [nzSpan]="12">
+                        是否从后台唤醒
+                      </nz-form-label>
+                      <nz-form-control nz-col [nzSpan]="12">
+                        <span>
+                          否
+                        </span>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col [nzSpan]="12">
+                    <nz-form-item nzFlex>
+                      <nz-form-label nz-col [nzSpan]="12">
+                        是否使用wifi
+                      </nz-form-label>
+                      <nz-form-control nz-col [nzSpan]="12">
+                        <span>
+                          是
+                        </span>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col [nzSpan]="12">
+                    <nz-form-item nzFlex>
+                      <nz-form-label nz-col [nzSpan]="12">
+                        操作系统
+                      </nz-form-label>
+                      <nz-form-control nz-col [nzSpan]="12">
+                        <span>
+                          Android
+                        </span>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col [nzSpan]="12">
+                    <nz-form-item nzFlex>
+                      <nz-form-label nz-col [nzSpan]="12">
+                        屏幕宽度
+                      </nz-form-label>
+                      <nz-form-control nz-col [nzSpan]="12">
+                        <span>
+                          1920
+                        </span>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col [nzSpan]="12">
+                    <nz-form-item nzFlex>
+                      <nz-form-label nz-col [nzSpan]="12">
+                        屏幕高度
+                      </nz-form-label>
+                      <nz-form-control nz-col [nzSpan]="12">
+                        <span>
+                          1080
+                        </span>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+              </form>
+            </nz-collapse-panel>
+          </nz-collapse>
+        </nz-timeline-item>
+        <nz-timeline-item [nzDot]="dotTemplate">
+          <nz-collapse>
+            <nz-collapse-panel nzHeader="2019-10-15 10:20:59    领取礼包" [nzActive]="false" [nzShowArrow]="false">
+
+            </nz-collapse-panel>
+          </nz-collapse>
+        </nz-timeline-item>
+        <nz-timeline-item [nzDot]="dotTemplate">
+          <nz-collapse>
+            <nz-collapse-panel nzHeader="2019-10-15 10:20:59    查看日常任务" [nzActive]="false" [nzShowArrow]="false">
+
+            </nz-collapse-panel>
+          </nz-collapse>
+        </nz-timeline-item>
+        <nz-timeline-item [nzDot]="dotTemplate">
+          <nz-collapse>
+            <nz-collapse-panel nzHeader="2019-10-15 10:20:59    游戏关卡" [nzActive]="false" [nzShowArrow]="false">
+
+            </nz-collapse-panel>
+          </nz-collapse>
+        </nz-timeline-item>
+        <nz-timeline-item [nzDot]="dotTemplate">
+          <nz-collapse>
+            <nz-collapse-panel nzHeader="2019-10-15 10:20:59    领取奖励" [nzActive]="false" [nzShowArrow]="false">
+
+            </nz-collapse-panel>
+          </nz-collapse>
+        </nz-timeline-item>
+        <nz-timeline-item [nzDot]="dotTemplate">
+          <nz-collapse>
+            <nz-collapse-panel nzHeader="2019-10-15 10:20:59    退出APP" [nzActive]="false" [nzShowArrow]="false">
+
+            </nz-collapse-panel>
+          </nz-collapse>
+        </nz-timeline-item>
+      </nz-timeline>
+    </ng-container>
+
+    <ng-container *ngIf="actionUnit == 'statistic'">
+      <div echarts [options]="userActionPie" style="height: 400px"></div>
+    </ng-container>
+
+    <ng-template #dotTemplate>
+      <i nz-icon nzType="clock-circle-o" style="font-size: 16px;"></i>
+    </ng-template>
+  </nz-card>
+</nz-card>

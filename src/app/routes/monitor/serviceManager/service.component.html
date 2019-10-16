@@ -1,0 +1,144 @@
+<page-header [title]="'服务器管理'">
+</page-header>
+
+<nz-card>
+  <nz-table [nzData]="bindList" nzShowPagination="false">
+    <thead>
+      <tr>
+        <th></th>
+        <th>名称</th>
+        <th></th>
+        <th></th>
+        <th>游戏服务器连接的中心服务ip</th>
+        <th>连接时间</th>
+        <th></th>
+        <th>连接状态</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let service of serviceList">
+
+        <tr>
+          <td nzShowExpand="true" [(nzExpand)]="service.groupExpand"><i nz-icon nzType="cloud-server" nzTheme="outline"
+              class="server-icon"></i>
+          </td>
+          <td>{{service.name}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr [(nzExpand)]="service.groupExpand">
+          <td></td>
+          <td colspan="7">
+            <nz-table [nzData]="service.list" nzSize="middle" [nzShowPagination]="false">
+    <tbody>
+      <ng-container *ngFor="let item of service.list">
+        <tr>
+          <td nzShowExpand="true" [(nzExpand)]="item.devExpand"><i nz-icon nzType="database" nzTheme="outline"
+              class="server-icon"></i></td>
+          <td>{{item.serverName}}</td>
+          <td></td>
+          <td>{{item.controlServer}}</td>
+          <td>{{item.connectTime | timeTransform:'YYYY-MM-DD HH:mm:ss'}}</td>
+          <td>
+            <nz-badge [nzStatus]="item.status==1?'success':'error'" [nzText]="item.status==1?'链接':'断开'"></nz-badge>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr [(nzExpand)]="item.devExpand">
+          <td></td>
+          <td colspan="7">
+            <nz-table [nzData]="service.list" nzSize="middle" [nzShowPagination]="false">
+    <tbody>
+      <tr *ngFor="let dev of item.devices" (click)="queryDevDatas(dev,item.serverName)">
+        <td style="cursor:pointer">{{ dev }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </nz-table>
+  </td>
+  </tr>
+  </ng-container>
+  </tbody>
+  </nz-table>
+  </td>
+  </tr>
+  </ng-container>
+  </tbody>
+  </nz-table>
+</nz-card>
+
+<nz-drawer [nzVisible]="serviceVisible" [nzWidth]="800" [nzClosable]="true" (nzOnClose)="close()">
+  <div class="mt-15">
+    <nz-radio-group [(ngModel)]="unit" [nzButtonStyle]="'solid'" (ngModelChange)="changeUnit($event)">
+      <label nz-radio-button nzValue="hour">1小时</label>
+      <label nz-radio-button nzValue="day">1天</label>
+      <label nz-radio-button nzValue="week">1周</label>
+    </nz-radio-group>
+  </div>
+  <div echarts [options]="ratioList" style="height: 400px"></div>
+  <div *ngIf="dataList" echarts [options]="dataList" style="height: 400px"></div>
+</nz-drawer>
+
+<nz-drawer [nzVisible]="gpuVisible" [nzWidth]="1200" [nzClosable]="true" (nzOnClose)="close()">
+  <div class="mt-15">
+    <nz-radio-group [(ngModel)]="unit" [nzButtonStyle]="'solid'" (ngModelChange)="changeUnit($event)">
+      <label nz-radio-button nzValue="hour">1小时</label>
+      <label nz-radio-button nzValue="day">1天</label>
+      <label nz-radio-button nzValue="week">1周</label>
+    </nz-radio-group>
+  </div>
+  <nz-spin nzSimple [nzSize]="'large'" *ngIf="gpuLoading" class="text-center"></nz-spin>
+
+  <div *ngIf="!gpuLoading">
+
+    <div nz-row nzGutter="15" class="mt-15">
+      <nz-card>
+        <div><label>名称：</label><span style="font-weight: bold;">{{gpuName}}</span></div>
+        <div echarts [options]="gpuCoreList" style="height: 400px"></div>
+      </nz-card>
+    </div>
+
+    <div nz-row nzGutter="15" class="mt-15">
+      <nz-card>
+        <div><label>名称：</label><span style="font-weight: bold;">{{gpuName}}</span></div>
+        <div echarts [options]="gpuTemperatureList" style="height: 400px"></div>
+      </nz-card>
+    </div>
+    <div nz-row nzGutter="15" class="mt-15">
+      <nz-card>
+        <div><label>名称：</label><span style="font-weight: bold;">{{gpuName}}</span></div>
+        <div echarts [options]="ratioList" style="height: 400px"></div>
+      </nz-card>
+    </div>
+
+    <div nz-row nzGutter="15" class="mt-15">
+      <nz-card>
+        <div><label>名称：</label><span style="font-weight: bold;">{{gpuName}}</span></div>
+        <div echarts [options]="dataList" style="height: 400px"></div>
+      </nz-card>
+    </div>
+
+    <div nz-row nzGutter="15" class="mt-15">
+      <nz-card>
+        <div><label>名称：</label><span style="font-weight: bold;">{{gpuName}}</span></div>
+        <div echarts [options]="gpuVideoEngineList" style="height: 400px"></div>
+      </nz-card>
+    </div>
+
+    <div nz-row nzGutter="15" class="mt-15">
+      <nz-card>
+        <div><label>名称：</label><span style="font-weight: bold;">{{gpuName}}</span></div>
+        <div echarts [options]="gpuMemoryControllerList" style="height: 400px"></div>
+      </nz-card>
+    </div>
+
+  </div>
+</nz-drawer>

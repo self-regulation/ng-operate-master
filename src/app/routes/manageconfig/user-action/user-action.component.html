@@ -1,0 +1,92 @@
+<page-header [title]="'用户操作'">
+</page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="operatForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="2" nzFor="userName">用户</nz-form-label>
+      <nz-form-control [nzSpan]="6">
+        <input nz-input formControlName="userName" />
+      </nz-form-control>
+
+      <nz-form-label [nzSpan]="2" nzFor="serverName">服务器</nz-form-label>
+      <nz-form-control [nzSpan]="6">
+        <input nz-input formControlName="serverName" />
+      </nz-form-control>
+
+      <nz-form-label [nzSpan]="2" nzFor="online">是否在线</nz-form-label>
+      <nz-form-control [nzSpan]="6">
+        <nz-select formControlName="online" nzAllowClear nzPlaceHolder="请选择">
+          <nz-option nzLabel="在线" nzValue="1"></nz-option>
+          <nz-option nzLabel="不在线" nzValue="0"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="2" nzFor="online">时间</nz-form-label>
+      <nz-form-control [nzSpan]="6">
+        <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" formControlName="dateRange"
+          [nzPlaceHolder]="['开始时间', '结束时间']" (nzOnOk)="onOk($event)" ngModel (ngModelChange)="clear($event)">
+        </nz-range-picker>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <div nz-col [nzSpan]="24" class="text-right">
+        <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading" (click)="rearchAction()">查询</button>
+      </div>
+    </nz-form-item>
+  </form>
+  <nz-divider nzDashed></nz-divider>
+  <nz-table #headerTable nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="listOfData"
+    [nzFrontPagination]="false" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th nzLeft="0px">用户ID</th>
+        <th>任务ID</th>
+        <th>用户</th>
+        <th>游戏ID</th>
+        <th>是否在线</th>
+        <th>任务状态</th>
+        <th>用户连接的服务器IP</th>
+        <th>控制服务器IP</th>
+        <th>游戏服务器IP</th>
+        <th>画质</th>
+        <th>请求参数</th>
+        <th>连接参数</th>
+        <th>错误信息</th>
+        <th>开始时间</th>
+        <th>结束时间</th>
+        <th nzRight="0px">最后更新时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of listOfData;let i=index">
+        <td nzWidth="100px" nzLeft="0px">{{ data.id }}</td>
+        <td>{{ data?.taskId }}</td>
+        <td>{{ data?.user }}</td>
+        <td>{{ data?.gameId }}</td>
+        <td>{{ formatOnline(data.online) }}</td>
+        <td>{{ formatTaskStatus(data.status) }}</td>
+        <td>{{ data.userServer }}</td>
+        <td>{{ data.controlServer }}</td>
+        <td [title]="data.gameServer">{{ data.gameServer }}</td>
+        <td>{{ formatPicture(data.pictureQuality) }}</td>
+        <td><a (click)="showParamDetail(data.param)">详情</a></td>
+        <td [title]="data.connectInfo">{{ data.connectInfo }}</td>
+        <td>{{ data.errorData }}</td>
+        <td>{{ data.startTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td>{{ data.endTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td nzRight="0px">{{ data.updateTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<nz-modal [(nzVisible)]="showParamVisible" nzTitle="请求参数" (nzOnOk)="handleParamCancel()" [nzCancelText]="null">
+  <p>{{gameParam}}</p>
+</nz-modal>

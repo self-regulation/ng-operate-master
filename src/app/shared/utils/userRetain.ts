@@ -1,0 +1,2371 @@
+export function userRetain(): any {
+
+    return {
+        "rows": [{
+            "by_value": "2019-09-03",
+            "total_people": 799,
+            "cells": [{
+                "people": 796,
+                "percent": 99.62,
+                "values": [
+                    817
+                ]
+            },
+            {
+                "people": 19,
+                "percent": 2.38,
+                "values": [
+                    19
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 1.38,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 1,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 0.88,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 1.38,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 0.88,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 1,
+                "values": [
+                    7
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-04",
+            "total_people": 761,
+            "cells": [{
+                "people": 761,
+                "percent": 100,
+                "values": [
+                    775
+                ]
+            },
+            {
+                "people": 20,
+                "percent": 2.63,
+                "values": [
+                    20
+                ]
+            },
+            {
+                "people": 14,
+                "percent": 1.84,
+                "values": [
+                    14
+                ]
+            },
+            {
+                "people": 13,
+                "percent": 1.71,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 1.31,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 0.92,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 14,
+                "percent": 1.84,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 1.18,
+                "values": [
+                    9
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-05",
+            "total_people": 976,
+            "cells": [{
+                "people": 969,
+                "percent": 99.28,
+                "values": [
+                    994
+                ]
+            },
+            {
+                "people": 24,
+                "percent": 2.46,
+                "values": [
+                    22
+                ]
+            },
+            {
+                "people": 18,
+                "percent": 1.84,
+                "values": [
+                    18
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 1.23,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 16,
+                "percent": 1.64,
+                "values": [
+                    15
+                ]
+            },
+            {
+                "people": 16,
+                "percent": 1.64,
+                "values": [
+                    17
+                ]
+            },
+            {
+                "people": 20,
+                "percent": 2.05,
+                "values": [
+                    21
+                ]
+            },
+            {
+                "people": 17,
+                "percent": 1.74,
+                "values": [
+                    16
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-06",
+            "total_people": 732,
+            "cells": [{
+                "people": 728,
+                "percent": 99.45,
+                "values": [
+                    738
+                ]
+            },
+            {
+                "people": 21,
+                "percent": 2.87,
+                "values": [
+                    22
+                ]
+            },
+            {
+                "people": 20,
+                "percent": 2.73,
+                "values": [
+                    21
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 1.64,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 15,
+                "percent": 2.05,
+                "values": [
+                    15
+                ]
+            },
+            {
+                "people": 20,
+                "percent": 2.73,
+                "values": [
+                    21
+                ]
+            },
+            {
+                "people": 16,
+                "percent": 2.19,
+                "values": [
+                    17
+                ]
+            },
+            {
+                "people": 18,
+                "percent": 2.46,
+                "values": [
+                    16
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-07",
+            "total_people": 805,
+            "cells": [{
+                "people": 804,
+                "percent": 99.88,
+                "values": [
+                    796
+                ]
+            },
+            {
+                "people": 16,
+                "percent": 1.99,
+                "values": [
+                    14
+                ]
+            },
+            {
+                "people": 18,
+                "percent": 2.24,
+                "values": [
+                    21
+                ]
+            },
+            {
+                "people": 17,
+                "percent": 2.11,
+                "values": [
+                    17
+                ]
+            },
+            {
+                "people": 25,
+                "percent": 3.11,
+                "values": [
+                    25
+                ]
+            },
+            {
+                "people": 26,
+                "percent": 3.23,
+                "values": [
+                    25
+                ]
+            },
+            {
+                "people": 16,
+                "percent": 1.99,
+                "values": [
+                    17
+                ]
+            },
+            {
+                "people": 18,
+                "percent": 2.24,
+                "values": [
+                    18
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-08",
+            "total_people": 822,
+            "cells": [{
+                "people": 818,
+                "percent": 99.51,
+                "values": [
+                    823
+                ]
+            },
+            {
+                "people": 18,
+                "percent": 2.19,
+                "values": [
+                    20
+                ]
+            },
+            {
+                "people": 19,
+                "percent": 2.31,
+                "values": [
+                    18
+                ]
+            },
+            {
+                "people": 16,
+                "percent": 1.95,
+                "values": [
+                    16
+                ]
+            },
+            {
+                "people": 16,
+                "percent": 1.95,
+                "values": [
+                    19
+                ]
+            },
+            {
+                "people": 20,
+                "percent": 2.43,
+                "values": [
+                    20
+                ]
+            },
+            {
+                "people": 18,
+                "percent": 2.19,
+                "values": [
+                    17
+                ]
+            },
+            {
+                "people": 21,
+                "percent": 2.55,
+                "values": [
+                    23
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-09",
+            "total_people": 786,
+            "cells": [{
+                "people": 786,
+                "percent": 100,
+                "values": [
+                    812
+                ]
+            },
+            {
+                "people": 19,
+                "percent": 2.42,
+                "values": [
+                    19
+                ]
+            },
+            {
+                "people": 26,
+                "percent": 3.31,
+                "values": [
+                    27
+                ]
+            },
+            {
+                "people": 19,
+                "percent": 2.42,
+                "values": [
+                    20
+                ]
+            },
+            {
+                "people": 20,
+                "percent": 2.54,
+                "values": [
+                    21
+                ]
+            },
+            {
+                "people": 20,
+                "percent": 2.54,
+                "values": [
+                    18
+                ]
+            },
+            {
+                "people": 31,
+                "percent": 3.94,
+                "values": [
+                    30
+                ]
+            },
+            {
+                "people": 19,
+                "percent": 2.42,
+                "values": [
+                    19
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-10",
+            "total_people": 805,
+            "cells": [{
+                "people": 802,
+                "percent": 99.63,
+                "values": [
+                    807
+                ]
+            },
+            {
+                "people": 22,
+                "percent": 2.73,
+                "values": [
+                    22
+                ]
+            },
+            {
+                "people": 23,
+                "percent": 2.86,
+                "values": [
+                    21
+                ]
+            },
+            {
+                "people": 15,
+                "percent": 1.86,
+                "values": [
+                    15
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 1.49,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 23,
+                "percent": 2.86,
+                "values": [
+                    22
+                ]
+            },
+            {
+                "people": 17,
+                "percent": 2.11,
+                "values": [
+                    16
+                ]
+            },
+            {
+                "people": 22,
+                "percent": 2.73,
+                "values": [
+                    22
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-11",
+            "total_people": 773,
+            "cells": [{
+                "people": 767,
+                "percent": 99.22,
+                "values": [
+                    776
+                ]
+            },
+            {
+                "people": 23,
+                "percent": 2.98,
+                "values": [
+                    28
+                ]
+            },
+            {
+                "people": 22,
+                "percent": 2.85,
+                "values": [
+                    22
+                ]
+            },
+            {
+                "people": 19,
+                "percent": 2.46,
+                "values": [
+                    19
+                ]
+            },
+            {
+                "people": 19,
+                "percent": 2.46,
+                "values": [
+                    20
+                ]
+            },
+            {
+                "people": 17,
+                "percent": 2.2,
+                "values": [
+                    21
+                ]
+            },
+            {
+                "people": 23,
+                "percent": 2.98,
+                "values": [
+                    23
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 1.03,
+                "values": [
+                    7
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-12",
+            "total_people": 823,
+            "cells": [{
+                "people": 819,
+                "percent": 99.51,
+                "values": [
+                    830
+                ]
+            },
+            {
+                "people": 22,
+                "percent": 2.67,
+                "values": [
+                    21
+                ]
+            },
+            {
+                "people": 19,
+                "percent": 2.31,
+                "values": [
+                    19
+                ]
+            },
+            {
+                "people": 25,
+                "percent": 3.04,
+                "values": [
+                    26
+                ]
+            },
+            {
+                "people": 20,
+                "percent": 2.43,
+                "values": [
+                    20
+                ]
+            },
+            {
+                "people": 15,
+                "percent": 1.82,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 4,
+                "percent": 0.49,
+                "values": [
+                    4
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 0.85,
+                "values": [
+                    6
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-13",
+            "total_people": 805,
+            "cells": [{
+                "people": 799,
+                "percent": 99.25,
+                "values": [
+                    813
+                ]
+            },
+            {
+                "people": 18,
+                "percent": 2.24,
+                "values": [
+                    18
+                ]
+            },
+            {
+                "people": 19,
+                "percent": 2.36,
+                "values": [
+                    19
+                ]
+            },
+            {
+                "people": 22,
+                "percent": 2.73,
+                "values": [
+                    21
+                ]
+            },
+            {
+                "people": 22,
+                "percent": 2.73,
+                "values": [
+                    22
+                ]
+            },
+            {
+                "people": 1,
+                "percent": 0.12,
+                "values": [
+                    1
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 1.49,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 5,
+                "percent": 0.62,
+                "values": [
+                    5
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-14",
+            "total_people": 787,
+            "cells": [{
+                "people": 783,
+                "percent": 99.49,
+                "values": [
+                    786
+                ]
+            },
+            {
+                "people": 24,
+                "percent": 3.05,
+                "values": [
+                    25
+                ]
+            },
+            {
+                "people": 23,
+                "percent": 2.92,
+                "values": [
+                    22
+                ]
+            },
+            {
+                "people": 19,
+                "percent": 2.41,
+                "values": [
+                    20
+                ]
+            },
+            {
+                "people": 5,
+                "percent": 0.64,
+                "values": [
+                    5
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 1.02,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 1.02,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 1.14,
+                "values": [
+                    9
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-15",
+            "total_people": 883,
+            "cells": [{
+                "people": 877,
+                "percent": 99.32,
+                "values": [
+                    891
+                ]
+            },
+            {
+                "people": 24,
+                "percent": 2.72,
+                "values": [
+                    25
+                ]
+            },
+            {
+                "people": 28,
+                "percent": 3.17,
+                "values": [
+                    27
+                ]
+            },
+            {
+                "people": 4,
+                "percent": 0.45,
+                "values": [
+                    4
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 1.13,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 1.13,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 0.91,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 5,
+                "percent": 0.57,
+                "values": [
+                    5
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-16",
+            "total_people": 804,
+            "cells": [{
+                "people": 797,
+                "percent": 99.13,
+                "values": [
+                    819
+                ]
+            },
+            {
+                "people": 34,
+                "percent": 4.23,
+                "values": [
+                    34
+                ]
+            },
+            {
+                "people": 6,
+                "percent": 0.75,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 1.12,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 1,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 0.87,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 5,
+                "percent": 0.62,
+                "values": [
+                    3
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 1.24,
+                "values": [
+                    13
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-17",
+            "total_people": 865,
+            "cells": [{
+                "people": 862,
+                "percent": 99.65,
+                "values": [
+                    877
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 0.92,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 1.04,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 0.81,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 1.16,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 6,
+                "percent": 0.69,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 0.81,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 1.16,
+                "values": [
+                    9
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-18",
+            "total_people": 340,
+            "cells": [{
+                "people": 338,
+                "percent": 99.41,
+                "values": [
+                    324
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 2.06,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 6,
+                "percent": 1.76,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.35,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.35,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 3.53,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.35,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 15,
+                "percent": 4.41,
+                "values": [
+                    17
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-19",
+            "total_people": 350,
+            "cells": [{
+                "people": 348,
+                "percent": 99.43,
+                "values": [
+                    338
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 3.43,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 2,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 3.14,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.57,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 4,
+                "percent": 1.14,
+                "values": [
+                    3
+                ]
+            },
+            {
+                "people": 15,
+                "percent": 4.29,
+                "values": [
+                    15
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 2,
+                "values": [
+                    8
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-20",
+            "total_people": 319,
+            "cells": [{
+                "people": 319,
+                "percent": 100,
+                "values": [
+                    323
+                ]
+            },
+            {
+                "people": 3,
+                "percent": 0.94,
+                "values": [
+                    3
+                ]
+            },
+            {
+                "people": 5,
+                "percent": 1.57,
+                "values": [
+                    5
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.51,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 6,
+                "percent": 1.88,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 3.13,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 0,
+                "percent": 0,
+                "values": [
+                    null
+                ]
+            },
+            {
+                "people": 4,
+                "percent": 1.25,
+                "values": [
+                    3
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-21",
+            "total_people": 350,
+            "cells": [{
+                "people": 350,
+                "percent": 100,
+                "values": [
+                    349
+                ]
+            },
+            {
+                "people": 2,
+                "percent": 0.57,
+                "values": [
+                    2
+                ]
+            },
+            {
+                "people": 14,
+                "percent": 4,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.86,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 13,
+                "percent": 3.71,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 2,
+                "percent": 0.57,
+                "values": [
+                    1
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 2,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 2,
+                "values": [
+                    6
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-22",
+            "total_people": 342,
+            "cells": [{
+                "people": 341,
+                "percent": 99.71,
+                "values": [
+                    335
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.63,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 6,
+                "percent": 1.75,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 3.22,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.34,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 3.22,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.34,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.63,
+                "values": [
+                    9
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-23",
+            "total_people": 356,
+            "cells": [{
+                "people": 355,
+                "percent": 99.72,
+                "values": [
+                    350
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.81,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 1.97,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.81,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 4,
+                "percent": 1.12,
+                "values": [
+                    5
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.53,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 3.37,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.81,
+                "values": [
+                    10
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-24",
+            "total_people": 362,
+            "cells": [{
+                "people": 361,
+                "percent": 99.72,
+                "values": [
+                    369
+                ]
+            },
+            {
+                "people": 13,
+                "percent": 3.59,
+                "values": [
+                    14
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.21,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 3.04,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 1.93,
+                "values": [
+                    5
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.21,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.76,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 6,
+                "percent": 1.66,
+                "values": [
+                    4
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-25",
+            "total_people": 347,
+            "cells": [{
+                "people": 347,
+                "percent": 100,
+                "values": [
+                    349
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 3.46,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 2.02,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 3.17,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.88,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.31,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 14,
+                "percent": 4.03,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 14,
+                "percent": 4.03,
+                "values": [
+                    15
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-26",
+            "total_people": 371,
+            "cells": [{
+                "people": 371,
+                "percent": 100,
+                "values": [
+                    355
+                ]
+            },
+            {
+                "people": 6,
+                "percent": 1.62,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.43,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 5,
+                "percent": 1.35,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.7,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.16,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.7,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 2.96,
+                "values": [
+                    8
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-27",
+            "total_people": 389,
+            "cells": [{
+                "people": 388,
+                "percent": 99.74,
+                "values": [
+                    379
+                ]
+            },
+            {
+                "people": 13,
+                "percent": 3.34,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 5,
+                "percent": 1.29,
+                "values": [
+                    5
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.57,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 1.8,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 13,
+                "percent": 3.34,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.31,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 2.83,
+                "values": [
+                    11
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-28",
+            "total_people": 390,
+            "cells": [{
+                "people": 389,
+                "percent": 99.74,
+                "values": [
+                    366
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 3.08,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 3.08,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.05,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.31,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 6,
+                "percent": 1.54,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 15,
+                "percent": 3.85,
+                "values": [
+                    16
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.05,
+                "values": [
+                    8
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-29",
+            "total_people": 363,
+            "cells": [{
+                "people": 361,
+                "percent": 99.45,
+                "values": [
+                    355
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 3.31,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.48,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.2,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 3.31,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 3.03,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.2,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.2,
+                "values": [
+                    8
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-09-30",
+            "total_people": 395,
+            "cells": [{
+                "people": 392,
+                "percent": 99.24,
+                "values": [
+                    389
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.28,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 2.78,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.03,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.28,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 6,
+                "percent": 1.52,
+                "values": [
+                    5
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.03,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 3.04,
+                "values": [
+                    12
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-10-01",
+            "total_people": 382,
+            "cells": [{
+                "people": 382,
+                "percent": 100,
+                "values": [
+                    377
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.36,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.62,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 1.83,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 13,
+                "percent": 3.4,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.36,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.62,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 13,
+                "percent": 3.4,
+                "values": [
+                    13
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-10-02",
+            "total_people": 336,
+            "cells": [{
+                "people": 334,
+                "percent": 99.4,
+                "values": [
+                    326
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 2.08,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 2.08,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 5,
+                "percent": 1.49,
+                "values": [
+                    5
+                ]
+            },
+            {
+                "people": 6,
+                "percent": 1.79,
+                "values": [
+                    5
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 2.08,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.38,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 3.27,
+                "values": [
+                    12
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-10-03",
+            "total_people": 376,
+            "cells": [{
+                "people": 374,
+                "percent": 99.47,
+                "values": [
+                    367
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 1.86,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 13,
+                "percent": 3.46,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.39,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.66,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 3.19,
+                "values": [
+                    15
+                ]
+            },
+            {
+                "people": 15,
+                "percent": 3.99,
+                "values": [
+                    15
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.39,
+                "values": [
+                    8
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-10-04",
+            "total_people": 406,
+            "cells": [{
+                "people": 405,
+                "percent": 99.75,
+                "values": [
+                    396
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 1.72,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 2.71,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 4,
+                "percent": 0.99,
+                "values": [
+                    4
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 2.71,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 14,
+                "percent": 3.45,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 1.97,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.46,
+                "values": [
+                    10
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-10-05",
+            "total_people": 408,
+            "cells": [{
+                "people": 407,
+                "percent": 99.75,
+                "values": [
+                    390
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 1.96,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 1.96,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 13,
+                "percent": 3.19,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.21,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 2.7,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 6,
+                "percent": 1.47,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 5,
+                "percent": 1.23,
+                "values": [
+                    5
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-10-06",
+            "total_people": 371,
+            "cells": [{
+                "people": 371,
+                "percent": 100,
+                "values": [
+                    364
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.7,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 5,
+                "percent": 1.35,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 15,
+                "percent": 4.04,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.16,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 1,
+                "percent": 0.27,
+                "values": [
+                    0
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.43,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.43,
+                "values": [
+                    9
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-10-07",
+            "total_people": 420,
+            "cells": [{
+                "people": 419,
+                "percent": 99.76,
+                "values": [
+                    409
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 2.62,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 13,
+                "percent": 3.1,
+                "values": [
+                    15
+                ]
+            },
+            {
+                "people": 13,
+                "percent": 3.1,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 14,
+                "percent": 3.33,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 5,
+                "percent": 1.19,
+                "values": [
+                    5
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 2.86,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.14,
+                "values": [
+                    7
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-10-08",
+            "total_people": 391,
+            "cells": [{
+                "people": 389,
+                "percent": 99.49,
+                "values": [
+                    375
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 1.79,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 2.81,
+                "values": [
+                    9
+                ]
+            },
+            {
+                "people": 7,
+                "percent": 1.79,
+                "values": [
+                    6
+                ]
+            },
+            {
+                "people": 13,
+                "percent": 3.32,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 2.81,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.56,
+                "values": [
+                    9
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-10-09",
+            "total_people": 409,
+            "cells": [{
+                "people": 408,
+                "percent": 99.76,
+                "values": [
+                    398
+                ]
+            },
+            {
+                "people": 9,
+                "percent": 2.2,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 1.96,
+                "values": [
+                    7
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 1.96,
+                "values": [
+                    8
+                ]
+            },
+            {
+                "people": 11,
+                "percent": 2.69,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 4,
+                "percent": 0.98,
+                "values": [
+                    4
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-10-10",
+            "total_people": 399,
+            "cells": [{
+                "people": 399,
+                "percent": 100,
+                "values": [
+                    391
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.51,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 13,
+                "percent": 3.26,
+                "values": [
+                    12
+                ]
+            },
+            {
+                "people": 12,
+                "percent": 3.01,
+                "values": [
+                    13
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 2.01,
+                "values": [
+                    7
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-10-11",
+            "total_people": 415,
+            "cells": [{
+                "people": 414,
+                "percent": 99.76,
+                "values": [
+                    400
+                ]
+            },
+            {
+                "people": 8,
+                "percent": 1.93,
+                "values": [
+                    5
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.41,
+                "values": [
+                    10
+                ]
+            },
+            {
+                "people": 3,
+                "percent": 0.72,
+                "values": [
+                    3
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-10-12",
+            "total_people": 387,
+            "cells": [{
+                "people": 383,
+                "percent": 98.97,
+                "values": [
+                    391
+                ]
+            },
+            {
+                "people": 13,
+                "percent": 3.36,
+                "values": [
+                    11
+                ]
+            },
+            {
+                "people": 3,
+                "percent": 0.78,
+                "values": [
+                    3
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-10-13",
+            "total_people": 478,
+            "cells": [{
+                "people": 476,
+                "percent": 99.58,
+                "values": [
+                    471
+                ]
+            },
+            {
+                "people": 10,
+                "percent": 2.09,
+                "values": [
+                    12
+                ]
+            }
+            ]
+        },
+        {
+            "by_value": "2019-10-14",
+            "total_people": 255,
+            "cells": [{
+                "people": 255,
+                "percent": 100,
+                "values": [
+                    249
+                ]
+            }]
+        }
+        ]
+    }
+}

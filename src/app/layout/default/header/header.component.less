@@ -1,0 +1,25 @@
+@import '../../../../../src/styles/theme.less';
+
+.h-title {
+  color: @xs-theme-title-color;
+}
+
+.menu-set {
+  color: @xs-theme-logo-color;
+}
+
+::ng-deep {
+  .alain-default__header {
+    height: 50px;
+    background-color: #ffffff;
+    box-shadow: none;
+    border-bottom: 1px solid #efe3e5;
+
+    & a {
+      height: 50px;
+      line-height: 50px;
+      background-color: @xs-theme-logo-color;
+      margin-right: 1px;
+    }
+  }
+}

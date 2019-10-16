@@ -1,0 +1,177 @@
+<page-header [title]="'管理配置'">
+</page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="cfgForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="2" nzFor="key">Key</nz-form-label>
+      <nz-form-control [nzSpan]="6">
+        <input nz-input formControlName="key" />
+      </nz-form-control>
+      <div nz-col [nzSpan]="2" class="text-right">
+        <button nz-button [nzType]="'primary'" (click)="rearchManager()">查询</button>
+      </div>
+    </nz-form-item>
+    <nz-form-item>
+      <div nz-col [nzSpan]="24" class="text-right">
+        <button nz-button [nzType]="'primary'" (click)="addConfigModal()">新增配置</button>
+        <button nz-button [nzType]="'primary'" (click)="importConfig()">导入配置</button>
+      </div>
+    </nz-form-item>
+  </form>
+  <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="gameManagerList"
+    [nzFrontPagination]="false" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>配置名称</th>
+        <th>最后修改人</th>
+        <th>最后修改时间</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let game of gameManagerList;let i=index">
+        <td>{{ game.itemKey }}</td>
+        <td><a (click)="updateGameManager(game,false)">{{ game.itemName?game.itemName:'--' }}</a></td>
+        <td>{{ game.updateId }}</td>
+        <td>{{ game.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>
+          <!-- <a (click)="updateGameManager(game,false)">查看</a>
+          <nz-divider nzType="vertical"></nz-divider> -->
+          <a (click)="updateGameManager(game,true)">编辑内容</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="editTemplate(game)">编辑模板</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="copyTemplate(game)">复制模板</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a nz-popconfirm (nzOnConfirm)="deleteGameManager(game.id,game.itemKey)" nzPopconfirmPlacement="top"
+            nzTitle="确认删除该条数据?">删除</a>
+        </td>
+
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<!-- <nz-card>
+  <form nz-form (ngSubmit)="onSubmit(dynamicForm)">
+    <app-dynamic-form [panels]="panels" #dynamicForm></app-dynamic-form>
+    <nz-form-item class="mt-15">
+      <nz-form-control class="text-center">
+        <button nz-button nzType="primary">保存</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <p>{{panelsData}}</p>
+</nz-card> -->
+
+<!-- 导入配置 -->
+<nz-modal nzWidth="1000px" [(nzVisible)]="importVisible" nzTitle="导入配置" nzOkText="提交配置" (nzOnCancel)="importCancel()"
+  (nzOnOk)="submitConfig()">
+  <form nz-form [formGroup]="importForm">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="itemKey">配置项Key</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Key不能为空！">
+        <input nz-input formControlName="itemKey" placeholder="请填入Key" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="itemName">配置名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="itemName" placeholder="请填入配置名称" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="paramTemplet">JSON</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Json不能为空！">
+        <textarea nz-input formControlName="paramTemplet" rows="15" placeholder="请填入正确的JSON"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="text-center">
+      <button nz-button nzType="primary" (click)="importOk()">
+        生成模板
+      </button>
+    </nz-form-item>
+  </form>
+  <form nz-form>
+    <app-question #importContentForm [panels]="panels" [disabled]="true"></app-question>
+  </form>
+</nz-modal>
+
+<!-- 新增配置 -->
+<nz-modal nzWidth="1000px" [(nzVisible)]="addVisible" [nzTitle]="configTitle" nzOkText="提交配置"
+  (nzOnCancel)="importCancel()" (nzOnOk)="addNewConfig()">
+  <form nz-form [formGroup]="newConfigForm">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="itemKey">配置项Key</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Key不能为空！">
+        <input nz-input formControlName="itemKey" placeholder="请填入Key" [disabled]="keyDisabled" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="itemName">配置名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="itemName" placeholder="请填入配置名称" />
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+  <nz-divider nzDashed></nz-divider>
+
+  <form nz-form>
+    <app-question #editContentForm [panels]="newPanels" [isDelete]="true" [disabled]="true"></app-question>
+  </form>
+
+  <form nz-form class="mt-15">
+    <nz-form-item class="text-center">
+      <button nz-button nzType="dashed" (click)="addPanelsConfig()">
+        <i nz-icon nzType="plus"></i>
+        添加配置面板
+      </button>
+    </nz-form-item>
+  </form>
+</nz-modal>
+<!-- 查看配置项内容 -->
+<nz-modal nzWidth="1000px" [(nzVisible)]="lookContentVisible" nzTitle="查看配置内容" [nzFooter]="modalFooter"
+  (nzOnCancel)="editContentCancel()">
+  <form nz-form>
+    <app-question #editContentForm [panels]="gameManagerVo" [isDelete]="false" [disabled]="true"></app-question>
+  </form>
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="editContentCancel()">关闭</button>
+  </ng-template>
+</nz-modal>
+
+<!-- 编辑配置项内容 -->
+<nz-modal nzWidth="1000px" [(nzVisible)]="editContentVisible" nzTitle="编辑配置内容" (nzOnCancel)="editContentCancel()"
+  (nzOnOk)="editContentOk(editContentForm)">
+  <form nz-form>
+    <app-question #editContentForm [panels]="gameManagerVo"></app-question>
+  </form>
+</nz-modal>
+
+<!-- 添加配置面板 -->
+<nz-modal nzWidth="1000px" [(nzVisible)]="addPanelsVisible" nzTitle="添加配置面板" (nzOnCancel)="addPanelsCancel()"
+  (nzOnOk)="addPanelsOk()">
+  <form nz-form [formGroup]="addNewPanelsForm">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="key">配置面板Key</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="配置面板Key不能为空！">
+        <input type="text" nz-input formControlName="key" placeholder="请填入Key" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">配置名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="配置面板名称不能为空！">
+        <input nz-input formControlName="name" placeholder="请填入配置名称" />
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

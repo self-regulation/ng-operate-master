@@ -1,0 +1,21 @@
+<div class="alain-default__header-logo">
+  <a [routerLink]="['/']" class="alain-default__header-logo-link">
+    <img class="alain-default__header-logo-expanded" src="./assets/tmp/img/seasun.png" alt="云游戏"
+      style="max-height:40px;" />
+    <p class="alain-default__header-logo-collapsed" style="font-size: 12px;color:#fff;font-weight:bold;">云游戏</p>
+  </a>
+</div>
+<div class="alain-default__nav-wrap">
+  <ul class="alain-default__nav">
+    <li>
+      <div class="alain-default__nav-item" (click)="toggleCollapsedSidebar()">
+        <i class="menu-set" nz-icon nzType="menu-{{settings.layout.collapsed ? 'unfold' : 'fold'}}"></i>
+      </div>
+    </li>
+  </ul>
+  <ul class="alain-default__nav">
+    <li class="hidden-mobile">
+      <header-user>333</header-user>
+    </li>
+  </ul>
+</div>

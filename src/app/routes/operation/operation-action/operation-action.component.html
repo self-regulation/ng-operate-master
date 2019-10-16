@@ -1,0 +1,265 @@
+<page-header [title]="'运维操作'">
+</page-header>
+
+<nz-card>
+  <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }">
+    <div nz-col [nzXs]="{ span: 24 }" class="text-center" *ngIf="operationListLoading">
+      <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+    </div>
+
+    <div nz-col [nzXs]="{ span: 24 }" [nzXl]="{ span: 5 }" [nzLg]="{ span: 8 }" [nzMd]="{ span: 24 }"
+      [nzSm]="{ span: 24 }" *ngFor="let op of operationList;let i=index">
+      <nz-card nzHoverable class="operation-card" (click)="operationEvent(op)">
+        <div>
+          <i nz-icon nzType="setting" nzTheme="outline" class="card-icon mr-5"></i>
+          <span class="card-title">{{op.operationName}}</span>
+        </div>
+        <div class="mt-15">
+          <p>{{op.description}}</p>
+        </div>
+      </nz-card>
+    </div>
+  </div>
+
+
+  <nz-card>
+    <h3>运维记录</h3>
+    <nz-divider></nz-divider>
+    <form nz-form [formGroup]="logForm">
+      <nz-form-item>
+        <nz-form-label [nzXs]="{span:2}" nzFor="operationKey">操作项key</nz-form-label>
+        <nz-form-control [nzXs]="{span:6}">
+          <input nz-input formControlName="operationKey" />
+        </nz-form-control>
+        <div nz-col [nzSpan]="14" class="ml-15" style="margin-top: 3px;">
+          <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading" (click)="rearchLog()">查询</button>
+        </div>
+      </nz-form-item>
+    </form>
+    <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="operationLoglist"
+      [nzFrontPagination]="false" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+      (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+      <thead>
+        <tr>
+          <th>配置项名称</th>
+          <th>配置项key</th>
+          <th>执行状态</th>
+          <th>执行时间</th>
+          <th>执行人</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of operationLoglist;let i=index">
+          <td>{{ log.operationName }}</td>
+          <td>{{ log.operationKey }}</td>
+          <td>{{ log.status | operationStatus:log.operationKey }}</td>
+          <td>{{ log.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td>{{ log.userName }}</td>
+          <td>
+            <a (click)="copyOperation(log)">复制操作</a>
+            <ng-container *ngIf="log.operationKey == 'prepareStartGame' && log.status == 0">
+              <nz-divider nzType="vertical"></nz-divider>
+              <a nz-popconfirm nzPopconfirmPlacement="top" nzTitle="确认执行停止命令?" (nzOnConfirm)="stopOperation(log)">停止</a>
+            </ng-container>
+
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+
+  <!-- 游戏预启动 -->
+  <nz-modal nzWidth="1000px" [(nzVisible)]="editContentVisible" [nzTitle]="operationTitle"
+    (nzOnCancel)="editContentCancel()" (nzOnOk)="executeOperationManager()" nzOkText="预启动游戏">
+    <form nz-form [formGroup]="preStartForm">
+      <nz-form-item class="mt-15">
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>用户</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="用户不能为空！">
+          <input nz-input formControlName="user" placeholder="请输入" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>游戏画质</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="游戏画质不能为空！">
+          <nz-radio-group formControlName="pictureSet">
+            <label nz-radio nzValue="1">最简</label>
+            <label nz-radio nzValue="2">简约</label>
+            <label nz-radio nzValue="3">均衡</label>
+            <label nz-radio nzValue="4">唯美</label>
+            <label nz-radio nzValue="5">高效</label>
+            <label nz-radio nzValue="6">电影</label>
+            <label nz-radio nzValue="7">极致</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>推流码率</nz-form-label>
+        <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="推流码率不能为空！">
+          <nz-select formControlName="bitrate" nzPlaceHolder="请选择" (ngModelChange)="changeBitrate($event)">
+            <nz-option nzValue="0.25" nzLabel="0.25"></nz-option>
+            <nz-option nzValue="0.5" nzLabel="0.5"></nz-option>
+            <nz-option nzValue="1" nzLabel="1"></nz-option>
+            <nz-option nzValue="2" nzLabel="2"></nz-option>
+            <nz-option nzValue="3" nzLabel="3"></nz-option>
+            <nz-option nzValue="4" nzLabel="4"></nz-option>
+            <nz-option nzValue="8" nzLabel="8"></nz-option>
+            <nz-option nzValue="10" nzLabel="10"></nz-option>
+            <nz-option nzValue="customize" nzLabel="自定义"></nz-option>
+          </nz-select>
+        </nz-form-control>
+        <nz-form-control [nzSm]="4" [nzXs]="24" *ngIf="bitrateCustomize" nzErrorTip="推流码率不能为空！">
+          <input nz-input formControlName="bitrateCustomize" placeholder="请输入" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>用户端分辨率</nz-form-label>
+        <nz-form-control [nzSm]="7" [nzXs]="12" nzErrorTip="分辨率不能为空！">
+          <input nz-input formControlName="videoResolutionWidth" placeholder="请输入" />
+        </nz-form-control>
+        <nz-form-control [nzSm]="7" [nzXs]="12" nzErrorTip="分辨率不能为空！">
+          <input nz-input formControlName="videoResolutionHeight" placeholder="请输入" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>屏幕分辨率</nz-form-label>
+        <nz-form-control [nzSm]="7" [nzXs]="12" nzErrorTip="屏幕分辨率不能为空！">
+          <input nz-input formControlName="screenResolutionWidth" placeholder="请输入" />
+        </nz-form-control>
+        <nz-form-control [nzSm]="7" [nzXs]="12" nzErrorTip="分辨率不能为空！">
+          <input nz-input formControlName="screenResolutionHeight" placeholder="请输入" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>视频编解码器</nz-form-label>
+        <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="视频编解码器不能为空！">
+          <nz-select formControlName="videoEncodec" nzPlaceHolder="请选择">
+            <nz-option nzValue="nv-encoder=h264" nzLabel="H.264"></nz-option>
+            <nz-option nzValue="nv-encoder=hevc" nzLabel="HEVC"></nz-option>
+            <nz-option nzValue="nv-encoder=auto" nzLabel="自动"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>视频帧率</nz-form-label>
+        <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="视频帧率不能为空！">
+          <nz-select formControlName="videoFps" nzPlaceHolder="请选择" (ngModelChange)="changeVideoFps($event)">
+            <nz-option nzValue="30" nzLabel="30"></nz-option>
+            <nz-option nzValue="60" nzLabel="60"></nz-option>
+            <nz-option nzValue="customize" nzLabel="自定义"></nz-option>
+          </nz-select>
+        </nz-form-control>
+        <nz-form-control [nzSm]="4" [nzXs]="24" *ngIf="videoFpsCustomize" nzErrorTip="视频帧率不能为空！">
+          <input nz-input formControlName="videoFpsCustomize" placeholder="请输入" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Server Type</nz-form-label>
+        <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorsTip="Server Type不能为空！">
+          <nz-select formControlName="serverType" nzPlaceHolder="请选择" (ngModelChange)="changeServerType($event)">
+            <nz-option nzValue="6" nzLabel="6"></nz-option>
+            <nz-option nzValue="7" nzLabel="7"></nz-option>
+            <nz-option nzValue="customize" nzLabel="自定义"></nz-option>
+          </nz-select>
+        </nz-form-control>
+
+        <nz-form-control [nzSm]="4" [nzXs]="24" *ngIf="serverTypeCustomize" nzErrorTip="Server Type不能为空！">
+          <input nz-input formControlName="serverTypeCustomize" placeholder="请输入" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">可用地址</nz-form-label>
+        <nz-form-control [nzSm]="10" [nzXs]="24">
+          <nz-select formControlName="serverIp" nzPlaceHolder="请选择" (ngModelChange)="changeServerIp($event)">
+            <nz-option *ngFor="let opt of serverMap" [nzValue]="opt.label+','+opt.value" [nzLabel]="opt.label">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>流媒体协议</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="流媒体协议不能为空！">
+          <nz-radio-group formControlName="protocol">
+            <label nz-radio nzValue="0">rtsp</label>
+            <label nz-radio nzValue="1">seasun</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>control-protocol-tcp</nz-form-label>
+        <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="control-protocol-tcp不能为空！">
+          <nz-select formControlName="controlTcp" nzPlaceHolder="请选择">
+            <nz-option nzValue="Enet" nzLabel="Enet"></nz-option>
+            <nz-option nzValue="Evpp" nzLabel="Evpp"></nz-option>
+            <nz-option nzValue="Kcp" nzLabel="Kcp"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Server Type</nz-form-label>
+        <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="Server Type不能为空！">
+          <nz-select formControlName="serverType" nzPlaceHolder="请选择" (ngModelChange)="changeServerType($event)">
+            <nz-option nzValue="6" nzLabel="6"></nz-option>
+            <nz-option nzValue="7" nzLabel="7"></nz-option>
+            <nz-option nzValue="customize" nzLabel="自定义"></nz-option>
+          </nz-select>
+        </nz-form-control>
+        <nz-form-control [nzSm]="4" [nzXs]="24" *ngIf="serverTypeCustomize">
+          <input nz-input formControlName="serverTypeCustomize" placeholder="请输入" />
+        </nz-form-control>
+      </nz-form-item> -->
+
+    </form>
+
+
+  </nz-modal>
+
+  <nz-modal nzWidth="1000px" [(nzVisible)]="updateServerVisible" [nzTitle]="operationTitle"
+    (nzOnCancel)="updateServerCancel()" (nzOnOk)="updateServerOk()">
+    <form nz-form [formGroup]="updateServerForm">
+      <nz-form-item class="mt-15">
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Server Name</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Server Name不能为空！">
+          <nz-select formControlName="serverName" nzPlaceHolder="请选择" (ngModelChange)="changeServerName($event)">
+            <nz-option *ngFor="let opt of serverMap" [nzValue]="opt.label+','+opt.value" [nzLabel]="opt.label">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>oldServerType</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input formControlName="oldServerType" placeholder="请输入" [disabled]="true"
+            [ngModel]="oldServerType" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>newServerType</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="newServerType不能为空！">
+          <nz-select formControlName="newServerType" nzPlaceHolder="请选择" (ngModelChange)="changeNewServerType($event)">
+            <nz-option nzValue="6" nzLabel="6"></nz-option>
+            <nz-option nzValue="7" nzLabel="7"></nz-option>
+            <nz-option nzValue="customize" nzLabel="自定义"></nz-option>
+          </nz-select>
+        </nz-form-control>
+
+        <nz-form-control [nzSm]="4" [nzXs]="24" *ngIf="newServerTypeCustomize" nzErrorTip="newServerType不能为空！">
+          <input nz-input formControlName="newServerTypeCustomize" placeholder="请输入" />
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-modal>

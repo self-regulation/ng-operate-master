@@ -1,0 +1,60 @@
+<page-header [title]="'个人中心'">
+</page-header>
+
+<nz-card>
+  <ng-container>
+    <div nz-row>
+      <div class="avatarHolder" nz-col nzSpan="24" nzOffset="5">
+        <img src="../../../../assets/tmp/img/avatar.jpg" nz-col nzSpan="6" />
+        <div class="ml-15 name" nz-col nzSpan="18">
+          <h3>Admin</h3>
+          <p><i nz-icon nzType="contacts" nzTheme="outline"></i>&nbsp;&nbsp;&nbsp;系统管理员</p>
+          <nz-upload nzAction="/user/avatar" [nzShowUploadList]="false">
+            <button nz-button class="button_view">
+              <i nz-icon nzType="upload"></i>
+              <span>更换头像</span>
+            </button>
+          </nz-upload>
+        </div>
+        <!-- <div>{{ user.signature }}</div> -->
+      </div>
+    </div>
+
+  </ng-container>
+  <form nz-form [formGroup]="validateForm">
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="username">用户名</nz-form-label>
+      <nz-form-control [nzSm]="6" [nzXs]="24" nzErrorTip="用户名不能为空！">
+        <input nz-input formControlName="username" id="username" [value]="'Admin'" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="nickname">昵称</nz-form-label>
+      <nz-form-control [nzSm]="6" [nzXs]="24">
+        <input nz-input formControlName="nickname" id="nickname" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phonenumber">手机</nz-form-label>
+      <nz-form-control [nzSm]="6" [nzXs]="24">
+        <input nz-input formControlName="phonenumber" id="phonenumber" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email">邮箱</nz-form-label>
+      <nz-form-control [nzSm]="6" [nzXs]="24" nzErrorTip="邮箱格式不正确！">
+        <input nz-input formControlName="email" id="email" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 6 }">
+        <button nz-button nzType="primary">更新基本信息</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>

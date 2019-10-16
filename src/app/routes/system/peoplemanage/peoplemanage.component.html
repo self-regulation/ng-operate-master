@@ -1,0 +1,137 @@
+<page-header [title]="'用户管理'"></page-header>
+
+<nz-card>
+  <form nz-form [nzLayout]="'inline'" class="search__form" [formGroup]="searchForm">
+    <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
+      <div nz-col nzMd="16" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name">姓名</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input formControlName="name" />
+          </nz-form-control>
+
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="loginName" class="ml-15">登录名</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input formControlName="loginName" />
+          </nz-form-control>
+        </nz-form-item>
+
+      </div>
+      <div nz-col nzMd="8" nzSm="24">
+        <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading" (click)="searchUser()">查询</button>
+      </div>
+    </div>
+
+  </form>
+  <button nz-button (click)="addPeople()" [nzType]="'primary'">
+    <i nz-icon nzType="plus"></i>
+    <span>添加用户</span>
+  </button>
+  <nz-divider nzDashed></nz-divider>
+  <nz-table #ajaxTable nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzFrontPagination]="false"
+    [nzData]="listOfData" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+    (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changePageSize($event)"
+    [nzPageSizeOptions]="pageSizeOptions">
+    <thead>
+      <tr>
+        <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" (nzCheckedChange)="checkAll($event)"></th>
+        <th>ID</th>
+        <th>登录名</th>
+        <th>姓名</th>
+        <th>角色</th>
+        <th><span>手机</span></th>
+        <th>登陆时间</th>
+        <th><span>操作</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of listOfData;let i=index">
+        <td nzShowCheckbox (nzCheckedChange)="refreshStatus(i)" [(nzChecked)]="data.checked"></td>
+        <td>{{ data.id }}</td>
+        <td>{{ data?.loginName }}</td>
+        <td>{{ data?.name }}</td>
+        <td>{{ data?.roleNames }}</td>
+        <td>{{ data?.phonenumber }}</td>
+        <td>{{ data?.loginDate }}</td>
+        <td>
+          <a (click)="updateUser(data)">修改</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a nz-popconfirm (nzOnConfirm)="deleteUser(data.id)" nzPopconfirmPlacement="top" nzTitle="确认删除该条数据?">删除</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()" (nzOnOk)="modifyUserData()">
+  <form nz-form [formGroup]="userForm">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">姓名</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="姓名不能为空！">
+        <input nz-input formControlName="name" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="loginName">登录名</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="登录名不能为空！">
+        <input nz-input formControlName="loginName" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="password">密码</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="密码不能为空！">
+        <input nz-input formControlName="password" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="confirmPassword">确认密码</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="确认密码不能为空！">
+        <input nz-input formControlName="confirmPassword" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="mobile">手机</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="手机不能为空！">
+        <input nz-input formControlName="mobile" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- <nz-form-item> -->
+    <!-- [(ngModel)]="userForm.islogin" -->
+    <!-- <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="islogin">是否允许登录</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="是否允许登录不能为空！">
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="请选择" formControlName="islogin">
+          <nz-option nzLabel="否" nzValue="0"></nz-option>
+          <nz-option nzLabel="是" nzValue="1"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item> -->
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="userrole">用户角色</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <!-- <nz-checkbox-group [(ngModel)]="allRoleList" (ngModelChange)="checkRoles(checkOptionsOne)"></nz-checkbox-group> -->
+
+
+        <nz-checkbox-wrapper style="width: 100%;">
+          <div nz-row>
+            <div nz-col nzSpan="8" *ngFor="let role of allRoleList;let i=index"><label nz-checkbox
+                nzValue="'role.value'">{{role.label}}</label></div>
+          </div>
+        </nz-checkbox-wrapper>
+
+      </nz-form-control>
+
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remark">备注</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <textarea nz-input formControlName="remark" id="remark" rows="3"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

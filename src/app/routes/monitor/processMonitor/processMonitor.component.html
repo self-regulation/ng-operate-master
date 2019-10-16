@@ -1,0 +1,85 @@
+<page-header [title]="'进程监控'">
+</page-header>
+<nz-card>
+  <form nz-form [formGroup]="processForm">
+    <div nz-row>
+      <div nz-col nzMd="16" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}" nzFor="serverName">服务器名称</nz-form-label>
+          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
+            <input nz-input formControlName="serverName" />
+          </nz-form-control>
+
+          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}" nzFor="userName">用户名</nz-form-label>
+          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
+            <input nz-input formControlName="userName" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="inquireProcess()">查询</button>
+      </div>
+    </div>
+
+  </form>
+
+  <nz-table nzBordered="true" [nzFrontPagination]="false" [nzData]="bindList" [nzLoading]="loading" [nzTotal]="totals"
+    [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" nzShowPagination="true"
+    (nzPageIndexChange)="changePage($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th nzLeft="0px">进程id</th>
+        <th>服务器名称</th>
+        <th>玩家</th>
+        <th>游戏id</th>
+        <th>游戏名称</th>
+        <th nzWidth="150px">cpu占用率</th>
+        <th nzWidth="150px">内存</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let process of processList;let i=index">
+        <td nzLeft="0px">{{ process.pid?process.pid:'--' }}</td>
+        <td>
+          <a (click)="lookServer(process.serverName)">{{process.serverName?process.serverName:'--'}}</a>
+        </td>
+        <td>
+          {{process.userName?process.userName:'--'}}
+        </td>
+        <td>
+          {{process.gameId?process.gameId:'--'}}
+        </td>
+        <td>
+          {{process.name?process.name:'--'}}
+        </td>
+        <td (click)="showDevDetail(process.processorList,'process',process.serverName,process.userName)" class="picTd">
+          <div *ngIf="(process.processorList).length>0" echarts
+            [options]="formateLineData(process.processorList,'process')" style="height: 65px;width: 150px;"></div>
+          <span style="height: 65px;display: inline-block;line-height: 65px;"
+            *ngIf="(process.processorList).length==0">--</span>
+        </td>
+        <td (click)="showDevDetail(process.workingSetList,'workingSet',process.serverName,process.userName)"
+          class="picTd">
+          <div *ngIf="(process.workingSetList).length>0" echarts
+            [options]="formateLineData(process.workingSetList,'workingSet')" style="height: 65px;width: 150px;"></div>
+          <span style="height: 65px;display: inline-block;line-height: 65px;"
+            *ngIf="(process.workingSetList).length==0">--</span>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<!-- cpu、磁盘消耗详情 -->
+<nz-drawer [nzVisible]="devDetailVisible" [nzWidth]="800" [nzClosable]="true" (nzOnClose)="closeDevDetail()">
+  <div class="mt-15">
+    <nz-radio-group [(ngModel)]="unit" [nzButtonStyle]="'solid'" (ngModelChange)="changeDevDetailUnit($event)">
+      <label nz-radio-button nzValue="hour">1小时</label>
+      <label nz-radio-button nzValue="day">1天</label>
+      <label nz-radio-button nzValue="week">1周</label>
+    </nz-radio-group>
+  </div>
+  <nz-spin nzSimple [nzSize]="'large'" *ngIf="devDetailLoading" class="text-center"></nz-spin>
+  <div echarts [options]="devDetailRatio" style="height: 400px"></div>
+</nz-drawer>

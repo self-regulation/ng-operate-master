@@ -1,0 +1,57 @@
+<page-header [title]="'操作日志'"></page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="logForm">
+    <div nz-row>
+      <div nz-col nzMd="16" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}" nzFor="menu">操作菜单</nz-form-label>
+          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
+            <input nz-input formControlName="menu" id="menu" [disabled]="false" />
+          </nz-form-control>
+          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}" nzFor="url">请求url</nz-form-label>
+          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
+            <input nz-input formControlName="url" />
+          </nz-form-control>
+          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}" nzFor="online">时间</nz-form-label>
+          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
+            <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm"
+              [nzPlaceHolder]="['开始时间', '结束时间']" (nzOnOk)="onOk($event)" formControlName="dateRange"
+              (ngModelChange)="clear($event)">
+            </nz-range-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="rearchLog()">查询</button>
+      </div>
+    </div>
+
+  </form>
+  <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="logList"
+    [nzFrontPagination]="false" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th>操作菜单</th>
+        <th>操作用户</th>
+        <th>操作URI</th>
+        <th>提交方法</th>
+        <th>操作者IP</th>
+        <th>操作时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let log of logList;let i=index">
+        <td>{{ log.title }}</td>
+        <td>{{ log.userName }}</td>
+        <td>{{ log.requestUri }}</td>
+        <td>{{ log.method }}</td>
+        <td>{{ log.remoteAddr }}</td>
+        <td>{{ log.createDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

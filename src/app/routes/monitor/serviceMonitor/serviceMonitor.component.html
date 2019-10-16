@@ -1,0 +1,193 @@
+<page-header [title]="'服务器监控'">
+</page-header>
+
+<nz-card>
+
+  <form nz-form [formGroup]="serverForm">
+    <div nz-row>
+      <div nz-col nzMd="16" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}" nzFor="serverName">服务器名称</nz-form-label>
+          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
+            <input nz-input formControlName="serverName" />
+          </nz-form-control>
+
+          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}">连接状态</nz-form-label>
+          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
+            <nz-select formControlName="status" nzPlaceHolder="请选择">
+              <nz-option nzValue="1" nzLabel="连接"></nz-option>
+              <nz-option nzValue="0" nzLabel="断开"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="inquireServer()">查询</button>
+      </div>
+    </div>
+
+  </form>
+
+  <nz-table nzBordered="true" [nzFrontPagination]="false" [nzData]="bindDataList" [nzLoading]="loading"
+    [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="changePage($event)"
+    nzShowPagination="true">
+    <thead>
+      <tr>
+        <th nzWidth="100px" nzLeft="0px">服务器</th>
+        <th nzWidth="100px">服务器组ID</th>
+        <th nzWidth="100px">连接状态</th>
+        <th nzWidth="150px">CPU</th>
+        <th nzWidth="150px">内存</th>
+        <th nzWidth="100px">GPU</th>
+        <th nzWidth="100px">磁盘</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let server of serverList;let i=index">
+        <td nzLeft="0px">{{ server.serverName }}</td>
+        <td>
+          {{server.regionId}}
+        </td>
+        <td>
+          <nz-badge [nzStatus]="server.status==1?'success':'error'" [nzText]="server.status==1?'连接':'断开'"></nz-badge>
+        </td>
+        <td (click)="showDevDetail(server.cpu,'cpu',server.serverName)" class="picTd">
+          <div *ngIf="(server.cpu).length>0" echarts [options]="formateLineData(server.cpu,'cpu')"
+            style="height: 65px;"></div>
+
+          <span style="height: 65px;display: inline-block;line-height: 65px;" *ngIf="(server.cpu).length==0">--</span>
+        </td>
+        <td (click)="showDevDetail(server.memory,'memory',server.serverName)" class="picTd">
+          <div *ngIf="(server.memory).length>0" echarts [options]="formateLineData(server.memory,'memory')"
+            style="height: 65px;"></div>
+          <span style="height: 65px;display: inline-block;line-height: 65px;"
+            *ngIf="(server.memory).length==0">--</span>
+        </td>
+        <td><a (click)="lookDetails(server.gpu,'gpu',server.serverName)">查看详情</a></td>
+        <td>
+          <a (click)="lookDetails(server.disk,'disk',server.serverName)">查看详情</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<!-- cpu、内存详情 -->
+<nz-drawer [nzVisible]="devDetailVisible" [nzWidth]="800" [nzClosable]="true" (nzOnClose)="closeDevDetail()">
+  <div class="mt-15">
+    <nz-radio-group [(ngModel)]="unit" [nzButtonStyle]="'solid'" (ngModelChange)="changeDevDetailUnit($event)">
+      <label nz-radio-button nzValue="hour">1小时</label>
+      <label nz-radio-button nzValue="day">1天</label>
+      <label nz-radio-button nzValue="week">1周</label>
+    </nz-radio-group>
+  </div>
+  <nz-spin nzSimple [nzSize]="'large'" *ngIf="devDetailLoading" class="text-center"></nz-spin>
+  <div *ngIf="devDetailRatio" echarts [options]="devDetailRatio" style="height: 400px"></div>
+  <div *ngIf="devDetailData" echarts [options]="devDetailData" style="height: 400px"></div>
+</nz-drawer>
+<!-- 磁盘使用情况 -->
+<nz-drawer [nzVisible]="diskVisible" [nzWidth]="1200" [nzClosable]="true" (nzOnClose)="close()">
+  <div class="mt-15">
+    <nz-radio-group [(ngModel)]="unit" [nzButtonStyle]="'solid'" (ngModelChange)="changeDiskUnit($event)">
+      <label nz-radio-button nzValue="hour">1小时</label>
+      <label nz-radio-button nzValue="day">1天</label>
+      <label nz-radio-button nzValue="week">1周</label>
+    </nz-radio-group>
+  </div>
+  <nz-spin nzSimple [nzSize]="'large'" *ngIf="diskLoading" class="text-center"></nz-spin>
+
+  <div *ngIf="!diskLoading">
+    <div nz-row nzGutter="15" class="mt-15">
+      <h3 class="text-center" style="font-weight: 800;">磁盘使用率</h3>
+      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of diskList">
+        <nz-card>
+          <div echarts [options]="item" style="height: 400px"></div>
+        </nz-card>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="15" class="mt-15">
+      <h3 class="text-center" style="font-weight: 800;">磁盘可用空间</h3>
+      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of diskUseList">
+        <nz-card>
+          <div echarts [options]="item" style="height: 400px"></div>
+        </nz-card>
+      </div>
+    </div>
+  </div>
+
+</nz-drawer>
+<!-- GPU使用情况 -->
+<nz-drawer [nzVisible]="gpuVisible" [nzWidth]="1200" [nzClosable]="true" (nzOnClose)="closeGpu()">
+  <div class="mt-15">
+    <nz-radio-group [(ngModel)]="unit" [nzButtonStyle]="'solid'" (ngModelChange)="changeGpuUnit($event)">
+      <label nz-radio-button nzValue="hour">1小时</label>
+      <label nz-radio-button nzValue="day">1天</label>
+      <label nz-radio-button nzValue="week">1周</label>
+    </nz-radio-group>
+  </div>
+  <nz-spin nzSimple [nzSize]="'large'" *ngIf="gpuLoading" class="text-center"></nz-spin>
+
+  <div *ngIf="!gpuLoading">
+
+    <div nz-row nzGutter="15" class="mt-15">
+      <h3 class="text-center" style="font-weight: 800;">GPU 使用率</h3>
+      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of gpuCoreList">
+        <nz-card>
+          <div><label>名称：</label><span style="font-weight: bold;">{{item.gpuName}}</span></div>
+          <div echarts [options]="item.ratioList" style="height: 400px"></div>
+        </nz-card>
+      </div>
+    </div>
+    <div nz-row nzGutter="15" class="mt-15">
+      <h3 class="text-center" style="font-weight: 800;">GPU 温度</h3>
+      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of gpuTemperatureList">
+        <nz-card>
+          <div><label>名称：</label><span style="font-weight: bold;">{{item.gpuName}}</span></div>
+          <div echarts [options]="item.ratioList" style="height: 400px"></div>
+        </nz-card>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="15" class="mt-15">
+      <h3 class="text-center" style="font-weight: 800;">GPU 内存使用情况</h3>
+      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of gpuRatioList">
+        <nz-card>
+          <div><label>名称：</label><span style="font-weight: bold;">{{item.gpuName}}</span></div>
+          <div echarts [options]="item.ratioList" style="height: 400px"></div>
+        </nz-card>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="15" class="mt-15">
+      <h3 class="text-center" style="font-weight: 800;">GPU可用空间</h3>
+      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of gpuUseList">
+        <nz-card>
+          <div><label>名称：</label><span style="font-weight: bold;">{{item.gpuName}}</span></div>
+          <div echarts [options]="item.useList" style="height: 400px"></div>
+        </nz-card>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="15" class="mt-15">
+      <h3 class="text-center" style="font-weight: 800;">GPU 视频引擎占用率</h3>
+      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of gpuVideoEngineList">
+        <nz-card>
+          <div><label>名称：</label><span style="font-weight: bold;">{{item.gpuName}}</span></div>
+          <div echarts [options]="item.ratioList" style="height: 400px"></div>
+        </nz-card>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="15" class="mt-15">
+      <h3 class="text-center" style="font-weight: 800;">GPU 内存控制器占用率</h3>
+      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of gpuMemoryControllerList">
+        <nz-card>
+          <div><label>名称：</label><span style="font-weight: bold;">{{item.gpuName}}</span></div>
+          <div echarts [options]="item.ratioList" style="height: 400px"></div>
+        </nz-card>
+      </div>
+    </div>
+
+  </div>
+</nz-drawer>

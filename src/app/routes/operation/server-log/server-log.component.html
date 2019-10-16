@@ -1,0 +1,68 @@
+<page-header [title]="'服务器日志'"></page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="logForm">
+    <div nz-row>
+      <div nz-col nzMd="16" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}" nzFor="userName">用户名</nz-form-label>
+          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
+            <input nz-input formControlName="userName" />
+          </nz-form-control>
+          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}" nzFor="date">时间</nz-form-label>
+          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
+            <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm"
+              formControlName="dateRange" [nzPlaceHolder]="['开始时间', '结束时间']" ngModel (nzOnOk)="onOk($event)"
+              (ngModelChange)="clear($event)">
+            </nz-range-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="getLogList()">查询</button>
+      </div>
+    </div>
+
+  </form>
+  <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="logList"
+    [nzFrontPagination]="false" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th>用户名</th>
+        <th>游戏Id</th>
+        <th>游戏log</th>
+        <th>游戏进程Id</th>
+        <th>流端log</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let log of logList;let i=index">
+        <td>{{ log.userName }}</td>
+        <td>{{ log.gameId }}</td>
+        <td [title]="log.gameLog">{{ log.gameLog?log.gameLog:'--' }}</td>
+        <td>{{ log.pid }}</td>
+        <td [title]="log.streamLog">{{ log.streamLog?log.streamLog:'--' }}</td>
+        <td>{{ log.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>
+          <ng-container *ngIf="log.gameLog || log.streamLog">
+            <a nz-dropdown [nzDropdownMenu]="menu">
+              日志下载
+              <i nz-icon nzType="down"></i>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu>
+                <li *ngIf="log.gameLog" nz-menu-item (click)="downloadGamelog(log.gameLog)">游戏日志</li>
+                <li *ngIf="log.streamLog" nz-menu-item (click)="downloadStreamlog(log.streamLog)">流端日志</li>
+              </ul>
+            </nz-dropdown-menu>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
