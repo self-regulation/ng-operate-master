@@ -1,15 +1,27 @@
 export function SimpleBar(params: any): any {
-    let xDate = [], seriesData = [], viewTitle = '', unit = '', des = '';
-    xDate = params.xDate;
+    let xData = [], seriesData = [], viewTitle = '', unit = '', legend = null;
+    xData = params.xData;
     seriesData = params.seriesData;
     viewTitle = params.viewTitle;
+    unit = params.unit;
+    legend = params.legend;
     return {
+        title: {
+            text: viewTitle,
+            subtext: '',
+        },
         color: ['#3398DB'],
+        legend: {
+            data: legend
+        },
         tooltip: {
             trigger: 'axis',
             axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                 type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-            }
+            },
+            formatter: function (params: any) {
+                return legend[0] + ':<br/>' + params[0].name + ':' + params[0].value + unit;
+            },
         },
         grid: {
             left: '3%',
@@ -20,7 +32,7 @@ export function SimpleBar(params: any): any {
         xAxis: [
             {
                 type: 'category',
-                data: xDate,
+                data: xData,
                 axisTick: {
                     alignWithLabel: true
                 }
@@ -28,12 +40,15 @@ export function SimpleBar(params: any): any {
         ],
         yAxis: [
             {
-                type: 'value'
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value}' + unit
+                },
             }
         ],
         series: [
             {
-                name: viewTitle,
+                name: legend[0],
                 type: 'bar',
                 barWidth: '60%',
                 data: seriesData

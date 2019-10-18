@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EChartOption } from 'echarts';
+import { DoughnutPie } from '@shared/utils/doughnutpie';
+import { basicLine, ActiveUserData, AverageTimeData, DefaultPie } from '@shared';
+import { SimpleBar } from '@shared/utils/simpleBar';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +10,11 @@ import { EChartOption } from 'echarts';
   styleUrls: ['./dashboard.component.less']
 })
 export class DashboardComponent implements OnInit {
-  sysTime: any = '';
-
-
+  operatSystem: any = null;
+  unit: any = 'hour';
+  activeUserTrend: any = null;
+  averageTimeData: any = null;
+  serverSystem: any = null;
   array = [
     ['服务器异常信息1', '服务器异常信息2', '服务器异常信息3', '服务器异常信息4', '服务器异常信息5'],
     ['服务器异常信息6', '服务器异常信息7', '服务器异常信息8', '服务器异常信息9', '服务器异常信息10'],
@@ -34,7 +39,7 @@ export class DashboardComponent implements OnInit {
   oneDay = 24 * 3600 * 1000;
   value = Math.random() * 1000;
 
-  public lineOption: EChartOption;
+  // public lineOption: EChartOption;
   public pieOption: EChartOption;
 
 
@@ -47,83 +52,52 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.sysTime
+    this.operatSystem = DoughnutPie({
+      legendData: ['Windows', 'ios', 'Android'],
+      seriesName: '操作系统',
+      seriesData: [
+        { value: 535, name: 'Android' },
+        { value: 388, name: 'ios' },
+        { value: 266, name: 'Windows' },
 
-    for (var i = 0; i < 1000; i++) {
-      this.data.push(this.randomData());
-    }
-    this.lineOption = {
-      title: {
-        text: '玩家人流量'
-      },
-      tooltip: {
-        trigger: 'axis',
-        formatter: function (params: any) {
-          params = params[0];
-          var date = new Date(params.name);
-          return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
-        },
-        axisPointer: {
-          animation: false
-        }
-      },
-      xAxis: {
-        type: 'time',
-        splitLine: {
-          show: false
-        }
-      },
-      yAxis: {
-        type: 'value',
-        boundaryGap: [0, '100%'],
-        splitLine: {
-          show: false
-        }
-      },
-      series: [{
-        name: '模拟数据',
-        type: 'line',
-        showSymbol: false,
-        hoverAnimation: false,
-        data: this.data
-      }]
-    };
-
-    this.pieOption = {
-      // title : {
-      //     text: '某站点用户访问来源',
-      //     subtext: '纯属虚构',
-      //     x:'center'
-      // },
-      tooltip: {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c} 台({d}%)"
-      },
-      legend: {
-        orient: 'vertical',
-        left: 'left',
-        data: ['已使用', '未使用']
-      },
-      series: [
-        {
-          name: '服务器使用率',
-          type: 'pie',
-          radius: '55%',
-          center: ['50%', '60%'],
-          data: [
-            { value: 10, name: '已使用' },
-            { value: 3, name: '未使用' },
-          ],
-          itemStyle: {
-            emphasis: {
-              shadowBlur: 10,
-              shadowOffsetX: 5,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
-            }
-          }
-        }
       ]
-    };
+    });
+
+    // this.lineOption = basicLine({
+    //   title: '玩家人流量',
+    //   xData: ['2019-09-18', '2019-09-19', '2019-09-20', '2019-09-21', '2019-09-22', '2019-09-23', '2019-09-24', '2019-09-25', '2019-09-26', '2019-09-27', '2019-09-28', '2019-09-29', '2019-09-30', '2019-10-01'
+    //     , '2019-10-02', '2019-10-03', '2019-10-04', '2019-10-05', '2019-10-06', '2019-10-07', '2019-10-08', '2019-10-09', '2019-10-10', '2019-10-11', '2019-10-12', '2019-10-13', '2019-10-14', '2019-10-15', '2019-10-16', '2019-10-17', '2019-10-18'],
+    //   seriesData: [678, 345, 765, 345, 764, 234, 789, 345, 1234, 656, 342, 432, 675, 134, 765, 444, 764, 223, 889, 776, 1234, 1245, 1356, 1567, 1785, 1345, 1899, 1999, 2345, 2567, 3214],
+    //   unit: '人',
+    //   legend: ['玩家人数']
+    // });
+
+    this.activeUserTrend = basicLine({
+      title: '活跃玩家趋势',
+      xData: (ActiveUserData()).xData,
+      seriesData: ActiveUserData().seriesData,
+      unit: '人',
+      legend: ['启动游戏人数']
+    });
+
+    this.averageTimeData = SimpleBar({
+      xData: AverageTimeData().xData,
+      seriesData: AverageTimeData().seriesData,
+      viewTitle: '平均单日使用时长',
+      unit: '分',
+      legend: ['平均使用时长']
+    });
+
+
+    this.serverSystem = DefaultPie({
+      title: '服务器使用情况',
+      seriesData: [
+        { value: 10, name: '已使用' },
+        { value: 3, name: '未使用' },
+      ],
+      unit: '%',
+      legend: ['已使用', '未使用']
+    });
 
     this.searchData();
   }

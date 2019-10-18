@@ -1,38 +1,232 @@
-<!-- <div class="container">
+<div>
   <div nz-row [nzGutter]="24" class="pt-lg">
     <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
       <nz-card class="card-box">
-        <div nz-col [nzSpan]="24">
+        <div nz-col [nzSpan]="24" class="card-body">
           <div nz-col [nzSpan]="19">
-            今日新增玩家
+            新增玩家
           </div>
           <div nz-col [nzSpan]="4">
             <nz-tooltip nzTitle="今日新增的玩家">
               <i nz-tooltip nz-icon nzType="info-circle"></i>
             </nz-tooltip>
           </div>
+          <div nz-col [nzSpan]="24">
+            <p class="statistic-num color-blue"><i nz-icon nzType="user" nzTheme="outline"></i>&nbsp;88人</p>
+          </div>
+          <div nz-col [nzSpan]="24">
+            <span>日同比</span>&nbsp;&nbsp;<span style="color: red;">5%<i nz-icon nzType="caret-up"
+                nzTheme="outline"></i></span>
+          </div>
+          <div nz-col [nzSpan]="24">
+            <span>周同比</span>&nbsp;&nbsp;<span style="color: green;">1%<i nz-icon nzType="caret-down"
+                nzTheme="outline"></i></span>
+          </div>
+          <div nz-col [nzSpan]="24" class="mt-15">
+            <span>总玩家数：</span><span style="" class="color-blue statistic-allnum">888888
+              人</span>
+          </div>
         </div>
 
       </nz-card>
     </div>
     <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
-      <nz-card title="新增玩家" total="8,848" contentHeight="46px">
+      <nz-card class="card-box">
+        <div nz-col [nzSpan]="24" class="card-body">
+          <div nz-col [nzSpan]="19">
+            今日充值额
+          </div>
+          <div nz-col [nzSpan]="4">
+            <nz-tooltip nzTitle="今日充值额(单位:元)">
+              <i nz-tooltip nz-icon nzType="info-circle"></i>
+            </nz-tooltip>
+          </div>
+          <div nz-col [nzSpan]="24">
+            <p class="statistic-num color-red"><i nz-icon nzType="account-book" nzTheme="outline"></i>&nbsp;88,888</p>
+          </div>
+          <div nz-col [nzSpan]="24">
+            <span>日同比</span>&nbsp;&nbsp;<span style="color: red;">5%<i nz-icon nzType="caret-up"
+                nzTheme="outline"></i></span>
+          </div>
+          <div nz-col [nzSpan]="24">
+            <span>周同比</span>&nbsp;&nbsp;<span style="color: green;">1%<i nz-icon nzType="caret-down"
+                nzTheme="outline"></i></span>
+          </div>
+          <div nz-col [nzSpan]="24" class="mt-15">
+            <span>今年充值额：</span><span class="statistic-allnum color-red"><i nz-icon nzType="account-book"
+                nzTheme="outline"></i>&nbsp;18888888</span>
+          </div>
+        </div>
       </nz-card>
     </div>
     <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
-      <nz-card title="新增玩家" total="8,848" contentHeight="46px">
+      <nz-card class="card-box">
+        <div nz-col [nzSpan]="24" class="card-body">
+          <div nz-col [nzSpan]="19">
+            今日|活跃玩家
+          </div>
+          <div nz-col [nzSpan]="4">
+            <nz-tooltip nzTitle="今日活跃玩家人数">
+              <i nz-tooltip nz-icon nzType="info-circle"></i>
+            </nz-tooltip>
+          </div>
+        </div>
+        <div nz-col [nzSpan]="24">
+          <p class="statistic-num color-purple"><i nz-icon nzType="team" nzTheme="outline"></i>&nbsp;3668人</p>
+        </div>
+        <div nz-col [nzSpan]="24">
+          <span>日同比</span>&nbsp;&nbsp;<span style="color: red;">5%<i nz-icon nzType="caret-up"
+              nzTheme="outline"></i></span>
+        </div>
+        <div nz-col [nzSpan]="24">
+          <span>周同比</span>&nbsp;&nbsp;<span style="color: green;">1%<i nz-icon nzType="caret-down"
+              nzTheme="outline"></i></span>
+        </div>
+        <div nz-col [nzSpan]="24" class="mt-15">
+          <span>七日|活跃玩家：</span><span class="statistic-allnum color-purple"><i nz-icon nzType="team"
+              nzTheme="outline"></i>&nbsp;48888</span>
+        </div>
       </nz-card>
     </div>
     <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
-      <nz-card title="新增玩家" total="8,848" contentHeight="46px">
+      <nz-card class="card-box">
+        <div nz-col [nzSpan]="24" class="card-body">
+          <div nz-col [nzSpan]="19">
+            次日玩家留存
+          </div>
+          <div nz-col [nzSpan]="4">
+            <nz-tooltip nzTitle="次日玩家留存">
+              <i nz-tooltip nz-icon nzType="info-circle"></i>
+            </nz-tooltip>
+          </div>
+        </div>
+        <div nz-col [nzSpan]="24">
+          <p class="statistic-num color-cyan-blue"><i nz-icon nzType="alert" nzTheme="outline"></i>&nbsp;366人</p>
+        </div>
+        <div nz-col [nzSpan]="24">
+          <span>日同比</span>&nbsp;&nbsp;<span style="color: red;">5%<i nz-icon nzType="caret-up"
+              nzTheme="outline"></i></span>
+        </div>
+        <div nz-col [nzSpan]="24">
+          <span>周同比</span>&nbsp;&nbsp;<span style="color: green;">1%<i nz-icon nzType="caret-down"
+              nzTheme="outline"></i></span>
+        </div>
+        <div nz-col [nzSpan]="24" class="mt-15">
+          <span>七日|活跃玩家：</span><span class="statistic-allnum color-cyan-blue"><i nz-icon nzType="team"
+              nzTheme="outline"></i>&nbsp;48888</span>
+        </div>
       </nz-card>
     </div>
 
   </div>
-</div> -->
+</div>
+
+<div nz-row nzGutter="15">
+  <div nz-col nzSpan="12" class="gutter-row">
+    <nz-card class="card-large-chart">
+      <h4>活跃用户趋势</h4>
+      <p class="card-dec">2019-09-18~2019-10-17 | 过去 30 天</p>
+      <h4>2019-10-17</h4>
+      <div nz-col [nzSpan]="24">
+        <div nz-col [nzSpan]="18">
+          <div nz-col [nzSpan]="7">
+            <span style="font-size: 40px;font-weight:bold;">2,373</span><span>人</span>
+          </div>
+          <div nz-col [nzSpan]="17" class="text-left" style="margin-top: 10px;">
+            <div nz-col [nzSpan]="24">
+              <span>日同比</span>&nbsp;&nbsp;<span style="color: red;">5%<i nz-icon nzType="caret-up"
+                  nzTheme="outline"></i></span>
+            </div>
+            <div nz-col [nzSpan]="24">
+              <span>周同比</span>&nbsp;&nbsp;<span style="color: green;">0.69%<i nz-icon nzType="caret-down"
+                  nzTheme="outline"></i></span>
+            </div>
+          </div>
+
+        </div>
+        <div nz-col [nzSpan]="6">
+          <div nz-col [nzSpan]="24">
+            <span>合计</span><span style="font-size: 18px;color: #475669">24,881</span><span>人</span>
+          </div>
+          <div nz-col [nzSpan]="24">
+            <span>均值</span><span style="font-size: 18px;color: #475669">2,157</span><span>人</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt-15 text-right">
+        <nz-radio-group [(ngModel)]="unit" [nzButtonStyle]="'solid'">
+          <label nz-radio-button nzValue="hour">今日</label>
+          <label nz-radio-button nzValue="day">7天</label>
+          <label nz-radio-button nzValue="week">30天</label>
+        </nz-radio-group>
+      </div>
+      <nz-spin nzSimple [nzSize]="'large'" *ngIf="false" class="text-center"></nz-spin>
+      <div echarts [options]="activeUserTrend" style="height: 400px"></div>
+      <!-- <div echarts [options]="lineOption" style="height: 400px" class="demo-chart"></div> -->
+    </nz-card>
+  </div>
+
+  <div nz-col nzSpan="12" class="gutter-row">
+    <nz-card class="card-large-chart">
+      <h4>平均单日使用时长（分）</h4>
+      <p class="card-dec">2019-09-18~2019-10-17 | 过去 30 天</p>
+      <h4>2019-10-17</h4>
+      <div nz-col [nzSpan]="24">
+        <div nz-col [nzSpan]="18">
+          <div nz-col [nzSpan]="7">
+            <span style="font-size: 40px;font-weight:bold;">3,099</span><span>分</span>
+          </div>
+          <div nz-col [nzSpan]="17" class="text-left" style="margin-top: 10px;">
+            <div nz-col [nzSpan]="24">
+              <span>日同比</span>&nbsp;&nbsp;<span style="color: red;">0.52%<i nz-icon nzType="caret-up"
+                  nzTheme="outline"></i></span>
+            </div>
+            <div nz-col [nzSpan]="24">
+              <span>周同比</span>&nbsp;&nbsp;<span style="color: green;">0.39%<i nz-icon nzType="caret-down"
+                  nzTheme="outline"></i></span>
+            </div>
+          </div>
+
+        </div>
+        <div nz-col [nzSpan]="6">
+          <div nz-col [nzSpan]="24">
+            <span>均值</span><span style="font-size: 18px;color: #475669">3,089</span><span>分</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt-15 text-right">
+        <nz-radio-group [(ngModel)]="unit" [nzButtonStyle]="'solid'">
+          <label nz-radio-button nzValue="hour">今日</label>
+          <label nz-radio-button nzValue="day">7天</label>
+          <label nz-radio-button nzValue="week">30天</label>
+        </nz-radio-group>
+      </div>
+      <div echarts [options]="averageTimeData" style="height: 400px"></div>
+    </nz-card>
+  </div>
 
 
-<div>
+
+</div>
+
+<div nz-row nzGutter="15">
+  <div nz-col nzSpan="12" class="gutter-row">
+    <nz-card class="card-chart">
+      <h4>操作系统|活跃用户分布</h4>
+      <p class="card-dec">2019-10-10~2019-10-16 | 过去 7 天</p>
+      <div echarts [options]="operatSystem" style="height: 400px"></div>
+    </nz-card>
+  </div>
+
+  <div nz-col nzSpan="12" class="gutter-row">
+    <nz-card class="card-chart">
+      <h4>服务器|使用率</h4>
+      <p class="card-dec">2019-10-10~2019-10-16 | 过去 7 天</p>
+      <div echarts [options]="serverSystem" style="height: 400px"></div>
+    </nz-card>
+  </div>
+</div>
+<!-- <div>
   <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24">
     <nz-card class="card-carousel mt-15">
       <h4 style="padding: 15px 0px 15px 15px;font-size: 14px;color: #333;margin-bottom: 0px;">异常信息</h4>
@@ -61,38 +255,38 @@
       </nz-card>
     </div>
   </div>
-
-  <div nz-row>
-    <div nz-col nzSpan="24">
-      <nz-card>
-        <h4>服务器信息</h4>
-        <nz-table nzBordered [nzFrontPagination]="false" [nzData]="listOfData" [nzLoading]="loading" [nzTotal]="totals"
-          [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" nzShowPagination="true">
-          <thead>
-            <tr>
-              <th>IP</th>
-              <th>服务器</th>
-              <th>CPU</th>
-              <th>GPU</th>
-              <th>内存</th>
-              <th>在线玩家</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of listOfData;let i=index">
-              <td>{{ data.key }}</td>
-              <td>{{ data.servername }}</td>
-              <td>{{ data.cpu }}</td>
-              <td>{{ data.gpu }}</td>
-              <td>{{ data.ram }}</td>
-              <td>{{ data.player }}</td>
-            </tr>
-          </tbody>
-        </nz-table>
-      </nz-card>
-    </div>
+-->
+<div nz-row>
+  <div nz-col nzSpan="24">
+    <nz-card>
+      <h4>服务器信息</h4>
+      <nz-table nzBordered [nzFrontPagination]="false" [nzData]="listOfData" [nzLoading]="loading" [nzTotal]="totals"
+        [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" nzShowPagination="true">
+        <thead>
+          <tr>
+            <th>IP</th>
+            <th>服务器</th>
+            <th>CPU</th>
+            <th>GPU</th>
+            <th>内存</th>
+            <th>在线玩家</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of listOfData;let i=index">
+            <td>{{ data.key }}</td>
+            <td>{{ data.servername }}</td>
+            <td>{{ data.cpu }}</td>
+            <td>{{ data.gpu }}</td>
+            <td>{{ data.ram }}</td>
+            <td>{{ data.player }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
   </div>
 </div>
+
 
 
 

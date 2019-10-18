@@ -59,6 +59,9 @@ import {
   DesktopOutline,
   CloudServerOutline,
   DatabaseFill,
+  AccountBookOutline,
+  UsergroupAddOutline,
+  AlertOutline
 } from '@ant-design/icons-angular/icons';
 
 export const ICONS_AUTO = [
@@ -116,5 +119,8 @@ export const ICONS_AUTO = [
   HomeOutline,
   DesktopOutline,
   CloudServerOutline,
-  DatabaseFill
+  DatabaseFill,
+  AccountBookOutline,
+  UsergroupAddOutline,
+  AlertOutline
 ];

@@ -22,7 +22,7 @@ export class UserDetailComponent implements OnInit {
     ngOnInit(): void {
         this.userActionList = UserAction();
         this.userActionData = SimpleBar({
-            xDate: this.userActionList.series,
+            xData: this.userActionList.series,
             seriesData: this.reduceArray(this.userActionList.rows[0].values),
             viewTitle: '事件次数'
         });
@@ -31,7 +31,18 @@ export class UserDetailComponent implements OnInit {
 
     changeActionUnit(event) {
         if (event == 'statistic') {
-            this.userActionPie = DoughnutPie();
+            this.userActionPie = DoughnutPie({
+                legendData: ['启动APP', '领取礼包', '查看日常任务', '游戏关卡', '领取奖励', '退出APP'],
+                seriesName: '玩家行为',
+                seriesData: [
+                    { value: 100, name: '启动APP' },
+                    { value: 100, name: '领取礼包' },
+                    { value: 100, name: '查看日常任务' },
+                    { value: 100, name: '游戏关卡' },
+                    { value: 100, name: '领取奖励' },
+                    { value: 100, name: '退出APP' }
+                ]
+            });
         }
     }
 

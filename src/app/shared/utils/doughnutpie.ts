@@ -1,4 +1,7 @@
-export function DoughnutPie(): any {
+export function DoughnutPie(params: any): any {
+    let legendData: any = params.legendData, seriesName: any = params.seriesName, seriesData: any = params.seriesData;
+
+
     return {
         tooltip: {
             trigger: 'item',
@@ -7,41 +10,35 @@ export function DoughnutPie(): any {
         legend: {
             orient: 'vertical',
             x: 'left',
-            data: ['启动APP', '领取礼包', '查看日常任务', '游戏关卡', '领取奖励', '退出APP']
+            data: legendData
         },
         series: [
             {
-                name: '玩家行为',
+                name: seriesName,
                 type: 'pie',
                 radius: ['50%', '70%'],
                 avoidLabelOverlap: false,
                 label: {
                     normal: {
-                        show: false,
-                        position: 'center'
+                        show: true,
+                        // position: 'center'
                     },
                     emphasis: {
                         show: true,
                         textStyle: {
-                            fontSize: '30',
+                            fontSize: '20',
                             fontWeight: 'bold'
                         }
                     }
                 },
                 labelLine: {
                     normal: {
-                        show: false
+                        show: true
                     }
                 },
-                data: [
-                    { value: 100, name: '启动APP' },
-                    { value: 100, name: '领取礼包' },
-                    { value: 100, name: '查看日常任务' },
-                    { value: 100, name: '游戏关卡' },
-                    { value: 100, name: '领取奖励' },
-                    { value: 100, name: '退出APP' }
-                ]
+                data: seriesData
             }
-        ]
+        ],
+        color: ['#36cbcb', '#faad14', '#975fe4', '#f2637b', '#58afff', '#4ecb73', '#fbd437']
     };
 }
