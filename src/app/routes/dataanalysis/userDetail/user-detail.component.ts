@@ -24,7 +24,9 @@ export class UserDetailComponent implements OnInit {
         this.userActionData = SimpleBar({
             xData: this.userActionList.series,
             seriesData: this.reduceArray(this.userActionList.rows[0].values),
-            viewTitle: '事件次数'
+            viewTitle: '事件次数',
+            unit: '次',
+            legend: ['事件次数']
         });
         console.log(this.userActionData)
     }
