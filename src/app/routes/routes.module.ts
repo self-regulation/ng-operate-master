@@ -10,6 +10,7 @@ import { UserLoginComponent } from './passport/login/login.component';
 import { CallbackComponent } from './callback/callback.component';
 import { UserLockComponent } from './passport/lock/lock.component';
 
+
 const COMPONENTS = [
   DashboardComponent,
   // passport pages

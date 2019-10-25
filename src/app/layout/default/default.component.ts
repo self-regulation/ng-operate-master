@@ -19,8 +19,6 @@ import { environment } from '@env/environment';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { SettingDrawerComponent } from './setting-drawer/setting-drawer.component';
-
 @Component({
   selector: 'layout-default',
   templateUrl: './default.component.html',

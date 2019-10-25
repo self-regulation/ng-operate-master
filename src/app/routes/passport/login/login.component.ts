@@ -33,7 +33,7 @@ export class UserLoginComponent implements OnDestroy, OnInit {
     this.form = fb.group({
       username: [null, [Validators.required]],
       password: [null, [Validators.required]],
-      remember: [true],
+      // remember: [true],
       validateCode: [null, [Validators.required]]
     });
     modalSrv.closeAll();

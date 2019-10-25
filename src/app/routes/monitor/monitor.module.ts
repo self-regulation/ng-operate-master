@@ -6,12 +6,18 @@ import { ServiceMonitorComponent } from './serviceMonitor/serviceMonitor.compone
 import { ServiceComponent } from './serviceManager/service.component';
 import { ProcessMonitorComponent } from './processMonitor/processMonitor.component';
 
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+
+
+const THIRDMODULES = [NzBreadCrumbModule, NzBadgeModule];
 
 const COMPONENTS = [ServiceComponent, ServiceMonitorComponent, ProcessMonitorComponent];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({
-    imports: [SharedModule, MonitorModuleRoot],
+    imports: [SharedModule, MonitorModuleRoot, ...THIRDMODULES],
+    exports: [...THIRDMODULES],
     providers: [],
     declarations: [...COMPONENTS, ...COMPONENTS_NOROUNT],
     entryComponents: COMPONENTS_NOROUNT,
