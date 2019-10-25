@@ -61,7 +61,8 @@ import {
   DatabaseFill,
   AccountBookOutline,
   UsergroupAddOutline,
-  AlertOutline
+  AlertOutline,
+  SkinOutline
 } from '@ant-design/icons-angular/icons';
 
 export const ICONS_AUTO = [
@@ -122,5 +123,6 @@ export const ICONS_AUTO = [
   DatabaseFill,
   AccountBookOutline,
   UsergroupAddOutline,
-  AlertOutline
+  AlertOutline,
+  SkinOutline
 ];

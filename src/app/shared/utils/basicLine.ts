@@ -5,9 +5,15 @@ export function basicLine(params: any): any {
         title: {
             text: title,
             subtext: '',
+            textStyle: {
+                color: '#58afff',
+            }
         },
         legend: {
-            data: legend
+            data: legend,
+            textStyle: {
+                color: '#36cbcb'
+            }
         },
         tooltip: {
             trigger: 'axis',
@@ -23,7 +29,12 @@ export function basicLine(params: any): any {
             splitLine: {
                 show: false
             },
-            data: xData
+            data: xData,
+            axisLine: {
+                lineStyle: {
+                    color: '#58afff',
+                }
+            }
         },
         yAxis: {
             type: 'value',
@@ -35,6 +46,11 @@ export function basicLine(params: any): any {
                 show: true,
                 lineStyle: {
                     type: 'dashed'
+                }
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#58afff',
                 }
             }
         },

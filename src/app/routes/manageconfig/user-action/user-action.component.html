@@ -87,6 +87,7 @@
   </nz-table>
 </nz-card>
 
-<nz-modal [(nzVisible)]="showParamVisible" nzTitle="请求参数" (nzOnOk)="handleParamCancel()" [nzCancelText]="null">
+<nz-modal [(nzVisible)]="showParamVisible" nzTitle="请求参数" (nzOnOk)="handleParamCancel()" [nzCancelText]="null"
+  (nzOnCancel)="handleParamCancel()">
   <p>{{gameParam}}</p>
 </nz-modal>

@@ -10,23 +10,23 @@ export class StorageService {
     constructor() {
 
     }
-    private setStorageValue(key: string, value: any) {
+    public setStorageValue(key: string, value: any) {
         localStorage.setItem(key, value);
     }
 
-    private getStorageValue(key: string, defaultValue?: any) {
+    public getStorageValue(key: string, defaultValue?: any) {
         return localStorage.getItem(key) || defaultValue || '';
     }
 
-    private setStorageObject(key: string, object: any) {
+    public setStorageObject(key: string, object: any) {
         localStorage.setItem(key, JSON.stringify(object));
     }
 
-    private getStorageObject(key: string, defaultValue?: any) {
+    public getStorageObject(key: string, defaultValue?: any) {
         return JSON.parse(this.getStorageValue(key) || defaultValue || '{}');
     }
 
-    private clearStorageValue(key: string) {
+    public clearStorageValue(key: string) {
         localStorage.removeItem(key);
     }
 

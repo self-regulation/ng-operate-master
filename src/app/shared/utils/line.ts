@@ -22,9 +22,12 @@ export function Line(param: any): any {
             text: viewTitle + unit + '最新值',
             subtext: '最新值：' + seriesData[seriesData.length - 1] + unit,
             subtextStyle: {
-                color: 'red',
+                color: '#FFAB40',
                 fontSize: 14,
                 fontWeight: '600'
+            },
+            textStyle: {
+                color: '#58afff',
             }
         },
         toolbox: {
@@ -34,19 +37,32 @@ export function Line(param: any): any {
                 },
                 restore: {},
                 saveAsImage: {}
+            },
+            iconStyle: {
+                borderColor: '#58afff'
             }
         },
         xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: xDate
+            data: xDate,
+            axisLine: {
+                lineStyle: {
+                    color: '#58afff',
+                }
+            }
         },
         yAxis: {
             type: 'value',
             axisLabel: {
                 formatter: '{value}' + unit
             },
-            boundaryGap: [0, '100%']
+            boundaryGap: [0, '100%'],
+            axisLine: {
+                lineStyle: {
+                    color: '#58afff',
+                }
+            }
         },
         dataZoom: [{
             type: 'inside',

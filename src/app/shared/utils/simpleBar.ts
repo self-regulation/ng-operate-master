@@ -9,10 +9,16 @@ export function SimpleBar(params: any): any {
         title: {
             text: viewTitle,
             subtext: '',
+            textStyle: {
+                color: '#58afff',
+            }
         },
         color: ['#3398DB'],
         legend: {
-            data: legend
+            data: legend,
+            textStyle: {
+                color: '#03A9F4'
+            }
         },
         tooltip: {
             trigger: 'axis',
@@ -35,6 +41,11 @@ export function SimpleBar(params: any): any {
                 data: xData,
                 axisTick: {
                     alignWithLabel: true
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#3398DB',
+                    }
                 }
             }
         ],
@@ -44,6 +55,11 @@ export function SimpleBar(params: any): any {
                 axisLabel: {
                     formatter: '{value}' + unit
                 },
+                axisLine: {
+                    lineStyle: {
+                        color: '#3398DB',
+                    }
+                }
             }
         ],
         series: [

@@ -10,7 +10,10 @@ export function DoughnutPie(params: any): any {
         legend: {
             orient: 'vertical',
             x: 'left',
-            data: legendData
+            data: legendData,
+            textStyle: {
+                color: '#58afff'
+            }
         },
         series: [
             {

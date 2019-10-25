@@ -5,47 +5,34 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 import { AgentHttpParams } from '@core/net/agent-http-params';
 import { NzMessageService } from 'ng-zorro-antd';
 import { HttpBaseService } from '@core/net/http-base.service';
+import { StorageService } from '@core/storage/storage.service';
 
 @Component({
   selector: 'header-user',
-  template: `
-    <div
-      class="alain-default__nav-item d-flex align-items-center px-sm"
-      nz-dropdown
-      nzPlacement="bottomRight"
-      [nzDropdownMenu]="userMenu"
-    >
-      <nz-avatar [nzSrc]="settings.user.avatar" nzSize="small" class="mr-sm"></nz-avatar>
-      {{ settings.user.name }}
-    </div>
-    <nz-dropdown-menu #userMenu="nzDropdownMenu">
-      <div nz-menu class="width-sm">
-        <div nz-menu-item routerLink="/center/personal">
-          <i nz-icon nzType="user" class="mr-sm"></i>
-          个人中心
-        </div>
-        <li nz-menu-divider></li>
-        <div nz-menu-item (click)="logout()">
-          <i nz-icon nzType="logout" class="mr-sm"></i>
-          退出登录
-        </div>
-      </div>
-    </nz-dropdown-menu>
-  `,
+  templateUrl: './user.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [StorageService]
 })
 // <div nz-menu-item routerLink="/pro/account/settings">
 // <i nz-icon nzType="setting" class="mr-sm"></i>
 // 个人设置
 // </div>
 export class HeaderUserComponent {
+  themeSkin: any = null;
   constructor(
     public settings: SettingsService,
     private router: Router,
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
     private message: NzMessageService,
     private httpBaseService: HttpBaseService,
-  ) { }
+    public storageService: StorageService,
+  ) {
+    this.themeSkin = this.storageService.getStorageValue('customize-theme');
+    if (this.themeSkin) {
+      const body = document.getElementsByTagName('body')[0];
+      body.setAttribute('customize-theme-style', this.themeSkin);
+    }
+  }
 
   logout() {
     const params = new AgentHttpParams();
@@ -60,5 +47,11 @@ export class HeaderUserComponent {
       this.router.navigateByUrl('/passport/login');
     });
     this.httpBaseService.postData(params);
+  }
+
+  changeSkin(skin) {
+    const body = document.getElementsByTagName('body')[0];
+    body.setAttribute('customize-theme-style', skin);
+    this.storageService.setStorageValue('customize-theme', skin);
   }
 }

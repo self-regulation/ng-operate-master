@@ -1,14 +1,30 @@
 // 可以通过 https://ng-alain.github.io/ng-alain/ 获取主题参数代码
 // The theme paraments can be generated at https://ng-alain.github.io/ng-alain/
-@primary-color: #222b45;
+
+// @primary-color: #222b45;
+@primary-color: #212121;
 // @font-size-base: 16px;
 @xs-theme-title-color: #ffffff;
 @xs-theme-logo-color: #20222A;
 @xs-theme-side-font-color: rgba(255, 255, 255, .7);
 
 
-@background-color: #20222A;
+@background-color: #212121;
 @font-color: #b2b2b2;
-@card-color: #2B323A;
+@card-color: #303030;
 @table-border: #1a1819;
 @table-head-color: #20222A;
+@sidebar-selected: #404040;
+
+
+.mixin-bg-color(dark; @color) {
+  background: darken(@color, 100%);
+}
+
+.mixin-bg-color(light; @color) {
+  background: lighten(@color, 100%);
+}
+
+.mixin-bg-color (@_; @color) {
+  background: #212121;
+}

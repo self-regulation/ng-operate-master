@@ -14,7 +14,11 @@ export function DefaultPie(params: any): any {
         legend: {
             orient: 'vertical',
             left: 'left',
-            data: legend
+            data: legend,
+            textStyle: {
+                color: '#58afff'
+            }
+
         },
         series: [
             {

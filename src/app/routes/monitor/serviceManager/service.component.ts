@@ -88,7 +88,7 @@ export class ServiceComponent implements OnInit {
         if (dev == 'CPU') {
             this.serviceServer.queryCpuDatas(params).subscribe((res: any) => {
                 if (res.code == 0) {
-                    if (JSON.stringify(res.data) == '{}' || !res.data) {
+                    if (JSON.stringify(res.data) == '{}' || !res.data || res.data.length <= 0) {
                         this.message.create('warning', '暂无该设备信息数据!');
                         return;
                     }
@@ -104,7 +104,7 @@ export class ServiceComponent implements OnInit {
             this.serviceServer.queryMemoryDatas(params).subscribe((res: any) => {
                 console.log(res);
                 if (res.code == 0) {
-                    if (JSON.stringify(res.data) == '{}' || !res.data) {
+                    if (JSON.stringify(res.data) == '{}' || !res.data || res.data.length <= 0) {
                         this.message.create('warning', '暂无该设备信息数据!');
                         return;
                     }
@@ -121,7 +121,7 @@ export class ServiceComponent implements OnInit {
             this.serviceServer.queryGpuDatas(params).subscribe((res: any) => {
                 console.log(res);
                 if (res.code == 0) {
-                    if (JSON.stringify(res.data) == '{}' || !res.data) {
+                    if (JSON.stringify(res.data) == '{}' || !res.data || res.data.length <= 0) {
                         this.message.create('warning', '暂无该设备信息数据!');
                         return;
                     }
@@ -138,7 +138,7 @@ export class ServiceComponent implements OnInit {
             this.serviceServer.queryDiskDatas(params).subscribe((res: any) => {
                 console.log(res);
                 if (res.code == 0) {
-                    if (JSON.stringify(res.data) == '{}' || !res.data) {
+                    if (JSON.stringify(res.data) == '{}' || !res.data || res.data.length <= 0) {
                         this.message.create('warning', '暂无该设备信息数据!');
                         return;
                     }
