@@ -5,12 +5,14 @@ import { OperationActionComponent } from './operation-action/operation-action.co
 import { ServerlogComponent } from './server-log/server-log.component';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { PictureManageComponent } from './picture-manage/picture-manage.component';
+import { DeviceManageComponent } from './device-manage/device-manage.component';
 
 
 const THIRDMODULES = [NzBreadCrumbModule, NzDatePickerModule];
 
 
-const COMPONENTS = [OperationActionComponent, ServerlogComponent];
+const COMPONENTS = [OperationActionComponent, ServerlogComponent, PictureManageComponent, DeviceManageComponent];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({

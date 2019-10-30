@@ -32,6 +32,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+
 
 
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -60,7 +62,8 @@ const THIRDMODULES = [
   NzSpinModule,
   NzInputModule,
   NzMessageModule,
-  NzButtonModule
+  NzButtonModule,
+  NzPopconfirmModule
 ];
 // #endregion
 

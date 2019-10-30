@@ -76,7 +76,6 @@ export class HttpBaseService {
   postData(params: AgentHttpParams) {
     const headers = this.buildHttpHeader('data');
     const httpParams = this._buildHttpParams(params.data);
-    console.log(params);
     this.httpClient.post(environment.SERVER_URL + params.url, httpParams, { headers: headers })
       .subscribe((res: any) => {
         params.callback && params.callback(res);

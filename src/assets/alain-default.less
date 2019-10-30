@@ -2671,18 +2671,6 @@ darker  @grey-9;
 @table-head-color: #20222A;
 @sidebar-selected: #404040;
 
-.mixin-bg-color(dark; @color) {
-  background: darken(@color, 100%);
-}
-
-.mixin-bg-color(light; @color) {
-  background: lighten(@color, 100%);
-}
-
-.mixin-bg-color (@_; @color) {
-  background: #212121;
-}
-
 .checkbox-label .new-checkbox {
   border: 1px solid #d9d9d9;
   border-radius: 2px;
@@ -11984,7 +11972,7 @@ ul::-webkit-scrollbar-corner {
 [customize-theme-style='dark'] .ant-pagination-jump-next {
   background-color: #ffffff;
 }
-[customize-theme-style='dark'] .anticon:not(.anticon-caret-up):not(.anticon-caret-down) {
+[customize-theme-style='dark'] .anticon:not(.anticon-caret-up):not(.anticon-caret-down):not(.anticon-check-circle):not(.anticon-right):not(.anticon-left) {
   color: #ffffff !important;
 }
 [customize-theme-style='dark'] .ant-pagination-prev .ant-pagination-item-link .anticon,
@@ -26652,7 +26640,7 @@ ul::-webkit-scrollbar-corner {
 [customize-theme-style='dark'] .ant-pagination-jump-next {
   background-color: #ffffff;
 }
-[customize-theme-style='dark'] .anticon:not(.anticon-caret-up):not(.anticon-caret-down) {
+[customize-theme-style='dark'] .anticon:not(.anticon-caret-up):not(.anticon-caret-down):not(.anticon-check-circle):not(.anticon-right):not(.anticon-left) {
   color: #ffffff !important;
 }
 [customize-theme-style='dark'] .ant-pagination-prev .ant-pagination-item-link .anticon,

@@ -123,7 +123,7 @@ export class LoginService {
                             newCurrent.order = 2;
                             break;
                         case "MenuManager": //"菜单管理"
-                            newCurrent['link'] = "/dashboard";
+                            newCurrent['link'] = "/menumanage";
                             newCurrent.order = 3;
                             break;
                         case "LogManager"://操作日志
@@ -195,7 +195,14 @@ export class LoginService {
                             newCurrent['link'] = "/operation/serverlog";
                             newCurrent.order = 2;
                             break;
-
+                        case 'PictureManager': //画质管理
+                            newCurrent['link'] = "/operation/picturemanage";
+                            newCurrent.order = 3;
+                            break;
+                        case 'DeviceManager': //设备管理
+                            newCurrent['link'] = "/operation/devicemanage";
+                            newCurrent.order = 4;
+                            break;
 
 
                     }
@@ -208,10 +215,11 @@ export class LoginService {
                         // 让当前子节点作为唯一的父节点，去递归查找其对应的子节点
                         translator([newCurrent], temp)
                         // 把找到子节点放入父节点的children属性中
-                        if (newCurrent.menukey != 'MenuManager') {
-                            typeof parent.children !== 'undefined' ? parent.children.push(newCurrent) :
-                                parent.children = [newCurrent]
-                        }
+                        typeof parent.children !== 'undefined' ? parent.children.push(newCurrent) : parent.children = [newCurrent];
+                        // if (newCurrent.menukey != 'MenuManager') {
+                        //     typeof parent.children !== 'undefined' ? parent.children.push(newCurrent) :
+                        //         parent.children = [newCurrent]
+                        // }
                     }
                 });
             });

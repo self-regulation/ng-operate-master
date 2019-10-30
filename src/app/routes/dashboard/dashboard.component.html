@@ -23,7 +23,7 @@
                 nzTheme="outline"></i></span>
           </div>
           <div nz-col [nzSpan]="24" class="mt-15">
-            <span>总玩家数：</span><span style="" class="color-blue statistic-allnum">888888
+            <span>总玩家数：</span><span class="color-blue statistic-allnum">888888
               人</span>
           </div>
         </div>
@@ -164,7 +164,6 @@
       </div>
       <nz-spin nzSimple [nzSize]="'large'" *ngIf="false" class="text-center"></nz-spin>
       <div echarts [options]="activeUserTrend" style="height: 400px"></div>
-      <!-- <div echarts [options]="lineOption" style="height: 400px" class="demo-chart"></div> -->
     </nz-card>
   </div>
 
@@ -206,9 +205,6 @@
       <div echarts [options]="averageTimeData" style="height: 400px"></div>
     </nz-card>
   </div>
-
-
-
 </div>
 
 <div nz-row nzGutter="15">

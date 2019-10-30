@@ -71,7 +71,6 @@ export class DashboardComponent implements OnInit {
     //   unit: '人',
     //   legend: ['玩家人数']
     // });
-
     this.activeUserTrend = basicLine({
       title: '活跃玩家趋势',
       xData: (ActiveUserData()).xData,

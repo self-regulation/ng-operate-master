@@ -313,7 +313,7 @@ export class ServiceMonitorComponent implements OnInit {
             data.forEach((item: any) => {
                 xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
                 seriesData.push((((item.mtotal - item.mfree) / item.mtotal) / 100).toFixed(2));
-                remainData.push(((item.mtotal - item.mfree) / 1024).toFixed(2));
+                remainData.push((item.mfree / 1024).toFixed(2));
             });
             this.devDetailRatio = Line({ xDate: xDate, seriesData: seriesData, viewTitle: '内存使用率', unit: '(%)', des: '使用率' });
             this.devDetailData = Line({ xDate: xDate, seriesData: remainData, viewTitle: '内存可用空间大小', unit: '(G)', des: '可用空间' });
