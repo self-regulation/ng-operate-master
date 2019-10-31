@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DeviceManageServer } from './device-manage.server';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
+import { positiveValidator } from '@shared';
 
 @Component({
     selector: 'device-manage',
@@ -22,6 +23,7 @@ export class DeviceManageComponent implements OnInit {
     modalTitle: string = '新增设备';
     deviceData: any = null; //需修改的游戏画质数据
     isAddDevice: boolean = true; //true:新增设备   false:修改设备
+    selectStatus: string = '';
     constructor(private deviceManageServer: DeviceManageServer, private message: NzMessageService, public fb: FormBuilder) {
         this.deviceForm = this.fb.group({
             gameId: [null],
@@ -31,10 +33,10 @@ export class DeviceManageComponent implements OnInit {
 
     ngOnInit(): void {
         this.addDeviceForm = this.fb.group({
-            gameId: [null, [Validators.required]],
+            gameId: [null, [Validators.required, positiveValidator]],
             deviceType: [null, [Validators.required]],
             deviceModel: [null],
-            resource: [null, [Validators.required]],
+            resource: [null, [Validators.required, positiveValidator]],
             status: [null, [Validators.required]],
         });
         this.getDeviceList();
@@ -76,10 +78,10 @@ export class DeviceManageComponent implements OnInit {
 
     addDevice() {
         this.addDeviceForm = this.fb.group({
-            gameId: [null, [Validators.required]],
+            gameId: [null, [Validators.required, positiveValidator]],
             deviceType: [null, [Validators.required]],
             deviceModel: [null],
-            resource: [null, [Validators.required]],
+            resource: [null, [Validators.required, positiveValidator]],
             status: [null, [Validators.required]],
         });
         this.addDeviceVisible = true;
@@ -93,17 +95,18 @@ export class DeviceManageComponent implements OnInit {
         this.addDeviceVisible = true;
         console.log(device);
         this.addDeviceForm = this.fb.group({
-            gameId: [device.gameId, [Validators.required]],
+            gameId: [device.gameId, [Validators.required, positiveValidator]],
             deviceType: [device.deviceType, [Validators.required]],
             deviceModel: [device.deviceModel],
-            resource: [device.resource, [Validators.required]],
+            resource: [device.resource, [Validators.required, positiveValidator]],
             status: [device.status, [Validators.required]],
         });
-
+        this.selectStatus = device.status + '';
     }
     addDeviceCancel() {
         this.addDeviceVisible = false;
         this.deviceData = null;
+        this.selectStatus = '';
     }
 
     addDeviceOk() {

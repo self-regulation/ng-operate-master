@@ -67,6 +67,24 @@
   color: #faad14 !important;
 }
 
+//全局样式
+.validator-error {
+  color: red;
+}
+
+//输入框
+/* 谷歌 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+/* 火狐 */
+input {
+  -moz-appearance: textfield;
+}
 
 //表格样式
 .th-width-100 {
@@ -153,6 +171,11 @@ ul::-webkit-scrollbar-corner {
   background: #212121;
 }
 
+//日历
+.ant-calendar-picker {
+  width: auto !important;
+
+}
 
 
 // 暗黑主题
@@ -485,11 +508,8 @@ ul::-webkit-scrollbar-corner {
   //svg图标
   .anticon:not(.anticon-caret-up):not(.anticon-caret-down):not(.anticon-check-circle):not(.anticon-right):not(.anticon-left) {
     color: #ffffff !important;
+    // background-color: #404040;
   }
-
-  // .anticon:not(.anticon-caret-down) {
-  //   color: #ffffff !important;
-  // }
 
   .ant-pagination-prev .ant-pagination-item-link,
   .ant-pagination-next .ant-pagination-item-link {
@@ -622,7 +642,7 @@ ul::-webkit-scrollbar-corner {
     color: #ffffff !important;
   }
 
-  .ant-form-item-control span {
+  .ant-form-item-control span:not(.validator-error) {
     color: #ffffff !important;
   }
 }

@@ -1,27 +1,17 @@
 <page-header [title]="'角色管理'"></page-header>
 
 <nz-card>
-  <form nz-form [nzLayout]="'inline'" class="search__form" [formGroup]="searchForm">
-    <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
-      <div nz-col nzMd="8" nzSm="12">
-        <nz-form-item>
-          <nz-form-label nzFor="status">角色筛选</nz-form-label>
-          <nz-form-control>
-            <nz-select formControlName="allRole" nzAllowClear nzPlaceHolder="请选择">
-              <nz-option *ngFor="let opt of allRoleList" [nzValue]="opt.name" [nzLabel]="opt.name"></nz-option>
-            </nz-select>
-          </nz-form-control>
-
-          <!-- <nz-form-control>
-            <nz-select [(ngModel)]="q.status" name="status" id="status" [nzPlaceHolder]="'请选择'" [nzShowSearch]="true">
-              <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option>
-            </nz-select>
-          </nz-form-control> -->
-        </nz-form-item>
-      </div>
-      <div nz-col nzMd="8" nzSm="12">
-        <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading" (click)="searchRole()">查询</button>
-      </div>
+  <form nz-form [formGroup]="searchForm">
+    <nz-form-item>
+      <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="status">角色筛选</nz-form-label>
+      <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+        <nz-select formControlName="allRole" nzAllowClear nzPlaceHolder="请选择">
+          <nz-option *ngFor="let opt of allRoleList" [nzValue]="opt.name" [nzLabel]="opt.name"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <div nz-col [nzSpan]="24" class="text-right mb-15">
+      <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading" (click)="searchRole()">查询</button>
     </div>
 
   </form>

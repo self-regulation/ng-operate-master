@@ -1,25 +1,21 @@
 <page-header [title]="'用户管理'"></page-header>
 
 <nz-card>
-  <form nz-form [nzLayout]="'inline'" class="search__form" [formGroup]="searchForm">
-    <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
-      <div nz-col nzMd="16" nzSm="24">
-        <nz-form-item>
-          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name">姓名</nz-form-label>
-          <nz-form-control [nzSm]="14" [nzXs]="24">
-            <input nz-input formControlName="name" />
-          </nz-form-control>
+  <form nz-form [formGroup]="searchForm">
+    <nz-form-item>
+      <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="name">姓名</nz-form-label>
+      <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+        <input nz-input formControlName="name" />
+      </nz-form-control>
 
-          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="loginName" class="ml-15">登录名</nz-form-label>
-          <nz-form-control [nzSm]="14" [nzXs]="24">
-            <input nz-input formControlName="loginName" />
-          </nz-form-control>
-        </nz-form-item>
+      <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="loginName">登录名</nz-form-label>
+      <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+        <input nz-input formControlName="loginName" />
+      </nz-form-control>
+    </nz-form-item>
 
-      </div>
-      <div nz-col nzMd="8" nzSm="24">
-        <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading" (click)="searchUser()">查询</button>
-      </div>
+    <div nz-col [nzSpan]="24" class="text-right mb-15">
+      <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading" (click)="searchUser()">查询</button>
     </div>
 
   </form>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PictureManageServer } from './picture-manage.server';
 import { NzMessageService } from 'ng-zorro-antd';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { positiveValidator } from '@shared';
 
 @Component({
     selector: 'picture-manage',
@@ -22,6 +23,8 @@ export class PictureManageComponent implements OnInit {
     modalTitle: string = '新增游戏画质';
     pictureData: any = null; //需修改的游戏画质数据
     isAddPicture: boolean = true; //true:新增画质   false:修改画质
+    pictureTypes: string = '';//画质类型
+    allPictureTypes: any = { '1': '最简', '2': '简约', '3': '均衡', '4': '唯美', '5': '高效', '6': '电影', '7': '极致' };
     constructor(public pictureManageServer: PictureManageServer, public message: NzMessageService, public fb: FormBuilder) {
         this.pictureForm = this.fb.group({
             gameId: [null],
@@ -31,13 +34,12 @@ export class PictureManageComponent implements OnInit {
 
     ngOnInit(): void {
         this.addPictureForm = this.fb.group({
-            gameId: [null, [Validators.required]],
+            gameId: [null, [Validators.required, positiveValidator]],
             pictureType: [null, [Validators.required]],
-            pictureDesc: [null, [Validators.required]],
-            needGpu: [null, [Validators.required]],
-            needCpu: [null, [Validators.required]],
-            needMemory: [null, [Validators.required]],
-            needSources: [null, [Validators.required]],
+            needGpu: [null, [Validators.required, positiveValidator]],
+            needCpu: [null, [Validators.required, positiveValidator]],
+            needMemory: [null, [Validators.required, positiveValidator]],
+            needSources: [null, [Validators.required, positiveValidator]],
         });
         this.getPictureList();
     }
@@ -94,15 +96,15 @@ export class PictureManageComponent implements OnInit {
 
     addPicture() {
         this.addPictureForm = this.fb.group({
-            gameId: [null, [Validators.required]],
+            gameId: [null, [Validators.required, positiveValidator]],
             pictureType: [null, [Validators.required]],
-            pictureDesc: [null, [Validators.required]],
-            needGpu: [null, [Validators.required]],
-            needCpu: [null, [Validators.required]],
-            needMemory: [null, [Validators.required]],
-            needSources: [null, [Validators.required]],
+            needGpu: [null, [Validators.required, positiveValidator]],
+            needCpu: [null, [Validators.required, positiveValidator]],
+            needMemory: [null, [Validators.required, positiveValidator]],
+            needSources: [null, [Validators.required, positiveValidator]],
         });
         this.addPictureVisible = true;
+        this.isAddPicture = true;
     }
     //新增游戏画质
     addPictureOk() {
@@ -150,20 +152,26 @@ export class PictureManageComponent implements OnInit {
         this.modalTitle = '修改游戏画质';
         this.isAddPicture = false;
         this.addPictureVisible = true;
+        console.log(this.pictureTypes);
         this.addPictureForm = this.fb.group({
-            gameId: [picture.gameId, [Validators.required]],
+            gameId: [picture.gameId, [Validators.required, positiveValidator]],
             pictureType: [picture.pictureType, [Validators.required]],
-            pictureDesc: [picture.pictureDesc, [Validators.required]],
-            needGpu: [picture.needGpu, [Validators.required]],
-            needCpu: [picture.needCpu, [Validators.required]],
-            needMemory: [picture.needMemory, [Validators.required]],
-            needSources: [picture.needSources, [Validators.required]],
+            needGpu: [picture.needGpu, [Validators.required, positiveValidator]],
+            needCpu: [picture.needCpu, [Validators.required, positiveValidator]],
+            needMemory: [picture.needMemory, [Validators.required, positiveValidator]],
+            needSources: [picture.needSources, [Validators.required, positiveValidator]],
         });
+        this.pictureTypes = picture.pictureType + '';
 
     }
 
     addPictureCancel() {
         this.addPictureVisible = false;
         this.pictureData = null;
+        this.pictureTypes = '';
+    }
+
+    formatePictureType(type) {
+        return this.allPictureTypes[type];
     }
 }

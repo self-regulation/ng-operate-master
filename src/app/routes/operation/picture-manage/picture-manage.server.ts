@@ -83,9 +83,6 @@ export class PictureManageServer {
                 needSources: param.needSources,
                 id: param.id
             };
-            if (param.pictureDesc) {
-                params.data["pictureDesc"] = param.pictureDesc;
-            }
             params.callback = ((response: any) => {
                 observer.next(response);
                 observer.complete();

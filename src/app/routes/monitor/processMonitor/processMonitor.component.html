@@ -3,19 +3,17 @@
 <nz-card>
   <form nz-form [formGroup]="processForm">
     <div nz-row>
-      <div nz-col nzMd="16" nzSm="24">
-        <nz-form-item>
-          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}" nzFor="serverName">服务器名称</nz-form-label>
-          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
-            <input nz-input formControlName="serverName" placeholder="请输入服务器名称" />
-          </nz-form-control>
+      <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="serverName">服务器名称</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="serverName" placeholder="请输入服务器名称" />
+        </nz-form-control>
 
-          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}" nzFor="userName">用户名</nz-form-label>
-          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
-            <input nz-input formControlName="userName" placeholder="请输入用户名" />
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="userName">用户名</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="userName" placeholder="请输入用户名" />
+        </nz-form-control>
+      </nz-form-item>
 
       <div nz-col [nzSpan]="24" class="text-right mb-15">
         <button nz-button type="submit" [nzType]="'primary'" (click)="inquireProcess()">查询</button>

@@ -4,18 +4,20 @@
 <nz-card>
   <form nz-form [formGroup]="deviceForm">
     <div nz-row>
-      <div nz-col nzMd="16" nzSm="24">
-        <nz-form-item>
-          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}" nzFor="gameId">游戏ID</nz-form-label>
-          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
-            <input nz-input formControlName="gameId" />
-          </nz-form-control>
-          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}" nzFor="deviceType">设备类型</nz-form-label>
-          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
-            <input nz-input formControlName="deviceType" />
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+      <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="gameId">游戏ID</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="gameId" />
+        </nz-form-control>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="deviceType">设备类型</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-select formControlName="deviceType" nzPlaceHolder="请选择">
+            <nz-option nzValue="" nzLabel="请选择"></nz-option>
+            <nz-option nzValue="gpu" nzLabel="gpu"></nz-option>
+            <nz-option nzValue="cpu" nzLabel="cpu"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
 
       <div nz-col [nzSpan]="24" class="text-right mb-15">
         <button nz-button type="submit" [nzType]="'primary'" (click)="searchData()">查询</button>
@@ -78,14 +80,21 @@
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>游戏id</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input formControlName="gameId" placeholder="请输入" />
+        <input nz-input formControlName="gameId" placeholder="请输入" type="number" />
+        <ng-container *ngIf="addDeviceForm.get('gameId')?.hasError('positive')">
+          <span class="validator-error">游戏id只能是正整数</span>
+        </ng-container>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>设备类型</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input formControlName="deviceType" placeholder="请输入" />
+        <nz-select formControlName="deviceType" nzPlaceHolder="请选择">
+          <nz-option nzValue="" nzLabel="请选择"></nz-option>
+          <nz-option nzValue="gpu" nzLabel="gpu"></nz-option>
+          <nz-option nzValue="cpu" nzLabel="cpu"></nz-option>
+        </nz-select>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -97,13 +106,16 @@
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>对应的资源数</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input formControlName="resource" placeholder="请输入" />
+        <input nz-input formControlName="resource" placeholder="请输入" type="number" />
+        <ng-container *ngIf="addDeviceForm.get('resource')?.hasError('positive')">
+          <span class="validator-error">对应的资源数只能是正整数</span>
+        </ng-container>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>状态</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <nz-select formControlName="status" nzPlaceHolder="请选择">
+        <nz-select formControlName="status" nzPlaceHolder="请选择" [(ngModel)]="selectStatus">
           <nz-option nzValue="1" nzLabel="待确认"></nz-option>
           <nz-option nzValue="0" nzLabel="已确认"></nz-option>
         </nz-select>

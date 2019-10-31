@@ -5,22 +5,20 @@
 
   <form nz-form [formGroup]="serverForm">
     <div nz-row>
-      <div nz-col nzMd="16" nzSm="24">
-        <nz-form-item>
-          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}" nzFor="serverName">服务器名称</nz-form-label>
-          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
-            <input nz-input formControlName="serverName" />
-          </nz-form-control>
+      <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="serverName">服务器名称</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="serverName" />
+        </nz-form-control>
 
-          <nz-form-label [nzXs]="{span:4}" [nzSm]="{span:2}">连接状态</nz-form-label>
-          <nz-form-control [nzXs]="{span:20}" [nzSm]="{span:6}">
-            <nz-select formControlName="status" nzPlaceHolder="请选择">
-              <nz-option nzValue="1" nzLabel="连接"></nz-option>
-              <nz-option nzValue="0" nzLabel="断开"></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2">连接状态</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-select formControlName="status" nzPlaceHolder="请选择">
+            <nz-option nzValue="1" nzLabel="连接"></nz-option>
+            <nz-option nzValue="0" nzLabel="断开"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
 
       <div nz-col [nzSpan]="24" class="text-right mb-15">
         <button nz-button type="submit" [nzType]="'primary'" (click)="inquireServer()">查询</button>

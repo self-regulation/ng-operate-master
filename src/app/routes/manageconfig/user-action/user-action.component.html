@@ -4,33 +4,40 @@
 <nz-card>
   <form nz-form [formGroup]="operatForm">
     <nz-form-item>
-      <nz-form-label [nzSpan]="2" nzFor="userName">用户</nz-form-label>
-      <nz-form-control [nzSpan]="6">
+      <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="userName">用户</nz-form-label>
+      <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
         <input nz-input formControlName="userName" />
       </nz-form-control>
 
-      <nz-form-label [nzSpan]="2" nzFor="serverName">服务器</nz-form-label>
-      <nz-form-control [nzSpan]="6">
+      <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="serverName">服务器</nz-form-label>
+      <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
         <input nz-input formControlName="serverName" />
       </nz-form-control>
 
-      <nz-form-label [nzSpan]="2" nzFor="online">是否在线</nz-form-label>
-      <nz-form-control [nzSpan]="6">
+      <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="online">是否在线</nz-form-label>
+      <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
         <nz-select formControlName="online" nzAllowClear nzPlaceHolder="请选择">
           <nz-option nzLabel="在线" nzValue="1"></nz-option>
           <nz-option nzLabel="不在线" nzValue="0"></nz-option>
         </nz-select>
       </nz-form-control>
+
+      <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="online">时间</nz-form-label>
+      <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+        <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" formControlName="dateRange"
+          [nzPlaceHolder]="['开始时间', '结束时间']" (nzOnOk)="onOk($event)" ngModel (ngModelChange)="clear($event)">
+        </nz-range-picker>
+      </nz-form-control>
     </nz-form-item>
 
-    <nz-form-item>
+    <!-- <nz-form-item>
       <nz-form-label [nzSpan]="2" nzFor="online">时间</nz-form-label>
       <nz-form-control [nzSpan]="6">
         <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" formControlName="dateRange"
           [nzPlaceHolder]="['开始时间', '结束时间']" (nzOnOk)="onOk($event)" ngModel (ngModelChange)="clear($event)">
         </nz-range-picker>
       </nz-form-control>
-    </nz-form-item>
+    </nz-form-item> -->
 
 
     <nz-form-item>
