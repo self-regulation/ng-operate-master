@@ -4,7 +4,8 @@
 <nz-card>
   <form nz-form [formGroup]="operatForm">
     <nz-form-item>
-      <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="userName">用户</nz-form-label>
+      <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="userName">用户
+      </nz-form-label>
       <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
         <input nz-input formControlName="userName" />
       </nz-form-control>
@@ -75,16 +76,16 @@
       <tr *ngFor="let data of listOfData;let i=index">
         <td nzWidth="100px" nzLeft="0px">{{ data.id }}</td>
         <td>{{ data?.taskId }}</td>
-        <td>{{ data?.user }}</td>
+        <td nz-tooltip [nzTitle]="data?.user">{{ data?.user }}</td>
         <td>{{ data?.gameId }}</td>
         <td>{{ formatOnline(data.online) }}</td>
         <td>{{ formatTaskStatus(data.status) }}</td>
         <td>{{ data.userServer }}</td>
         <td>{{ data.controlServer }}</td>
-        <td [title]="data.gameServer">{{ data.gameServer }}</td>
+        <td nz-tooltip [nzTitle]="data.gameServer">{{ data.gameServer }}</td>
         <td>{{ formatPicture(data.pictureQuality) }}</td>
         <td><a (click)="showParamDetail(data.param)">详情</a></td>
-        <td [title]="data.connectInfo">{{ data.connectInfo }}</td>
+        <td nz-tooltip [nzTitle]="data.connectInfo">{{ data.connectInfo }}</td>
         <td>{{ data.errorData }}</td>
         <td>{{ data.startTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
         <td>{{ data.endTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>

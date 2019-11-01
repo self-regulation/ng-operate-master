@@ -81,7 +81,7 @@
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>游戏id</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
         <input nz-input formControlName="gameId" placeholder="请输入" type="number" />
-        <ng-container *ngIf="addDeviceForm.get('gameId')?.hasError('positive')">
+        <ng-container *ngIf="addDeviceForm.get('gameId')?.hasError('positiveValidator')">
           <span class="validator-error">游戏id只能是正整数</span>
         </ng-container>
       </nz-form-control>

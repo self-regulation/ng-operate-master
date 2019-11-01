@@ -41,9 +41,9 @@
       <tr *ngFor="let log of logList;let i=index">
         <td>{{ log.userName }}</td>
         <td>{{ log.gameId }}</td>
-        <td [title]="log.gameLog">{{ log.gameLog?log.gameLog:'--' }}</td>
+        <td nz-tooltip [nzTitle]="log.gameLog">{{ log.gameLog?log.gameLog:'--' }}</td>
         <td>{{ log.pid }}</td>
-        <td [title]="log.streamLog">{{ log.streamLog?log.streamLog:'--' }}</td>
+        <td nz-tooltip [nzTitle]="log.streamLog">{{ log.streamLog?log.streamLog:'--' }}</td>
         <td>{{ log.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
         <td>
           <ng-container *ngIf="log.gameLog || log.streamLog">

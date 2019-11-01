@@ -9,6 +9,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class UserListComponent implements OnInit {
     userListForm: FormGroup;
     userInfoList: any = [];
+    startDate: any;
+    endDate: any;
     constructor(private fb: FormBuilder) {
 
     }
@@ -18,5 +20,10 @@ export class UserListComponent implements OnInit {
             userName: [null],
         });
         this.userInfoList = (UserInfo()).users;
+        this.getUserRetentionList();
+    }
+
+    getUserRetentionList() {
+
     }
 }

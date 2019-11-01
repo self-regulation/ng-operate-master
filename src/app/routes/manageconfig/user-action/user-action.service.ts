@@ -9,7 +9,6 @@ export class UserActionService {
 
 
     }
-    // admin/gametask/list?userName=159926&serverName=208&online=0&startTime=2019-08-01 11:11:11&endTime=2019-08-02
     getGameTask(game: any) {
         return new Observable((observer) => {
             const params = new AgentHttpParams();

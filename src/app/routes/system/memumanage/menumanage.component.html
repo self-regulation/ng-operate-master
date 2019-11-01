@@ -1,2 +1,92 @@
 <page-header [title]="'菜单管理'">
 </page-header>
+
+<nz-card>
+  <!-- <form nz-form [formGroup]="pictureForm">
+          <div nz-row>
+            <nz-form-item>
+              <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="gameId">游戏ID
+              </nz-form-label>
+              <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+                <input nz-input formControlName="gameId" />
+              </nz-form-control>
+              <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="pictureType">画质类型
+              </nz-form-label>
+              <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+                <nz-select formControlName="pictureType" nzPlaceHolder="请选择">
+                  <nz-option nzValue="" nzLabel="请选择"></nz-option>
+                  <nz-option nzValue="1" nzLabel="最简"></nz-option>
+                  <nz-option nzValue="2" nzLabel="简约"></nz-option>
+                  <nz-option nzValue="3" nzLabel="均衡"></nz-option>
+                  <nz-option nzValue="4" nzLabel="唯美"></nz-option>
+                  <nz-option nzValue="5" nzLabel="高效"></nz-option>
+                  <nz-option nzValue="6" nzLabel="电影"></nz-option>
+                  <nz-option nzValue="7" nzLabel="极致"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+      
+            <div nz-col [nzSpan]="24" class="text-right mb-15">
+              <button nz-button type="submit" [nzType]="'primary'" (click)="searchData()">查询</button>
+            </div>
+          </div>
+      
+        </form>
+        <button nz-button (click)="addPicture()" [nzType]="'primary'">
+          <i nz-icon nzType="plus"></i>
+          <span>新增游戏画质</span>
+        </button>
+        <nz-divider nzDashed></nz-divider> -->
+  <!-- <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="pictureList"
+    [nzFrontPagination]="false" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>游戏ID</th>
+        <th>画质类型</th>
+        <th>GPU资源数
+          <nz-tooltip nzTitle="游戏需要的GPU资源数">
+            <i nz-tooltip nz-icon nzType="info-circle"></i>
+          </nz-tooltip>
+        </th>
+        <th>CPU资源数
+          <nz-tooltip nzTitle="游戏需要的CPU资源数">
+            <i nz-tooltip nz-icon nzType="info-circle"></i>
+          </nz-tooltip>
+        </th>
+        <th>内存资源数
+          <nz-tooltip nzTitle="游戏需要的内存资源数">
+            <i nz-tooltip nz-icon nzType="info-circle"></i>
+          </nz-tooltip>
+        </th>
+        <th>消耗点卡数
+          <nz-tooltip nzTitle="单位时间消耗的点卡数（点/秒）">
+            <i nz-tooltip nz-icon nzType="info-circle"></i>
+          </nz-tooltip>
+        </th>
+        <th>更新时间</th>
+        <th nzRight="0px">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let picture of pictureList;let i=index">
+        <td>{{ picture.id }}</td>
+        <td>{{ picture.gameId }}</td>
+        <td>{{ formatePictureType(picture.pictureType) }}</td>
+        <td>{{ picture.needGpu }}</td>
+        <td>{{ picture.needCpu }}</td>
+        <td>{{ picture.needMemory }}</td>
+        <td>{{ picture.needSources }}</td>
+        <td>{{ picture.updateTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td nzRight="0px">
+          <a (click)="updatePicture(picture)">修改</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a nz-popconfirm (nzOnConfirm)="deletePicture(picture.id)" nzPopconfirmPlacement="top"
+            nzTitle="确认删除该条数据?">删除</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table> -->
+</nz-card>

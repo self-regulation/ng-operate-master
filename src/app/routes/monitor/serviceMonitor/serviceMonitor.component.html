@@ -43,7 +43,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let server of serverList;let i=index">
-        <td nzLeft="0px">{{ server.serverName }}</td>
+        <td nzLeft="0px" nz-tooltip [nzTitle]="server.serverName">{{ server.serverName }}</td>
         <td>
           {{server.regionId}}
         </td>

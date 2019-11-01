@@ -1,23 +1,26 @@
 import { Injectable } from '@angular/core';
-import { HttpBaseService } from '@core/net/http-base.service';
 import { Observable } from 'rxjs';
 import { AgentHttpParams } from '@core/net/agent-http-params';
+import { HttpBaseService } from '@core/net/http-base.service';
 
 @Injectable()
-export class MenuManageServer {
+export class UserRetainServer {
     constructor(private httpBaseService: HttpBaseService) {
 
     }
-
-    //获取菜单列表
-    getMenuList() {
+    //获取用户留存情况
+    getUserRetentionList(param: any) {
         return new Observable((observer) => {
             const params = new AgentHttpParams();
-            params.url = '/admin/sys/menu/list';
+            params.url = '/admin/gameTask/userRetention';
             params.data = {
-                // pageNum: param.pageIndex,
-                // pageSize: param.pageSize
+                startDate: param.startDate,
+                endDate: param.endDate,
+                stayDays: param.stayDays
             };
+            if (param.gameId) {
+                params.data['gameId'] = param.gameId;
+            }
             params.callback = ((response: any) => {
                 observer.next(response);
                 observer.complete();

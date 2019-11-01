@@ -470,6 +470,7 @@ ul::-webkit-scrollbar-corner {
   .ant-calendar-picker-clear,
   .ant-calendar-picker-icon {
     color: #ffffff !important;
+    background-color: #404040;
   }
 
   .ant-calendar-range-picker-separator {
@@ -505,10 +506,22 @@ ul::-webkit-scrollbar-corner {
     background-color: #ffffff;
   }
 
-  //svg图标
-  .anticon:not(.anticon-caret-up):not(.anticon-caret-down):not(.anticon-check-circle):not(.anticon-right):not(.anticon-left) {
-    color: #ffffff !important;
-    // background-color: #404040;
+  //svg图标 anticon-close-circle
+  .anticon:not(.anticon-caret-up):not(.anticon-caret-down):not(.anticon-check-circle):not(.anticon-right):not(.anticon-left):not(.anticon-filter) {
+    color: #ffffff;
+  }
+
+  .ant-table-thead>tr>th .ant-table-filter-selected.anticon-filter {
+    color: #ffffff;
+  }
+
+  .anticon-close-circle {
+    background-color: #404040;
+    vertical-align: 0;
+  }
+
+  .ant-table-thead>tr>th .ant-table-filter-selected.anticon-filter :hover {
+    color: #212121 !important;
   }
 
   .ant-pagination-prev .ant-pagination-item-link,

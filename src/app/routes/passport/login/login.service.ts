@@ -123,7 +123,7 @@ export class LoginService {
                             newCurrent.order = 2;
                             break;
                         case "MenuManager": //"菜单管理"
-                            newCurrent['link'] = "/menumanage";
+                            newCurrent['link'] = "/system/menumanage";
                             newCurrent.order = 3;
                             break;
                         case "LogManager"://操作日志
