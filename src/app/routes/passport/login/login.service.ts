@@ -30,44 +30,15 @@ export class LoginService {
     translateDataToTree(data) {
         // 没有父节点的数据
         let parents = data.filter(value => value.parentId == 0);
+        console.log("parents@@@@@@@@@@@@@@@:");
+        console.log(parents);
         parents[0].group = true;
         parents[0].hideInBreadcrumb = true;
         // parents["group"] = true;
         // parents["hideInBreadcrumb"] = true;
         // 有父节点的数据
         let children = data.filter(value => value.parentId !== 'undefined' && value.parentId != null || value.parentId != '');
-        children.push(
-            // {
-            //     "createDate": "2019-08-28 08:10:27",
-            //     "icon": null,
-            //     "id": 22,
-            //     "isShow": "1",
-            //     "menukey": "DataAnalysis",
-            //     "name": "数据分析",
-            //     "parentId": 1,
-            //     "parentIds": "0,1,",
-            //     "permission": null,
-            //     "remarks": "",
-            //     "sort": 3,
-            //     "updateDate": "2019-08-28 08:10:27",
-            //     "userId": null
-            // },
-            {
-                "createDate": "2019-08-28 08:10:27",
-                "icon": null,
-                "id": 22,
-                "isShow": "1",
-                "menukey": "UserRetain",
-                "name": "用户留存",
-                "parentId": 15,
-                "parentIds": "0,1,15",
-                "permission": null,
-                "remarks": "",
-                "sort": 2,
-                "updateDate": "2019-08-28 08:10:27",
-                "userId": null
-            }
-        );
+
         // 定义转换方法的具体实现
         let translator = (parents, children) => {
             // 遍历父节点数据
@@ -94,20 +65,20 @@ export class LoginService {
                             newCurrent['link'] = "/dashboard";
                             newCurrent.order = 1;
                             break;
-                        case "UserRetain": //"用户留存"
+                        case "userRetention": //"用户留存"
                             newCurrent['link'] = "/analysis/userRetain";
                             newCurrent.order = 2;
                             break;
 
-                        case "DataAnalysis":    //数据分析
-                            newCurrent.icon = "anticon-home";
-                            newCurrent.order = 1;
-                            break;
-                        //数据分析---子项
-                        case "UserRetain": //"用户留存"
-                            newCurrent['link'] = "/dashboard";
-                            newCurrent.order = 1;
-                            break;
+                        // case "DataAnalysis":    //数据分析
+                        //     newCurrent.icon = "anticon-home";
+                        //     newCurrent.order = 1;
+                        //     break;
+                        // //数据分析---子项
+                        // case "UserRetain": //"用户留存"
+                        //     newCurrent['link'] = "/dashboard";
+                        //     newCurrent.order = 1;
+                        //     break;
 
                         case "System":  //系统管理
                             newCurrent.icon = "anticon-setting";
@@ -216,10 +187,6 @@ export class LoginService {
                         translator([newCurrent], temp)
                         // 把找到子节点放入父节点的children属性中
                         typeof parent.children !== 'undefined' ? parent.children.push(newCurrent) : parent.children = [newCurrent];
-                        // if (newCurrent.menukey != 'MenuManager') {
-                        //     typeof parent.children !== 'undefined' ? parent.children.push(newCurrent) :
-                        //         parent.children = [newCurrent]
-                        // }
                     }
                 });
             });
@@ -235,14 +202,15 @@ export class LoginService {
     sortMenu(menuData) {
         if (menuData.children) {
             menuData.children.sort((a, b) => a.order - b.order);
+            menuData.children.forEach((menu: any) => {
+                if (!menu.children || menu.children.length < 0) {
+                    return;
+                } else {
+                    this.sortMenu(menu);
+                }
+            });
         }
-        menuData.children.forEach((menu: any) => {
-            if (!menu.children || menu.children.length < 0) {
-                return;
-            } else {
-                this.sortMenu(menu);
-            }
-        });
+
     }
 
 }

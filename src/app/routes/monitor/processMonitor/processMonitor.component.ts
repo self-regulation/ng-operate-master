@@ -182,7 +182,7 @@ export class ProcessMonitorComponent implements OnInit {
                     for (let process in res.data) {
                         if (process == this.userName) {
                             xDate = res.data[process].map((item: any) => {
-                                return item.createTime
+                                return moment(item.createTime).format('YYYY-MM-DD HH:mm:ss')
                             });
                             if (this.devType == 'process') {
                                 seriesData = res.data[process].map((item: any) => {

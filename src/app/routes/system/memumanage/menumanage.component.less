@@ -1,0 +1,26 @@
+@import '../../../../../src/styles/theme.less';
+
+.server-icon {
+  color: #3598dc;
+  padding-left: 15px;
+  font-size: 20px;
+}
+
+::ng-deep {
+  .ant-table-row-expand-icon {
+    background: @primary-color;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    font-size: 18px;
+  }
+
+  .ant-table-expand-icon-th,
+  .ant-table-row-expand-icon-cell {
+    text-align: left;
+  }
+
+  .ant-table-tbody>tr>td i {
+    vertical-align: text-top;
+  }
+}

@@ -44,9 +44,12 @@ export class HeaderUserComponent {
         this.message.create('error', response.message ? response.message : '操作失败!');
       }
       this.tokenService.clear();
+      this.storageService.clearUserInfo();
       this.router.navigateByUrl('/passport/login');
     });
     this.httpBaseService.postData(params);
+    // this.router.navigateByUrl('/passport/login');
+
   }
 
   changeSkin(skin) {

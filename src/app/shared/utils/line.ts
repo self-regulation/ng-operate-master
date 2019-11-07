@@ -30,6 +30,11 @@ export function Line(param: any): any {
                 color: '#58afff',
             }
         },
+        grid: {
+            left: '8%',
+            bottom: '8%',
+            containLabel: true
+        },
         toolbox: {
             feature: {
                 dataZoom: {
@@ -50,6 +55,9 @@ export function Line(param: any): any {
                 lineStyle: {
                     color: '#58afff',
                 }
+            },
+            axisLabel: {
+                rotate: 45,
             }
         },
         yAxis: {

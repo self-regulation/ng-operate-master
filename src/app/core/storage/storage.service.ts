@@ -46,4 +46,8 @@ export class StorageService {
         return this.getStorageObject('MENU_INFO', '{}');
     }
 
+    clearUserInfo() {
+        this.clearStorageValue("MENU_INFO");
+    }
+
 }

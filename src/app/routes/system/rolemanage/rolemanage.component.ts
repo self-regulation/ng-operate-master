@@ -19,7 +19,7 @@ export class RoleManageComponent implements OnInit {
     listOfData = [];
     loading = true;
 
-    isAllDisplayDataChecked = false;
+    // isAllDisplayDataChecked = false;
     isOperating = false;
     // isIndeterminate = false;
     pageSizeOptions = [10, 20, 30, 40, 50];
@@ -168,8 +168,8 @@ export class RoleManageComponent implements OnInit {
             pageIndex: this.pageIndex,
             pageSize: this.pageSize
         }
-        if (param && param.name) {
-            params["name"] = param.name;
+        if (param && param.allRole) {
+            params["allRole"] = param.allRole;
         }
         this.rolemanageService.getRoleList(params).subscribe((res: any) => {
             this.loading = false;
@@ -181,7 +181,6 @@ export class RoleManageComponent implements OnInit {
 
     getAllRole() {
         this.rolemanageService.getAllRole().subscribe((res: any) => {
-            console.log(res);
             if (res.code == 0) {
                 this.allRoleList = res.data;
             } else {
@@ -192,7 +191,7 @@ export class RoleManageComponent implements OnInit {
 
     searchRole() {
         let params = {
-            name: this.searchForm.value.allRole
+            allRole: this.searchForm.value.allRole
         }
         this.getRoleList(params);
     }
@@ -208,7 +207,6 @@ export class RoleManageComponent implements OnInit {
     }
 
     updateUser(userData: any) {
-        console.log(userData);
         this.modalTitle = '修改角色';
         this.isVisible = true;
 
@@ -225,9 +223,9 @@ export class RoleManageComponent implements OnInit {
 
     }
     //批量删除
-    batchDelete() {
-        this.nzMessageService.info('该功能暂未开放！');
-    }
+    // batchDelete() {
+    //     this.nzMessageService.info('该功能暂未开放！');
+    // }
 
     addRolemanage() {
         this.rolemanageService.saveRole(this.addRoleForm.value).subscribe((res: any) => {
@@ -266,6 +264,12 @@ export class RoleManageComponent implements OnInit {
 
     nzEvent(event: NzFormatEmitEvent): void {
         // console.log(event.getCheckedNodeList());
+    }
+
+    changeRole() {
+        this.pageIndex = 1;
+        console.log(this.searchForm.value);
+        this.getRoleList(this.searchForm.value);
     }
 
 }

@@ -18,8 +18,8 @@ export class RolemanageService {
                 pageNo: param.pageIndex,
                 pageSize: param.pageSize
             };
-            if (param.name) {
-                params.data["name"] = param.name;
+            if (param.allRole) {
+                params.data["name"] = param.allRole;
             }
             params.callback = ((response: any) => {
                 observer.next(response);

@@ -30,8 +30,7 @@ export function SimpleBar(params: any): any {
             },
         },
         grid: {
-            left: '3%',
-            right: '4%',
+            left: '8%',
             bottom: '3%',
             containLabel: true
         },
@@ -46,6 +45,9 @@ export function SimpleBar(params: any): any {
                     lineStyle: {
                         color: '#3398DB',
                     }
+                },
+                axisLabel: {
+                    rotate: 45,
                 }
             }
         ],

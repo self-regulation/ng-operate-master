@@ -17,7 +17,7 @@ export class PeopleManageComponent implements OnInit {
     listOfData = [];
     loading = true;
 
-    isAllDisplayDataChecked = false;
+    // isAllDisplayDataChecked = false;
     isOperating = false;
     pageSizeOptions = [10, 20, 30, 40, 50];
     searchForm: FormGroup;
@@ -60,18 +60,18 @@ export class PeopleManageComponent implements OnInit {
         });
     }
 
-    checkAll(value: boolean): void {
-        console.log(value);
-        if (value) {
-            this.listOfData.forEach((res: any) => {
-                res['checked'] = true;
-            });
-        } else {
-            this.listOfData.forEach((res: any) => {
-                res['checked'] = false;
-            });
-        }
-    }
+    // checkAll(value: boolean): void {
+    //     console.log(value);
+    //     if (value) {
+    //         this.listOfData.forEach((res: any) => {
+    //             res['checked'] = true;
+    //         });
+    //     } else {
+    //         this.listOfData.forEach((res: any) => {
+    //             res['checked'] = false;
+    //         });
+    //     }
+    // }
 
     refreshStatus(index): void {
         this.listOfData.forEach((item: any, i) => {
@@ -79,7 +79,7 @@ export class PeopleManageComponent implements OnInit {
                 item['checked'] = !item['checked'];
             }
         });
-        this.isAllDisplayDataChecked = this.listOfData.every(item => item['checked'] == true);
+        // this.isAllDisplayDataChecked = this.listOfData.every(item => item['checked'] == true);
     }
     getUserList(param?: any) {
         let params = {
@@ -121,6 +121,7 @@ export class PeopleManageComponent implements OnInit {
             this.userForm.controls[i].updateValueAndValidity();
         }
         if (this.userForm.status === "INVALID") {
+            this.message.create('error', '填写信息不完整!');
             return
         }
         this.peoplemanageService.saveOrUpdatePeopleinfo(this.userForm.value).subscribe((res: any) => {

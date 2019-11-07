@@ -48,6 +48,7 @@ export class DeviceManageComponent implements OnInit {
             gameId: param && param.gameId ? param.gameId : '',
             deviceType: param && param.deviceType ? param.deviceType : ''
         };
+        this.loading = true;
         this.deviceManageServer.getDeviceList(params).subscribe((res: any) => {
             this.loading = false;
             if (res.code == 0 && JSON.stringify(res.data) != '{}') {
@@ -160,6 +161,11 @@ export class DeviceManageComponent implements OnInit {
     }
 
     searchData() {
+        this.pageIndex = 1;
+        this.getDeviceList(this.deviceForm.value);
+    }
+
+    changeDeviceType() {
         this.pageIndex = 1;
         this.getDeviceList(this.deviceForm.value);
     }

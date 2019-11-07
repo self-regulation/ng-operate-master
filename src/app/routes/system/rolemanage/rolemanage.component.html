@@ -5,7 +5,7 @@
     <nz-form-item>
       <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="status">角色筛选</nz-form-label>
       <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
-        <nz-select formControlName="allRole" nzAllowClear nzPlaceHolder="请选择">
+        <nz-select formControlName="allRole" nzAllowClear nzPlaceHolder="请选择" (ngModelChange)="changeRole()">
           <nz-option *ngFor="let opt of allRoleList" [nzValue]="opt.name" [nzLabel]="opt.name"></nz-option>
         </nz-select>
       </nz-form-control>
@@ -16,10 +16,10 @@
 
   </form>
   <!-- <nz-divider nzDashed></nz-divider> -->
-  <button nz-button (click)="batchDelete()" [nzType]="'primary'">
-    <!-- <i nz-icon nzType="minus"></i> -->
+  <!-- <button nz-button (click)="batchDelete()" [nzType]="'primary'">
+    <i nz-icon nzType="minus"></i>
     <span>批量删除</span>
-  </button>
+  </button> -->
   <button nz-button (click)="addRole()" [nzType]="'primary'">
     <i nz-icon nzType="plus"></i>
     <span>添加</span>
@@ -33,7 +33,7 @@
     [nzPageSizeOptions]="pageSizeOptions">
     <thead>
       <tr>
-        <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" (nzCheckedChange)="checkAll($event)"></th>
+        <!-- <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" (nzCheckedChange)="checkAll($event)"></th> -->
         <th>ID</th>
         <th>角色</th>
         <th>具体描述</th>
@@ -43,7 +43,7 @@
     <tbody>
       <!-- (nzCheckedChange)="refreshStatus(i)" -->
       <tr *ngFor="let data of listOfData;let i=index">
-        <td nzShowCheckbox [(nzChecked)]="data.checked"></td>
+        <!-- <td nzShowCheckbox [(nzChecked)]="data.checked"></td> -->
         <td>{{ data.id }}</td>
         <td>{{ data?.name }}</td>
         <td>{{ data?.remarks }}</td>

@@ -30,7 +30,7 @@
     [nzPageSizeOptions]="pageSizeOptions">
     <thead>
       <tr>
-        <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" (nzCheckedChange)="checkAll($event)"></th>
+        <!-- <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" (nzCheckedChange)="checkAll($event)"></th> -->
         <th>ID</th>
         <th>登录名</th>
         <th>姓名</th>
@@ -42,7 +42,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of listOfData;let i=index">
-        <td nzShowCheckbox (nzCheckedChange)="refreshStatus(i)" [(nzChecked)]="data.checked"></td>
+        <!-- <td nzShowCheckbox (nzCheckedChange)="refreshStatus(i)" [(nzChecked)]="data.checked"></td> -->
         <td>{{ data.id }}</td>
         <td>{{ data?.loginName }}</td>
         <td>{{ data?.name }}</td>

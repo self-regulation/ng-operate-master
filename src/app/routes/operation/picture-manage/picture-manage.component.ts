@@ -152,7 +152,6 @@ export class PictureManageComponent implements OnInit {
         this.modalTitle = '修改游戏画质';
         this.isAddPicture = false;
         this.addPictureVisible = true;
-        console.log(this.pictureTypes);
         this.addPictureForm = this.fb.group({
             gameId: [picture.gameId, [Validators.required, positiveValidator]],
             pictureType: [picture.pictureType, [Validators.required]],
@@ -173,5 +172,10 @@ export class PictureManageComponent implements OnInit {
 
     formatePictureType(type) {
         return this.allPictureTypes[type];
+    }
+
+    changePictureType() {
+        this.pageIndex = 1;
+        this.getPictureList(this.pictureForm.value);
     }
 }

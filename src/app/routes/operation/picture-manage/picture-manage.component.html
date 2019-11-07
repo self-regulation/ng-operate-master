@@ -13,7 +13,7 @@
         <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="pictureType">画质类型
         </nz-form-label>
         <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
-          <nz-select formControlName="pictureType" nzPlaceHolder="请选择">
+          <nz-select formControlName="pictureType" nzPlaceHolder="请选择" (ngModelChange)="changePictureType()">
             <nz-option nzValue="" nzLabel="请选择"></nz-option>
             <nz-option nzValue="1" nzLabel="最简"></nz-option>
             <nz-option nzValue="2" nzLabel="简约"></nz-option>
@@ -98,7 +98,7 @@
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>游戏id</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
         <input nz-input formControlName="gameId" placeholder="请输入" type="number" />
-        <ng-container *ngIf="addPictureForm.get('gameId')?.hasError('positive')">
+        <ng-container *ngIf="addPictureForm.get('gameId')?.hasError('positiveValidator')">
           <span class="validator-error">游戏id只能是正整数</span>
         </ng-container>
       </nz-form-control>
@@ -123,7 +123,7 @@
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>所需GPU资源数</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
         <input nz-input formControlName="needGpu" placeholder="请输入" type="number" />
-        <ng-container *ngIf="addPictureForm.get('needGpu')?.hasError('positive')">
+        <ng-container *ngIf="addPictureForm.get('needGpu')?.hasError('positiveValidator')">
           <span class="validator-error">所需GPU资源数只能是正整数</span>
         </ng-container>
       </nz-form-control>
@@ -132,7 +132,7 @@
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>所需CPU资源数</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
         <input nz-input formControlName="needCpu" placeholder="请输入" type="number" />
-        <ng-container *ngIf="addPictureForm.get('needCpu')?.hasError('positive')">
+        <ng-container *ngIf="addPictureForm.get('needCpu')?.hasError('positiveValidator')">
           <span class="validator-error">所需CPU资源数只能是正整数</span>
         </ng-container>
       </nz-form-control>
@@ -141,7 +141,7 @@
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>所需内存资源数</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
         <input nz-input formControlName="needMemory" placeholder="请输入" type="number" />
-        <ng-container *ngIf="addPictureForm.get('needMemory')?.hasError('positive')">
+        <ng-container *ngIf="addPictureForm.get('needMemory')?.hasError('positiveValidator')">
           <span class="validator-error">所需内存资源数只能是正整数</span>
         </ng-container>
       </nz-form-control>
@@ -154,7 +154,7 @@
       </nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
         <input nz-input formControlName="needSources" placeholder="请输入" type="number" />
-        <ng-container *ngIf="addPictureForm.get('needSources')?.hasError('positive')">
+        <ng-container *ngIf="addPictureForm.get('needSources')?.hasError('positiveValidator')">
           <span class="validator-error">消耗的点卡数只能是正整数</span>
         </ng-container>
       </nz-form-control>

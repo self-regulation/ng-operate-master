@@ -24,6 +24,11 @@ export function basicLine(params: any): any {
                 animation: false
             }
         },
+        grid: {
+            left: '8%',
+            bottom: '3%',
+            containLabel: true
+        },
         xAxis: {
             type: 'category',
             splitLine: {
@@ -33,7 +38,10 @@ export function basicLine(params: any): any {
             axisLine: {
                 lineStyle: {
                     color: '#58afff',
-                }
+                },
+            },
+            axisLabel: {
+                rotate: 45,
             }
         },
         yAxis: {

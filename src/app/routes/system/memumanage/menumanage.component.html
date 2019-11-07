@@ -2,91 +2,140 @@
 </page-header>
 
 <nz-card>
-  <!-- <form nz-form [formGroup]="pictureForm">
-          <div nz-row>
-            <nz-form-item>
-              <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="gameId">游戏ID
-              </nz-form-label>
-              <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
-                <input nz-input formControlName="gameId" />
-              </nz-form-control>
-              <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="pictureType">画质类型
-              </nz-form-label>
-              <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
-                <nz-select formControlName="pictureType" nzPlaceHolder="请选择">
-                  <nz-option nzValue="" nzLabel="请选择"></nz-option>
-                  <nz-option nzValue="1" nzLabel="最简"></nz-option>
-                  <nz-option nzValue="2" nzLabel="简约"></nz-option>
-                  <nz-option nzValue="3" nzLabel="均衡"></nz-option>
-                  <nz-option nzValue="4" nzLabel="唯美"></nz-option>
-                  <nz-option nzValue="5" nzLabel="高效"></nz-option>
-                  <nz-option nzValue="6" nzLabel="电影"></nz-option>
-                  <nz-option nzValue="7" nzLabel="极致"></nz-option>
-                </nz-select>
-              </nz-form-control>
-            </nz-form-item>
-      
-            <div nz-col [nzSpan]="24" class="text-right mb-15">
-              <button nz-button type="submit" [nzType]="'primary'" (click)="searchData()">查询</button>
-            </div>
-          </div>
-      
-        </form>
-        <button nz-button (click)="addPicture()" [nzType]="'primary'">
-          <i nz-icon nzType="plus"></i>
-          <span>新增游戏画质</span>
-        </button>
-        <nz-divider nzDashed></nz-divider> -->
-  <!-- <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="pictureList"
-    [nzFrontPagination]="false" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex"
-    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
-    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+  <form nz-form [formGroup]="menumanageForm">
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="name">菜单名称</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="name" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="searchData()">查询</button>
+      </div>
+    </div>
+
+  </form>
+
+  <button nz-button (click)="addFirstManu()" [nzType]="'primary'">
+    <i nz-icon nzType="plus"></i>
+    <span>添加一级菜单</span>
+  </button>
+  <nz-divider nzDashed></nz-divider>
+  <nz-table [nzData]="menuList" nzShowPagination="false" [nzLoading]="tableLoading">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>游戏ID</th>
-        <th>画质类型</th>
-        <th>GPU资源数
-          <nz-tooltip nzTitle="游戏需要的GPU资源数">
-            <i nz-tooltip nz-icon nzType="info-circle"></i>
-          </nz-tooltip>
-        </th>
-        <th>CPU资源数
-          <nz-tooltip nzTitle="游戏需要的CPU资源数">
-            <i nz-tooltip nz-icon nzType="info-circle"></i>
-          </nz-tooltip>
-        </th>
-        <th>内存资源数
-          <nz-tooltip nzTitle="游戏需要的内存资源数">
-            <i nz-tooltip nz-icon nzType="info-circle"></i>
-          </nz-tooltip>
-        </th>
-        <th>消耗点卡数
-          <nz-tooltip nzTitle="单位时间消耗的点卡数（点/秒）">
-            <i nz-tooltip nz-icon nzType="info-circle"></i>
-          </nz-tooltip>
-        </th>
-        <th>更新时间</th>
-        <th nzRight="0px">操作</th>
+        <th style="width:20%">一级菜单</th>
+        <th style="width:20%">二级菜单</th>
+        <th style="width:20%">菜单关键字</th>
+        <th style="width:20%">更新时间</th>
+        <th style="width:20%">操作</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let picture of pictureList;let i=index">
-        <td>{{ picture.id }}</td>
-        <td>{{ picture.gameId }}</td>
-        <td>{{ formatePictureType(picture.pictureType) }}</td>
-        <td>{{ picture.needGpu }}</td>
-        <td>{{ picture.needCpu }}</td>
-        <td>{{ picture.needMemory }}</td>
-        <td>{{ picture.needSources }}</td>
-        <td>{{ picture.updateTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
-        <td nzRight="0px">
-          <a (click)="updatePicture(picture)">修改</a>
-          <nz-divider nzType="vertical"></nz-divider>
-          <a nz-popconfirm (nzOnConfirm)="deletePicture(picture.id)" nzPopconfirmPlacement="top"
-            nzTitle="确认删除该条数据?">删除</a>
-        </td>
-      </tr>
+      <ng-container *ngFor="let menu of menuList">
+
+        <tr>
+          <td nzShowExpand="true" [(nzExpand)]="menu.groupExpand"><i nz-icon nzType="profile" nzTheme="outline"
+              class="server-icon"></i>&nbsp;&nbsp;{{menu.name}}
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <a (click)="addSecondMenu(menu)">添加二级菜单</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="modifyFirstMenu(false,menu)">修改</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-popconfirm (nzOnConfirm)="deleteFirstMenu(menu.id)" nzPopconfirmPlacement="top"
+              nzTitle="确认删除该条数据?">删除</a>
+          </td>
+        </tr>
+        <tr [(nzExpand)]="menu.groupExpand">
+          <td></td>
+          <td colspan="4">
+            <nz-table [nzData]="menu.menuChildList" nzSize="middle" [nzShowPagination]="false">
+    <tbody>
+      <ng-container *ngFor="let menuChild of menu.menuChildList">
+        <tr>
+          <td style="width:25%">
+            <i nz-icon nzType="read" nzTheme="outline" class="server-icon"></i>&nbsp;&nbsp;{{menuChild.name}}
+          </td>
+          <td style="width:25%">{{menuChild.menukey}}</td>
+          <td style="width:25%">{{menuChild.updateDate | timeTransform:'YYYY-MM-DD HH:mm:ss'}}</td>
+          <td style="width:25%">
+            <a (click)="modifySecondMenu(menu.name,menuChild)">修改</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-popconfirm (nzOnConfirm)="deleteSecondMenu(menuChild.id)" nzPopconfirmPlacement="top"
+              nzTitle="确认删除该条数据?">删除</a>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
-  </nz-table> -->
+  </nz-table>
+  </td>
+  </tr>
+  </ng-container>
+  </tbody>
+  </nz-table>
 </nz-card>
+
+<nz-modal nzWidth="1000px" [(nzVisible)]="menuVisible" [nzTitle]="modalTitle" (nzOnCancel)="menuModalCancel()"
+  (nzOnOk)="menuModalOk()" [nzMask]="modalLoading" [nzOkLoading]="modalLoading">
+  <form nz-form [formGroup]="menuModalForm">
+    <nz-form-item *ngIf="isSecond">
+      <nz-form-label [nzSm]="6" [nzXs]="24">上级菜单名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <span>{{menuModalForm.value.parentName}}</span>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>菜单名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="name" placeholder="请输入" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>菜单标识</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="menukey" placeholder="请输入" />
+        <ng-container *ngIf="menuModalForm.get('menukey')?.hasError('alphaValidator')">
+          <span class="validator-error">必须是纯字符</span>
+        </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">菜单头像</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="icon" placeholder="请输入" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>是否显示</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-select formControlName="isShow" nzPlaceHolder="请选择" (ngModelChange)="changeShowType()">
+          <nz-option nzValue="0" nzLabel="否"></nz-option>
+          <nz-option nzValue="1" nzLabel="是"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>排序</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="sort" placeholder="请输入" type="number" />
+        <ng-container *ngIf="menuModalForm.get('sort')?.hasError('positiveValidator')">
+          <span class="validator-error">必须是正整数</span>
+        </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">备注</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="remarks" placeholder="请输入" />
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
