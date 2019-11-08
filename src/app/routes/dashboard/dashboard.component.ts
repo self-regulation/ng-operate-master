@@ -79,12 +79,26 @@ export class DashboardComponent implements OnInit {
       legend: ['启动游戏人数']
     });
 
-    this.averageTimeData = SimpleBar({
-      xData: AverageTimeData().xData,
-      seriesData: AverageTimeData().seriesData,
-      viewTitle: '平均单日使用时长',
-      unit: '分',
-      legend: ['平均使用时长']
+    // this.averageTimeData = SimpleBar({
+    //   xData: AverageTimeData().xData,
+    //   seriesData: AverageTimeData().seriesData,
+    //   viewTitle: '平均单日使用时长',
+    //   unit: '分',
+    //   legend: ['平均使用时长']
+    // });
+    this.averageTimeData = DoughnutPie({
+      legendData: ['小于1H', '1H~2H', '2H~3H', '3H~5H', '5H~8H', '8H~12H', '大于12H'],
+      seriesName: '游戏时间统计',
+      seriesData: [
+        { value: 100, name: '小于1H' },
+        { value: 500, name: '1H~2H' },
+        { value: 400, name: '2H~3H' },
+        { value: 300, name: '3H~5H' },
+        { value: 188, name: '5H~8H' },
+        { value: 55, name: '8H~12H' },
+        { value: 33, name: '大于12H' },
+
+      ]
     });
 
 

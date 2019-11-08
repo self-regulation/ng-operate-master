@@ -34,9 +34,8 @@ export class RolemanageService {
             params.url = '/admin/sys/role/save';
             params.data = {
                 name: user.name,
-                roleType: 1111,
-                // roleType: user.roleType ? user.roleType : '',
-                remakes: user.remakes
+                roleType: user.selectRole ? user.selectRole : '',
+                remarks: user.remarks
             };
 
             if (user.id) {

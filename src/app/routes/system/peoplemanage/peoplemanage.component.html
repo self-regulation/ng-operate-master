@@ -59,66 +59,82 @@
   </nz-table>
 </nz-card>
 
-<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()" (nzOnOk)="modifyUserData()">
+<nz-modal nzWidth="1000px" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="modifyUserData()">
   <form nz-form [formGroup]="userForm">
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">姓名</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="姓名不能为空！">
-        <input nz-input formControlName="name" />
+        <input nz-input formControlName="name" placeholder="请输入" />
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="loginName">登录名</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="登录名不能为空！">
-        <input nz-input formControlName="loginName" />
+        <input nz-input formControlName="loginName" type="text" autocomplete="off" placeholder="请输入" />
+        <ng-container *ngIf="userForm.get('loginName')?.hasError('alphaNumericValidator')">
+          <span class="validator-error">只能是字母和数字组成</span>
+        </ng-container>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="password">密码</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="密码不能为空！">
-        <input nz-input formControlName="password" />
+        <input nz-input formControlName="password" type="password" autocomplete="new-password" placeholder="请输入" />
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="confirmPassword">确认密码</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="确认密码不能为空！">
-        <input nz-input formControlName="confirmPassword" />
+        <input nz-input formControlName="confirmPassword" type="password" placeholder="请输入" />
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="mobile">手机</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="手机不能为空！">
-        <input nz-input formControlName="mobile" />
+        <input nz-input formControlName="mobile" placeholder="请输入" />
+        <ng-container *ngIf="userForm.get('mobile')?.hasError('mobilePhoneValidator')">
+          <span class="validator-error">手机格式不正确</span>
+        </ng-container>
       </nz-form-control>
     </nz-form-item>
 
-    <!-- <nz-form-item> -->
-    <!-- [(ngModel)]="userForm.islogin" -->
-    <!-- <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="islogin">是否允许登录</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="是否允许登录不能为空！">
-        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="请选择" formControlName="islogin">
-          <nz-option nzLabel="否" nzValue="0"></nz-option>
-          <nz-option nzLabel="是" nzValue="1"></nz-option>
-        </nz-select>
+    <nz-form-item>
+      <!-- [(ngModel)]="userForm.islogin" -->
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="islogin">是否允许登录</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="是否允许登录必填！">
+        <nz-radio-group formControlName="loginFlag">
+          <label nz-radio nzValue="0">禁止登录</label>
+          <label nz-radio nzValue="1">允许登录</label>
+        </nz-radio-group>
       </nz-form-control>
-    </nz-form-item> -->
+    </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="userrole">用户角色</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="userrole" nzRequired>用户角色</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <!-- <nz-checkbox-group [(ngModel)]="allRoleList" (ngModelChange)="checkRoles(checkOptionsOne)"></nz-checkbox-group> -->
+        <!-- <nz-checkbox-group [(ngModel)]="allRoleList" (ngModelChange)="checkRoles(checkOptionsOne)"
+          formControlName="roleIds"></nz-checkbox-group> -->
 
-
-        <nz-checkbox-wrapper style="width: 100%;">
+        <!-- 
+        <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="selectRoles($event)">
           <div nz-row>
-            <div nz-col nzSpan="8" *ngFor="let role of allRoleList;let i=index"><label nz-checkbox
-                nzValue="'role.value'">{{role.label}}</label></div>
+            <div nz-col nzSpan="6" *ngFor="let role of allRoleList;let i=index"><label nz-checkbox [ngModel]="false"
+                formControlName="roleIds" [nzValue]="role.id">{{role.name}}</label>
+            </div>
           </div>
-        </nz-checkbox-wrapper>
+        </nz-checkbox-wrapper> -->
+
+        <div *ngFor="let role of allRoleList;let i=index" style="display: inline-block;">
+          <label class="checkbox-label ml-15">
+            <input type="checkbox" [checked]="role.checked" class="my-checkbox"
+              (click)="selectRoles(i,$event.target.checked)">
+            <span class="new-checkbox"></span>&nbsp;&nbsp;<span>{{role.label}}</span></label>
+        </div>
 
       </nz-form-control>
 
@@ -126,7 +142,7 @@
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remark">备注</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <textarea nz-input formControlName="remark" id="remark" rows="3"></textarea>
+        <textarea nz-input formControlName="remark" id="remark" rows="3" placeholder="请输入"></textarea>
       </nz-form-control>
     </nz-form-item>
   </form>

@@ -27,6 +27,7 @@ export class ServiceComponent implements OnInit {
     gpuCoreList: any = null; //GPU核心渲染占用率
     gpuTemperatureList: any = null;//GPU温度
     gpuName: any = '';
+    tableLoading: any = false;
 
     constructor(private serviceServer: ServiceServer, private message: NzMessageService) {
     }
@@ -35,7 +36,9 @@ export class ServiceComponent implements OnInit {
     }
     //查询所有服务器
     queryAllServers() {
+        this.tableLoading = true;
         this.serviceServer.queryAllServers().subscribe((res: any) => {
+            this.tableLoading = false;
             if (res.code == 0) {
                 let index = 0;
                 if (JSON.stringify(res.data) != '{}') {

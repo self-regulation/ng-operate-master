@@ -8,6 +8,18 @@ export class PeoplemanageService {
     constructor(private httpBaseService: HttpBaseService) {
 
     }
+    //获取所有角色
+    getAllrole() {
+        return new Observable((observer) => {
+            const params = new AgentHttpParams();
+            params.url = '/admin/sys/role/allRole';
+            params.data = {};
+            params.callback = ((response: any) => {
+                observer.next(response);
+            });
+            this.httpBaseService.getData(params);
+        });
+    }
 
     saveOrUpdatePeopleinfo(userinfo: any) {
         return new Observable((observer) => {
@@ -17,7 +29,10 @@ export class PeoplemanageService {
                 mobile: userinfo.mobile,
                 loginName: userinfo.loginName,
                 name: userinfo.name,
-                password: userinfo.password
+                password: userinfo.password,
+                remark: userinfo.remark,
+                roleIds: userinfo.roleIds
+                // roleIds
             };
             if (userinfo.id) {
                 params.data['id'] = userinfo.id;
@@ -61,12 +76,6 @@ export class PeoplemanageService {
             }
             params.callback = ((response: any) => {
                 observer.next(response);
-                // if (response.code == 0 && response.data) {
-                //     this.total = response.data.total;
-                //     this.listOfData = response.data.list;
-                // } else {
-                //     this.message.create('error', response.message ? response.message : '登录失败!');
-                // }
             });
             this.httpBaseService.getData(params);
         });

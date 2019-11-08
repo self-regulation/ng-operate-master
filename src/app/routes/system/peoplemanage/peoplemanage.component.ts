@@ -4,19 +4,19 @@ import { AgentHttpParams } from '@core/net/agent-http-params';
 import { HttpBaseService } from '@core/net/http-base.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { PeoplemanageService } from './peoplemanage.service';
+import { mobilePhoneValidator, alphaNumericValidator } from '@shared';
 @Component({
     selector: 'people-manage',
     templateUrl: './peoplemanage.component.html',
-    styleUrls: ['./peoplemanage.component.less'],
-    providers: [PeoplemanageService]
+    providers: [PeoplemanageService],
+    styleUrls: ['./peoplemanage.component.less']
 })
 export class PeopleManageComponent implements OnInit {
     pageIndex = 1;
     pageSize = 10;
     total = 1;
     listOfData = [];
-    loading = true;
-
+    loading = false;
     // isAllDisplayDataChecked = false;
     isOperating = false;
     pageSizeOptions = [10, 20, 30, 40, 50];
@@ -27,6 +27,7 @@ export class PeopleManageComponent implements OnInit {
 
     allRoleList = [];
     modalTitle = '修改用户';
+    // roleIds = "";
     constructor(private fb: FormBuilder, private httpBaseService: HttpBaseService, private message: NzMessageService, private peoplemanageService: PeoplemanageService) {
 
     }
@@ -39,12 +40,12 @@ export class PeopleManageComponent implements OnInit {
         });
         this.userForm = this.fb.group({
             name: [null, [Validators.required]],
-            loginName: [null, [Validators.required]],
+            loginName: [null, [Validators.required, alphaNumericValidator]],
             password: [null, [Validators.required]],
             confirmPassword: [null, [Validators.required]],
-            mobile: [null, [Validators.required]],
-            islogin: [null, [Validators.required]],
-            userrole: [null],
+            mobile: [null, [Validators.required, mobilePhoneValidator]],
+            loginFlag: [null, [Validators.required]],
+            roleIds: [null],
             remark: [null],
         });
     }
@@ -120,10 +121,27 @@ export class PeopleManageComponent implements OnInit {
             this.userForm.controls[i].markAsDirty();
             this.userForm.controls[i].updateValueAndValidity();
         }
+        this.allRoleList.map((role: any) => {
+            return role.value && role.checked == true;
+        });
+        let selectRoles = [];
+        this.allRoleList.forEach((role: any) => {
+            if (role.checked == true) {
+                selectRoles.push(role.value);
+            }
+        });
+        this.userForm.value.roleIds = selectRoles;
         if (this.userForm.status === "INVALID") {
-            this.message.create('error', '填写信息不完整!');
-            return
+            console.log(this.userForm);
+            this.message.create('warnning', '填写信息不完整!');
+            return;
         }
+        if (this.userForm.value.roleIds.length <= 0) {
+            this.message.create('warnning', '用户角色必填!');
+            return;
+        }
+
+        console.log(this.userForm);
         this.peoplemanageService.saveOrUpdatePeopleinfo(this.userForm.value).subscribe((res: any) => {
             this.isVisible = false;
             if (res.code == 0) {
@@ -138,11 +156,22 @@ export class PeopleManageComponent implements OnInit {
     addPeople() {
         this.isVisible = true;
         this.modalTitle = '添加用户';
+        this.userForm = this.fb.group({
+            name: [null, [Validators.required]],
+            loginName: [null, [Validators.required, alphaNumericValidator]],
+            password: [null, [Validators.required]],
+            confirmPassword: [null, [Validators.required]],
+            mobile: [null, [Validators.required, mobilePhoneValidator]],
+            loginFlag: ['1', [Validators.required]],
+            roleIds: [null],
+            remark: [null],
+        });
     }
 
     updateUser(userItem: any) {
         this.modalTitle = '修改用户';
         this.isVisible = true;
+
         this.userForm = this.fb.group({
             id: [userItem.id],
             name: [userItem.name, [Validators.required]],
@@ -150,29 +179,40 @@ export class PeopleManageComponent implements OnInit {
             password: [userItem.password, [Validators.required]],
             confirmPassword: [null, [Validators.required]],
             mobile: [userItem.mobile, [Validators.required]],
-            islogin: [null, [Validators.required]],
-            userrole: [null],
-            remark: [null],
+            loginFlag: [userItem.loginFlag, [Validators.required]],
+            roleIds: [(userItem.roleIds).split(",")],
+            // roleIds: [true, false, true, false],
+            remark: [userItem.remark],
         });
+        (userItem.roleIds).split(",").forEach((item: any) => {
+            this.allRoleList.forEach((role: any, index) => {
+                if (item == role.value) {
+                    this.allRoleList[index].checked = true;
+                }
+            });
+        });
+        console.log(this.allRoleList);
     }
 
     getAllrole() {
-        const loginParams = new AgentHttpParams();
-        loginParams.url = '/admin/sys/role/allRole';
-        loginParams.callback = ((response: any) => {
-            this.loading = false;
-            if (response.code == 0 && response.data) {
-                response.data.forEach((item) => {
-                    this.allRoleList.push({
-                        label: item.name,
-                        value: item.roleType
-                    });
+        this.peoplemanageService.getAllrole().subscribe((res: any) => {
+            if (res.code == 0) {
+                this.allRoleList = [];
+                res.data.forEach((item: any) => {
+                    let option = {
+                        "checked": false,
+                        "value": item.id,
+                        "label": item.name
+                    };
+                    this.allRoleList.push(option);
                 });
             } else {
-                this.message.create('error', response.message ? response.message : '获取角色信息失败!');
+                this.message.create('error', res.message ? res.message : '获取角色信息失败!');
             }
         });
-        this.httpBaseService.postData(loginParams);
+    }
+    selectRoles(index, event) {
+        this.allRoleList[index].checked = event;
     }
 
     checkRoles(value: object[]) {
@@ -181,6 +221,9 @@ export class PeopleManageComponent implements OnInit {
 
     handleCancel() {
         this.isVisible = false;
+        this.allRoleList.forEach((role: any, index) => {
+            this.allRoleList[index].checked = false;
+        });
     }
 
     searchUser() {

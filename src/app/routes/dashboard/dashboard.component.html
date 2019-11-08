@@ -105,17 +105,17 @@
             <p class="statistic-num color-cyan-blue"><i nz-icon nzType="alert" nzTheme="outline"></i>&nbsp;366人</p>
           </div>
           <div nz-col [nzSpan]="24">
-            <span>日同比</span>&nbsp;&nbsp;<span style="color: red;">5%<i nz-icon nzType="caret-up"
+            <span>次日留存率</span>&nbsp;&nbsp;<span style="color: red;">5%<i nz-icon nzType="caret-up"
                 nzTheme="outline"></i></span>
           </div>
           <div nz-col [nzSpan]="24">
-            <span>周同比</span>&nbsp;&nbsp;<span style="color: green;">1%<i nz-icon nzType="caret-down"
+            <span>七日留存率</span>&nbsp;&nbsp;<span style="color: green;">1%<i nz-icon nzType="caret-down"
                 nzTheme="outline"></i></span>
           </div>
-          <div nz-col [nzSpan]="24" class="mt-15">
+          <!-- <div nz-col [nzSpan]="24" class="mt-15">
             <span>七日|活跃玩家：</span><span class="statistic-allnum color-cyan-blue"><i nz-icon nzType="team"
                 nzTheme="outline"></i>&nbsp;48888</span>
-          </div>
+          </div> -->
         </div>
       </nz-card>
     </div>
@@ -126,41 +126,32 @@
 <div nz-row nzGutter="15">
   <div nz-col nzSpan="12" class="gutter-row">
     <nz-card class="card-large-chart">
-      <h4>活跃用户趋势</h4>
-      <p class="card-dec">2019-09-18~2019-10-17 | 过去 30 天</p>
-      <h4>2019-10-17</h4>
-      <div nz-col [nzSpan]="24">
-        <div nz-col [nzSpan]="18">
-          <div nz-col [nzSpan]="7">
-            <span style="font-size: 40px;font-weight:bold;">2,373</span><span>人</span>
-          </div>
-          <div nz-col [nzSpan]="17" class="text-left" style="margin-top: 10px;">
-            <div nz-col [nzSpan]="24">
-              <span>日同比</span>&nbsp;&nbsp;<span style="color: red;">5%<i nz-icon nzType="caret-up"
-                  nzTheme="outline"></i></span>
-            </div>
-            <div nz-col [nzSpan]="24">
-              <span>周同比</span>&nbsp;&nbsp;<span style="color: green;">0.69%<i nz-icon nzType="caret-down"
-                  nzTheme="outline"></i></span>
-            </div>
-          </div>
-
+      <h4 style="margin-bottom: 0px;">活跃用户趋势</h4>
+      <!-- <p class="card-dec">2019-09-18~2019-10-17 | 过去 30 天</p> -->
+      <div nz-col [nzSpan]="24" class="none-padding">
+        <div nz-col [nzSpan]="12" class="none-padding">
+          <span>2019-10-17</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>当前在线人数：</span><span class="statistic-num"
+            style="color: #4ecb73">881</span><span>人</span>
         </div>
-        <div nz-col [nzSpan]="6">
+
+        <div nz-col [nzSpan]="12" class="mt-15 text-right">
+          <nz-radio-group [(ngModel)]="unit" [nzButtonStyle]="'solid'">
+            <label nz-radio-button nzValue="hour">今日</label>
+            <label nz-radio-button nzValue="day">7天</label>
+            <label nz-radio-button nzValue="week">30天</label>
+          </nz-radio-group>
+        </div>
+      </div>
+
+      <div nz-col [nzSpan]="24">
+        <div nz-col [nzSpan]="24" class="text-right mt-15 none-padding">
           <div nz-col [nzSpan]="24">
             <span>合计：</span><span class="stress-font">24,881</span><span>人</span>
           </div>
           <div nz-col [nzSpan]="24">
-            <span>均值：</span><span class="stress-font">2,157</span><span>人</span>
+            <span>均值：</span><span class="stress-font">2,157</span><span>人(h/天)</span>
           </div>
         </div>
-      </div>
-      <div class="mt-15 text-right">
-        <nz-radio-group [(ngModel)]="unit" [nzButtonStyle]="'solid'">
-          <label nz-radio-button nzValue="hour">今日</label>
-          <label nz-radio-button nzValue="day">7天</label>
-          <label nz-radio-button nzValue="week">30天</label>
-        </nz-radio-group>
       </div>
       <nz-spin nzSimple [nzSize]="'large'" *ngIf="false" class="text-center"></nz-spin>
       <div echarts [options]="activeUserTrend" style="height: 400px"></div>
@@ -169,9 +160,16 @@
 
   <div nz-col nzSpan="12" class="gutter-row">
     <nz-card class="card-large-chart">
-      <h4>平均单日使用时长（分）</h4>
-      <p class="card-dec">2019-09-18~2019-10-17 | 过去 30 天</p>
-      <h4>2019-10-17</h4>
+      <h4>玩家在线时长统计（人）</h4>
+      <div nz-col [nzSpan]="24" class="mt-15 text-right">
+        <nz-radio-group [(ngModel)]="unit" [nzButtonStyle]="'solid'">
+          <label nz-radio-button nzValue="hour">今日</label>
+          <label nz-radio-button nzValue="day">7天</label>
+          <label nz-radio-button nzValue="week">30天</label>
+        </nz-radio-group>
+      </div>
+      <!-- <p class="card-dec">2019-09-18~2019-10-17 | 过去 30 天</p> -->
+      <!-- <h4>2019-10-17</h4>
       <div nz-col [nzSpan]="24">
         <div nz-col [nzSpan]="18">
           <div nz-col [nzSpan]="7">
@@ -201,8 +199,8 @@
           <label nz-radio-button nzValue="day">7天</label>
           <label nz-radio-button nzValue="week">30天</label>
         </nz-radio-group>
-      </div>
-      <div echarts [options]="averageTimeData" style="height: 400px"></div>
+      </div> -->
+      <div echarts [options]="averageTimeData" class="mt-15" style="height: 400px"></div>
     </nz-card>
   </div>
 </div>
@@ -211,7 +209,7 @@
   <div nz-col nzSpan="12" class="gutter-row mt-15">
     <nz-card class="card-chart">
       <h4>操作系统|活跃用户分布</h4>
-      <p class="card-dec">2019-10-10~2019-10-16 | 过去 7 天</p>
+      <p class="card-dec">2019-11-17</p>
       <div echarts [options]="operatSystem" style="height: 400px"></div>
     </nz-card>
   </div>
@@ -219,7 +217,7 @@
   <div nz-col nzSpan="12" class="gutter-row mt-15">
     <nz-card class="card-chart">
       <h4>服务器|使用率</h4>
-      <p class="card-dec">2019-10-10~2019-10-16 | 过去 7 天</p>
+      <p class="card-dec">2019-11-17</p>
       <div echarts [options]="serverSystem" style="height: 400px"></div>
     </nz-card>
   </div>

@@ -11,7 +11,7 @@
       </nz-form-control>
     </nz-form-item>
     <div nz-col [nzSpan]="24" class="text-right mb-15">
-      <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading" (click)="searchRole()">查询</button>
+      <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="tableLoading" (click)="searchRole()">查询</button>
     </div>
 
   </form>
@@ -28,7 +28,7 @@
 
 
   <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="listOfData"
-    [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+    [nzLoading]="tableLoading" [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
     (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changePageSize($event)"
     [nzPageSizeOptions]="pageSizeOptions">
     <thead>
@@ -81,8 +81,8 @@
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="roleType">角色类型</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="角色类型不能为空！">
-        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="请选择角色类型" [(ngModel)]="selectRoleType"
-          formControlName="selectRole">
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="请选择角色类型" formControlName="selectRole">
+          <nz-option nzLabel="请选择" nzValue=""></nz-option>
           <nz-option nzLabel="任务分配" nzValue="0"></nz-option>
           <nz-option nzLabel="管理角色" nzValue="1"></nz-option>
           <nz-option nzLabel="普通角色" nzValue="2"></nz-option>
@@ -90,7 +90,7 @@
       </nz-form-control>
     </nz-form-item>
 
-    <nz-form-item>
+    <!-- <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="systemData">是否系统数据</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="是否系统数据不能为空！">
         <nz-select nzShowSearch nzAllowClear nzPlaceHolder="请选择" [(ngModel)]="systemData" formControlName="systemData">
@@ -98,7 +98,7 @@
           <nz-option nzLabel="否" nzValue="1"></nz-option>
         </nz-select>
       </nz-form-control>
-    </nz-form-item>
+    </nz-form-item> -->
 
     <!-- <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="roleAuthor">角色授权</nz-form-label>

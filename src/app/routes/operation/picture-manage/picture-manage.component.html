@@ -93,7 +93,7 @@
 
 <nz-modal nzWidth="1000px" [(nzVisible)]="addPictureVisible" [nzTitle]="modalTitle" (nzOnCancel)="addPictureCancel()"
   (nzOnOk)="addPictureOk()" [nzMask]="modalLoading" [nzOkLoading]="modalLoading">
-  <form nz-form [formGroup]="addPictureForm">
+  <form nz-form [formGroup]="addPictureForm" class="mt-15">
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>游戏id</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">

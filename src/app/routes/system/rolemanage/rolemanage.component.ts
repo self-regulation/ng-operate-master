@@ -17,7 +17,7 @@ export class RoleManageComponent implements OnInit {
     pageSize = 10;
     total = 1;
     listOfData = [];
-    loading = true;
+    tableLoading = false;
 
     // isAllDisplayDataChecked = false;
     isOperating = false;
@@ -136,7 +136,7 @@ export class RoleManageComponent implements OnInit {
         this.addRoleForm = this.fb.group({
             name: [null, [Validators.required]],
             selectRole: [null, Validators.required],
-            systemData: [null, Validators.required],
+            // systemData: [null, Validators.required],
             remarks: [null]
         });
     }
@@ -171,10 +171,13 @@ export class RoleManageComponent implements OnInit {
         if (param && param.allRole) {
             params["allRole"] = param.allRole;
         }
+        this.tableLoading = true
         this.rolemanageService.getRoleList(params).subscribe((res: any) => {
-            this.loading = false;
+            this.tableLoading = false;
             if (res.code == 0) {
                 this.listOfData = res.data;
+            } else {
+                this.message.create('error', res.message ? res.message : '查询失败!');
             }
         });
     }
@@ -207,27 +210,36 @@ export class RoleManageComponent implements OnInit {
     }
 
     updateUser(userData: any) {
+        console.log(userData);
         this.modalTitle = '修改角色';
         this.isVisible = true;
 
         this.addRoleForm = this.fb.group({
             name: [userData.name, [Validators.required]],
-            selectRole: [null, Validators.required],
-            systemData: [null, Validators.required],
-            remarks: [userData.remarks]
+            selectRole: [userData.roleType, Validators.required],
+            // systemData: [null, Validators.required],
+            remarks: [userData.remarks],
+            id: [userData.id]
         });
     }
 
     addRole(): void {
+        this.modalTitle = "添加角色";
         this.isVisible = true;
 
     }
-    //批量删除
-    // batchDelete() {
-    //     this.nzMessageService.info('该功能暂未开放！');
-    // }
 
     addRolemanage() {
+        console.log(this.addRoleForm.value);
+        for (const i in this.addRoleForm.controls) {
+            this.addRoleForm.controls[i].markAsDirty();
+            this.addRoleForm.controls[i].updateValueAndValidity();
+        }
+        if (this.addRoleForm.status === "INVALID") {
+            console.log(this.addRoleForm);
+            this.message.create('warring', '请检查数据合法性!');
+            return
+        }
         this.rolemanageService.saveRole(this.addRoleForm.value).subscribe((res: any) => {
             this.isVisible = false;
             console.log(res);
@@ -258,12 +270,13 @@ export class RoleManageComponent implements OnInit {
     }
 
     handleCancel(): void {
-        console.log('Button cancel clicked!');
         this.isVisible = false;
-    }
-
-    nzEvent(event: NzFormatEmitEvent): void {
-        // console.log(event.getCheckedNodeList());
+        this.addRoleForm = this.fb.group({
+            name: [null, [Validators.required]],
+            selectRole: [null, Validators.required],
+            // systemData: [null, Validators.required],
+            remarks: [null]
+        });
     }
 
     changeRole() {

@@ -2819,6 +2819,26 @@ darker  @grey-9;
   background: @primary-color;
   color: #fff;
 }
+::ng-deep input:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff !important;
+}
+::ng-deep .checkbox-label .new-checkbox {
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  background-color: #fff;
+}
+::ng-deep .checkbox-label .new-checkbox:hover {
+  border-color: @primary-color;
+}
+::ng-deep .my-checkbox:checked + span {
+  border-color: #ffffff;
+  background-color: @primary-color;
+}
+::ng-deep .my-checkbox:checked + span::before {
+  border-bottom: 2px solid #fff;
+  background-color: @primary-color;
+  border-right: 2px solid #fff;
+}
 html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
