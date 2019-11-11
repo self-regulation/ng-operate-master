@@ -29,47 +29,77 @@ export class ServiceComponent implements OnInit {
     gpuName: any = '';
     tableLoading: any = false;
 
+    allRegions: any = [];
+    pageNum: any = 1;
+    pageSize: any = 10;
+    expandLoading: boolean = false;
+    totals: any = 0;
+    pageSizeOptions = [10, 20, 30, 40, 50];
     constructor(private serviceServer: ServiceServer, private message: NzMessageService) {
     }
     ngOnInit(): void {
-        this.queryAllServers();
+        // this.queryAllServers();
+        this.initAllRegionData();
     }
-    //查询所有服务器
-    queryAllServers() {
-        this.tableLoading = true;
-        this.serviceServer.queryAllServers().subscribe((res: any) => {
-            this.tableLoading = false;
-            if (res.code == 0) {
-                let index = 0;
-                if (JSON.stringify(res.data) != '{}') {
-                    this.bindList = [res.data];
-                } else {
-                    this.bindList = [];
-                }
-                for (let service in res.data) {
-                    let serviceGroup = {
-                        name: service,
-                        list: res.data[service],
-                        groupExpand: true
+    //初始化服务器组数据
+    initAllRegionData() {
+        // forkJoin([this.serviceServer.queryAllRegion()])queryGameServerByRegion
+        this.serviceServer.queryAllRegion().subscribe((result: any) => {
+            if (result.code == 0) {
+                this.bindList = result.data;
+                result.data.forEach((region: any, index) => {
+                    let item = {
+                        groupExpand: index == 0 ? true : false,
+                        name: region
                     };
-                    if (index == 0) {
-                        serviceGroup.groupExpand = true;
-                    } else {
-                        serviceGroup.groupExpand = false;
-                    }
-                    res.data[service].forEach((ser: any, sIndex) => {
-                        res.data[service][sIndex].devExpand = false;
-                    });
-                    index++;
-                    this.serviceList.push(serviceGroup);
+                    this.allRegions.push(item);
+                });
+                if (result.data && result.data.length > 0) {
+                    this.serviceList = [];
+                    this.queryGameServerByRegion((result.data[0]).split(":")[1]);
                 }
             } else {
-                this.serviceList = [];
-                this.message.create('error', res.message ? res.message : '查询数据失败!');
+                this.message.create('error', result.message ? result.message : '查询数据失败!');
             }
-            console.log(this.serviceList);
         });
     }
+
+    //查询所有服务器
+    // queryAllServers() {
+    //     this.tableLoading = true;
+    //     this.serviceServer.queryAllServers().subscribe((res: any) => {
+    //         this.tableLoading = false;
+    //         if (res.code == 0) {
+    //             let index = 0;
+    //             if (JSON.stringify(res.data) != '{}') {
+    //                 this.bindList = [res.data];
+    //             } else {
+    //                 this.bindList = [];
+    //             }
+    //             for (let service in res.data) {
+    //                 let serviceGroup = {
+    //                     name: service,
+    //                     list: res.data[service],
+    //                     groupExpand: true
+    //                 };
+    //                 if (index == 0) {
+    //                     serviceGroup.groupExpand = true;
+    //                 } else {
+    //                     serviceGroup.groupExpand = false;
+    //                 }
+    //                 res.data[service].forEach((ser: any, sIndex) => {
+    //                     res.data[service][sIndex].devExpand = false;
+    //                 });
+    //                 index++;
+    //                 this.serviceList.push(serviceGroup);
+    //             }
+    //         } else {
+    //             this.serviceList = [];
+    //             this.message.create('error', res.message ? res.message : '查询数据失败!');
+    //         }
+    //         console.log(this.serviceList);
+    //     });
+    // }
 
     //查询服务器设备信息
     queryDevDatas(dev: string, serviceName, startTime?: any, endTime?: any) {
@@ -247,4 +277,54 @@ export class ServiceComponent implements OnInit {
         this.unit = 'hour';
         this.gpuName = '';
     }
+
+    collapseRegion(region, $event): void {
+        this.pageNum = 1;
+        this.allRegions.forEach((item: any, index) => {
+            if (region.name == item.name && $event == true) {
+                this.allRegions[index].groupExpand = true;
+            } else {
+                this.allRegions[index].groupExpand = false;
+            }
+        });
+        this.serviceList = [];
+        this.queryGameServerByRegion((region.name).split(":")[1]);
+    }
+
+    //查询服务组下的服务器信息
+    queryGameServerByRegion(regionId) {
+
+        this.expandLoading = true;
+        this.totals = 0;
+        this.serviceServer.queryGameServerByRegion({
+            region: regionId,
+            pageNum: this.pageNum,
+            pageSize: this.pageSize
+        }).subscribe((res: any) => {
+            this.expandLoading = false;
+            if (res.code == 0) {
+                this.totals = res.data.total;
+                console.log(this.totals);
+                this.serviceList = this.serviceList.concat(res.data.list);
+                // this.serviceList = res.data.list;
+                this.serviceList.forEach((service: any, sIndex) => {
+                    this.serviceList[sIndex].devExpand = false;
+                });
+            } else {
+                this.message.create('error', res.message ? res.message : '查询数据失败!');
+            }
+        });
+    }
+
+    loadMoreService(region) {
+        this.pageNum++;
+        this.queryGameServerByRegion((region.name).split(":")[1]);
+    }
+
+    CollapseService(region) {
+        this.pageNum = 1;
+        this.serviceList = [];
+        this.queryGameServerByRegion((region.name).split(":")[1]);
+    }
+
 }

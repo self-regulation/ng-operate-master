@@ -12,6 +12,7 @@ import { UserLoginComponent } from './passport/login/login.component';
 // single pages
 import { CallbackComponent } from './callback/callback.component';
 import { UserLockComponent } from './passport/lock/lock.component';
+import { ACLGuard } from '@delon/acl';
 
 const routes: Routes = [
   {
@@ -20,8 +21,8 @@ const routes: Routes = [
     // canActivate: [SimpleGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent, data: { title: '仪表盘', titleI18n: '西山居' } },
-      { path: 'analysis', loadChildren: () => import('./dataanalysis/analysis.module').then(m => m.AnalysisModule) },
+      { path: 'dashboard', component: DashboardComponent, data: { title: '仪表盘', titleI18n: '西山居', guard: { role: ['admin', 'user'] } }, canActivate: [ACLGuard] },
+      { path: 'analysis', loadChildren: () => import('./dataanalysis/analysis.module').then(m => m.AnalysisModule), canActivate: [ACLGuard], data: { guard: { role: ['admin'] } } },
       { path: 'operation', loadChildren: () => import('./operation/operation.module').then(m => m.OperationModule) },
       { path: 'config', loadChildren: () => import('./manageconfig/manageconfig.module').then(m => m.SetGameModule) },
       { path: 'system', loadChildren: () => import('./system/system.module').then(m => m.SystemModule) },
@@ -43,7 +44,7 @@ const routes: Routes = [
     component: LayoutPassportComponent,
     children: [
       { path: 'login', component: UserLoginComponent, data: { title: '登录', titleI18n: '登录' } },
-      { path: 'lock', component: UserLockComponent, data: { title: '锁屏', titleI18n: 'lock' } },
+      // { path: 'lock', component: UserLockComponent, data: { title: '锁屏', titleI18n: 'lock' } },
     ]
   },
   // 单页不包裹Layout

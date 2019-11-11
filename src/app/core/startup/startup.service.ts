@@ -1,8 +1,5 @@
 import { Injectable, Injector, Inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { zip } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { MenuService, SettingsService, TitleService, ALAIN_I18N_TOKEN } from '@delon/theme';
 // import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 import { ACLService } from '@delon/acl';
@@ -10,6 +7,7 @@ import { ACLService } from '@delon/acl';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { ICONS_AUTO } from '../../../style-icons-auto';
 import { ICONS } from '../../../style-icons';
+import { StorageService } from '@core/storage/storage.service';
 
 /**
  * Used for application startup
@@ -23,40 +21,59 @@ export class StartupService {
     private settingService: SettingsService,
     private aclService: ACLService,
     private titleService: TitleService,
+    private storageService: StorageService,
     // @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
-    private httpClient: HttpClient,
-    private injector: Injector
   ) {
     iconSrv.addIcon(...ICONS_AUTO, ...ICONS);
   }
 
   private viaHttp(resolve: any, reject: any) {
-    zip(
-      this.httpClient.get('assets/tmp/app-data.json')
-    ).pipe(
-      catchError(([appData]) => {
-        resolve(null);
-        return [appData];
-      })
-    ).subscribe(([appData]) => {
+    console.log('@@@@@@@@@@@@@@@@@@11111111111');
 
-      // Application data
-      const res: any = appData;
-      // Application information: including site name, description, year
-      this.settingService.setApp(res.app);
-      // User information: including name, avatar, email address
-      this.settingService.setUser(res.user);
-      // ACL: Set the permissions to full, https://ng-alain.com/acl/getting-started
-      this.aclService.setFull(true);
-      // Menu data, https://ng-alain.com/theme/menu
-      // this.menuService.add(res.menu);
-      // Can be set page suffix title, https://ng-alain.com/theme/title
-      this.titleService.suffix = res.app.name;
-    },
-      () => { },
-      () => {
-        resolve(null);
-      });
+    // zip(
+    //   this.httpClient.get('assets/tmp/app-data.json')
+    // ).pipe(
+    //   catchError(([appData]) => {
+    //     resolve(null);
+    //     return [appData];
+    //   })
+    // ).subscribe(([appData]) => {
+    //   console.log('@@@@@@@@@@@@@@@@@@');
+    //   console.log(appData);
+    //   // Application data
+    //   const res: any = appData;
+    //   // Application information: including site name, description, year
+    //   this.settingService.setApp(res.app);
+    //   // User information: including name, avatar, email address
+    //   this.settingService.setUser(res.user);
+    //   // ACL: Set the permissions to full, https://ng-alain.com/acl/getting-started
+    //   // this.aclService.setFull(true);
+    //   this.aclService.set(['admin']);
+    //   // Menu data, https://ng-alain.com/theme/menu
+    //   // this.menuService.add(res.menu);
+    //   // Can be set page suffix title, https://ng-alain.com/theme/title
+    //   this.titleService.suffix = res.app.name;
+    // },
+    //   () => { },
+    //   () => {
+    //     resolve(null);
+    //   });
+    const app: any = {
+      name: `云游戏`,
+      description: `云游戏运营管理平台`
+    };
+    const user: any = {
+      name: 'Admin',
+      avatar: './assets/tmp/img/avatar.jpg',
+      email: 'cipchk@qq.com',
+      token: '123456789'
+    };
+    this.aclService.setRole(['admin']);
+    // this.aclService.setFull(true);
+    this.settingService.setApp(app);
+    this.settingService.setUser(user);
+    this.titleService.suffix = app.name;
+    resolve({});
   }
 
   private viaMock(resolve: any, reject: any) {
@@ -88,7 +105,7 @@ export class StartupService {
     console.log(this.menuService.menus);
     // Can be set page suffix title, https://ng-alain.com/theme/title
     this.titleService.suffix = app.name;
-
+    resolve({});
     // this.menuService.add(
     //   [
     //     {
@@ -170,15 +187,40 @@ export class StartupService {
     resolve({});
   }
 
-  load(): Promise<any> {
-    // only works with promises
-    // https://github.com/angular/angular/issues/15088
-    return new Promise((resolve, reject) => {
-      // http
-      // this.viaHttp(resolve, reject);
-      // mock：请勿在生产环境中这么使用，viaMock 单纯只是为了模拟一些数据使脚手架一开始能正常运行
-      this.viaMock(resolve, reject);
+  // load(): Promise<any> {
+  //   // only works with promises
+  //   // https://github.com/angular/angular/issues/15088
+  //   return new Promise((resolve, reject) => {
+  //     // http
+  //     this.viaHttp(resolve, reject);
+  //     // mock：请勿在生产环境中这么使用，viaMock 单纯只是为了模拟一些数据使脚手架一开始能正常运行
+  //     // this.viaMock(resolve, reject);
 
+  //   });
+  // }
+
+  load(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      console.log("startup---load");
+      const userInfo = this.storageService.getUserInfo();
+      const app: any = {
+        name: `云游戏`,
+        description: `云游戏运营管理平台`
+      };
+      const user: any = {
+        name: userInfo.name,
+        avatar: './assets/tmp/img/avatar.jpg',
+        email: userInfo.email
+      };
+      console.log("用户的信息@@@@@@@@@");
+      console.log(userInfo);
+      // this.aclService.setRole(['admin']);
+      this.aclService.setFull(true);
+      this.settingService.setApp(app);
+      this.settingService.setUser(user);
+      this.titleService.suffix = app.name;
+      resolve({});
     });
+
   }
 }

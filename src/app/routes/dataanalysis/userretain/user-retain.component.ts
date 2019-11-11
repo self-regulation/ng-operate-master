@@ -79,8 +79,9 @@ export class UserRetainComponent implements OnInit {
     }
 
     changeDays(event) {
-        console.log(event);
-        if (!event) {
+        if (this.stayDays == event) {
+            return;
+        } else if (!event) {
             event = 7;
         }
         this.stayDays = event;

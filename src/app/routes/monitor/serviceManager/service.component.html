@@ -5,56 +5,67 @@
   <nz-table [nzData]="bindList" nzShowPagination="false" [nzLoading]="tableLoading">
     <thead>
       <tr>
-        <th></th>
-        <th>名称</th>
-        <th></th>
-        <th></th>
-        <th>游戏服务器连接的中心服务ip</th>
-        <th>连接时间</th>
-        <th></th>
-        <th>连接状态</th>
+        <th style="width:15%">服务器组名称</th>
+        <th style="width:25%">服务器名称</th>
+        <th style="width:25%">游戏服务器连接的中心服务ip</th>
+        <th style="width:20%">连接时间</th>
+        <th style="width:15%">连接状态</th>
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let service of serviceList">
+      <ng-container *ngFor="let region of allRegions;let j=index">
+        <tr>
+          <td nzShowExpand="true" [(nzExpand)]="region.groupExpand" (nzExpandChange)="collapseRegion(region,$event)"
+            class="text-left"><i nz-icon nzType="cloud-server" nzTheme="outline"
+              class="server-icon"></i>&nbsp;&nbsp;{{region.name}}
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr [(nzExpand)]="region.groupExpand">
+          <td></td>
+          <td colspan="4">
+            <nz-table nzSize="middle" [nzData]="serviceList" nzShowPagination="false">
+              <!-- [nzTotal]="totals"
+              nzShowSizeChanger="true" [nzPageSizeOptions]="pageSizeOptions" [(nzPageIndex)]="pageNum"
+              [(nzPageSize)]="pageSize" (nzPageIndexChange)="changePage($event)"
+              (nzPageSizeChange)="changePageSize($event)" -->
+    <tbody>
 
-        <tr>
-          <td nzShowExpand="true" [(nzExpand)]="service.groupExpand"><i nz-icon nzType="cloud-server" nzTheme="outline"
-              class="server-icon"></i>
+      <ng-container *ngIf="expandLoading">
+        <tr class="text-center">
+          <td colspan="4">
+            <nz-spin nzSimple></nz-spin>
           </td>
-          <td>{{service.name}}</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
         </tr>
-        <tr [(nzExpand)]="service.groupExpand">
-          <td></td>
-          <td colspan="7">
-            <nz-table [nzData]="service.list" nzSize="middle" [nzShowPagination]="false">
+      </ng-container>
+
+
+      <ng-container *ngIf="region.groupExpand">
+        <ng-container *ngFor="let service of serviceList;let i=index">
+          <tr>
+            <!-- [(nzExpand)]="item.devExpand" -->
+            <td nzShowExpand="true" [(nzExpand)]="service.devExpand"><i nz-icon nzType="database" nzTheme="outline"
+                style="width:25%" class="server-icon"></i>&nbsp;&nbsp;{{service.serverName}}</td>
+            <!-- <td></td>
+            <td></td> -->
+            <td style="width:25%">{{service.controlServer}}</td>
+            <td style="width:25%">{{service.connectTime | timeTransform:'YYYY-MM-DD HH:mm:ss'}}</td>
+            <td style="width:25%">
+              <nz-badge [nzStatus]="service.status==1?'success':'error'" [nzText]="service.status==1?'链接':'断开'">
+              </nz-badge>
+            </td>
+            <!-- <td></td>
+            <td></td> -->
+          </tr>
+          <tr [(nzExpand)]="service.devExpand">
+            <td></td>
+            <td colspan="5">
+              <nz-table [nzData]="service.devices" nzSize="middle" nzShowPagination="false">
     <tbody>
-      <ng-container *ngFor="let item of service.list">
-        <tr>
-          <td nzShowExpand="true" [(nzExpand)]="item.devExpand"><i nz-icon nzType="database" nzTheme="outline"
-              class="server-icon"></i></td>
-          <td>{{item.serverName}}</td>
-          <td></td>
-          <td>{{item.controlServer}}</td>
-          <td>{{item.connectTime | timeTransform:'YYYY-MM-DD HH:mm:ss'}}</td>
-          <td>
-            <nz-badge [nzStatus]="item.status==1?'success':'error'" [nzText]="item.status==1?'链接':'断开'"></nz-badge>
-          </td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr [(nzExpand)]="item.devExpand">
-          <td></td>
-          <td colspan="7">
-            <nz-table [nzData]="service.list" nzSize="middle" [nzShowPagination]="false">
-    <tbody>
-      <tr *ngFor="let dev of item.devices" (click)="queryDevDatas(dev,item.serverName)">
+      <tr *ngFor="let dev of service.devices" (click)="queryDevDatas(dev,service.serverName)">
         <td style="cursor:pointer">{{ dev }}</td>
         <td></td>
         <td></td>
@@ -66,6 +77,17 @@
   </td>
   </tr>
   </ng-container>
+  </ng-container>
+  <ng-container *ngIf="totals>10">
+    <tr class="text-center">
+      <td colspan="7"><a (click)="loadMoreService(region)"><i nz-icon nzType="caret-down"
+            nzTheme="outline"></i>加载更多</a>&nbsp;&nbsp;&nbsp;&nbsp;<a (click)="CollapseService(region)"><i nz-icon
+            nzType="caret-up" nzTheme="outline"></i>收起</a></td>
+    </tr>
+  </ng-container>
+
+
+
   </tbody>
   </nz-table>
   </td>

@@ -41,6 +41,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { DynamicFormQuestionComponent } from '@core/components/dynamic-forms/dynamic-form-question.component';
 import { OperationStatus } from './pipes/operation-status.pipe';
 import { TimeTransform } from './pipes/moment.pipe';
+// import { DelonACLModule } from '@delon/acl';  //权限模块
 const THIRDMODULES = [
   // NgZorroAntdModule,
   // CountdownModule

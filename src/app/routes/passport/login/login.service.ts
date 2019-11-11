@@ -53,7 +53,8 @@ export class LoginService {
                         hideInBreadcrumb: false,
                         children: current.children,
                         menukey: current.menukey,
-                        order: 0
+                        order: 0,
+                        reuse: false
                     };
                     switch (current.menukey) {
                         case "HomePage":    //首页
