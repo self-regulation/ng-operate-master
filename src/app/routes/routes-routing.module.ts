@@ -21,8 +21,8 @@ const routes: Routes = [
     // canActivate: [SimpleGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent, data: { title: '仪表盘', titleI18n: '西山居', guard: { role: ['admin', 'user'] } }, canActivate: [ACLGuard] },
-      { path: 'analysis', loadChildren: () => import('./dataanalysis/analysis.module').then(m => m.AnalysisModule), canActivate: [ACLGuard], data: { guard: { role: ['admin'] } } },
+      { path: 'dashboard', component: DashboardComponent, data: { title: '仪表盘', titleI18n: '西山居' } },
+      { path: 'analysis', loadChildren: () => import('./dataanalysis/analysis.module').then(m => m.AnalysisModule) },
       { path: 'operation', loadChildren: () => import('./operation/operation.module').then(m => m.OperationModule) },
       { path: 'config', loadChildren: () => import('./manageconfig/manageconfig.module').then(m => m.SetGameModule) },
       { path: 'system', loadChildren: () => import('./system/system.module').then(m => m.SystemModule) },
@@ -43,7 +43,7 @@ const routes: Routes = [
     path: 'passport',
     component: LayoutPassportComponent,
     children: [
-      { path: 'login', component: UserLoginComponent, data: { title: '登录', titleI18n: '登录' } },
+      { path: 'login', component: UserLoginComponent, data: { title: '登录', titleI18n: '登录' } }
       // { path: 'lock', component: UserLockComponent, data: { title: '锁屏', titleI18n: 'lock' } },
     ]
   },

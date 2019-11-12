@@ -201,19 +201,22 @@ export class StartupService {
 
   load(): Promise<any> {
     return new Promise((resolve, reject) => {
-      console.log("startup---load");
-      const userInfo = this.storageService.getUserInfo();
+      // console.log("startup---load");
+      // let userInfo = this.storageService.getUserInfo();
+      // // if (!userInfo) {
+      // //   resolve({});
+      // // }
       const app: any = {
         name: `云游戏`,
         description: `云游戏运营管理平台`
       };
       const user: any = {
-        name: userInfo.name,
+        name: 'admin',
         avatar: './assets/tmp/img/avatar.jpg',
-        email: userInfo.email
+        email: 'userInfo.email'
       };
-      console.log("用户的信息@@@@@@@@@");
-      console.log(userInfo);
+      // console.log("用户的信息@@@@@@@@@");
+      // console.log(userInfo);
       // this.aclService.setRole(['admin']);
       this.aclService.setFull(true);
       this.settingService.setApp(app);
@@ -221,6 +224,5 @@ export class StartupService {
       this.titleService.suffix = app.name;
       resolve({});
     });
-
   }
 }

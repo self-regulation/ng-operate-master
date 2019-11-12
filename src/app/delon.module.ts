@@ -12,8 +12,6 @@ import { DelonACLModule } from '@delon/acl';
 import { DelonMockModule } from '@delon/mock';
 import * as MOCKDATA from '../../_mock';
 import { environment } from '@env/environment';
-console.log('environment===============');
-console.log(environment);
 const MOCK_MODULES = false ? [DelonMockModule.forRoot({ data: MOCKDATA })] : [];
 // #endregion
 
@@ -32,11 +30,11 @@ const MOCK_MODULES = false ? [DelonMockModule.forRoot({ data: MOCKDATA })] : [];
 import { RouteReuseStrategy } from '@angular/router';
 import { ReuseTabService, ReuseTabStrategy } from '@delon/abc/reuse-tab';
 const REUSETAB_PROVIDES = [
-  {
-    provide: RouteReuseStrategy,
-    useClass: ReuseTabStrategy,
-    deps: [ReuseTabService],
-  },
+  // {
+  //   provide: RouteReuseStrategy,
+  //   useClass: ReuseTabStrategy,
+  //   deps: [ReuseTabService],
+  // },
 ];
 // #endregion
 

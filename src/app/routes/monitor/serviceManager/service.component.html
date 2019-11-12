@@ -47,13 +47,13 @@
         <ng-container *ngFor="let service of serviceList;let i=index">
           <tr>
             <!-- [(nzExpand)]="item.devExpand" -->
-            <td nzShowExpand="true" [(nzExpand)]="service.devExpand"><i nz-icon nzType="database" nzTheme="outline"
-                style="width:25%" class="server-icon"></i>&nbsp;&nbsp;{{service.serverName}}</td>
+            <td style="width:30%" nzShowExpand="true" [(nzExpand)]="service.devExpand" class="text-left"><i nz-icon
+                nzType="database" nzTheme="outline" class="server-icon"></i>&nbsp;&nbsp;{{service.serverName}}</td>
             <!-- <td></td>
             <td></td> -->
-            <td style="width:25%">{{service.controlServer}}</td>
-            <td style="width:25%">{{service.connectTime | timeTransform:'YYYY-MM-DD HH:mm:ss'}}</td>
-            <td style="width:25%">
+            <td style="width:30%">{{service.controlServer}}</td>
+            <td style="width:23%">{{service.connectTime | timeTransform:'YYYY-MM-DD HH:mm:ss'}}</td>
+            <td style="width:17%">
               <nz-badge [nzStatus]="service.status==1?'success':'error'" [nzText]="service.status==1?'链接':'断开'">
               </nz-badge>
             </td>

@@ -115,7 +115,7 @@ export class ServiceServer {
                 serverName: param.serverName,
                 startTime: param.startTime,
                 endTime: param.endTime,
-                diskName: param.gpuId
+                // diskName: param.gpuId
             };
             params.callback = ((response: any) => {
                 observer.next(response);
