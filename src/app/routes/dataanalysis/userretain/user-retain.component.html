@@ -75,7 +75,7 @@
     <div nz-row [nzGutter]="24">
       <nz-form-item nzFlex>
         <div nz-col [nzSpan]="24" class="text-right">
-          <button nz-button type="submit" [nzType]="'primary'">查询</button>
+          <button nz-button type="submit" [nzType]="'primary'" (click)="searchData()">查询</button>
         </div>
       </nz-form-item>
     </div>
@@ -86,7 +86,7 @@
     <thead>
       <tr>
         <th>日期</th>
-        <th nzLeft="0px" nzShowFilter [nzFilters]="stayDayList" [nzFilterMultiple]="false"
+        <th nzLeft="0px" nzShowFilter="true" [nzFilters]="stayDayList" [nzFilterMultiple]="false"
           (nzFilterChange)="changeDays($event)">总人数
         </th>
         <ng-container *ngFor="let day of dayList;let j=index">

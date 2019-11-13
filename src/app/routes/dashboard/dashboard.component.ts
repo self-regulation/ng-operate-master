@@ -71,13 +71,17 @@ export class DashboardComponent implements OnInit {
     //   unit: '人',
     //   legend: ['玩家人数']
     // });
-    this.activeUserTrend = basicLine({
-      title: '活跃玩家趋势',
-      xData: (ActiveUserData()).xData,
-      seriesData: ActiveUserData().seriesData,
-      unit: '人',
-      legend: ['启动游戏人数']
-    });
+    this.activeUserTrend = basicLine(
+      {
+        name: '启动游戏人数',
+        type: 'line',
+        data: ActiveUserData().seriesData
+      },
+      (ActiveUserData()).xData,
+      ['启动游戏人数'],
+      '人',
+      '活跃玩家趋势'
+    );
 
     // this.averageTimeData = SimpleBar({
     //   xData: AverageTimeData().xData,

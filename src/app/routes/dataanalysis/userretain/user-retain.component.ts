@@ -27,9 +27,6 @@ export class UserRetainComponent implements OnInit {
 
     ngOnInit(): void {
         this.userRetainForm = this.fb.group({
-            // initialAction: [null],
-            // finallyAction: [null],
-            // sameDisplay: [null],
             dateRange: [null],
         });
 
@@ -74,6 +71,11 @@ export class UserRetainComponent implements OnInit {
     changeDateRange($event) {
         this.startTime = moment($event[0]).format('YYYY-MM-DD HH:mm');
         this.endTime = moment($event[1]).format('YYYY-MM-DD HH:mm');
+        this.dateRange = [this.startTime, this.endTime];
+        this.getUserRetainData();
+    }
+
+    searchData() {
         this.dateRange = [this.startTime, this.endTime];
         this.getUserRetainData();
     }

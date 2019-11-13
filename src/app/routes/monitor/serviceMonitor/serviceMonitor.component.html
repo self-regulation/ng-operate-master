@@ -95,25 +95,31 @@
   <nz-spin nzSimple [nzSize]="'large'" *ngIf="diskLoading" class="text-center"></nz-spin>
 
   <div *ngIf="!diskLoading">
-    <div nz-row nzGutter="15" class="mt-15">
-      <h3 class="text-center" style="font-weight: 800;">磁盘使用率</h3>
-      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of diskList">
-        <nz-card>
-          <div echarts [options]="item" style="height: 400px"></div>
-        </nz-card>
+    <ng-container *ngIf="diskList.length>0">
+      <div nz-row nzGutter="15" class="mt-15">
+        <h3 class="text-center" style="font-weight: 800;">磁盘使用率</h3>
+        <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of diskList">
+          <nz-card>
+            <div echarts [options]="item" style="height: 400px"></div>
+          </nz-card>
+        </div>
       </div>
-    </div>
+    </ng-container>
 
-    <div nz-row nzGutter="15" class="mt-15">
-      <h3 class="text-center" style="font-weight: 800;">磁盘可用空间</h3>
-      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of diskUseList">
-        <nz-card>
-          <div echarts [options]="item" style="height: 400px"></div>
-        </nz-card>
+
+    <ng-container *ngIf="diskUseList.length>0">
+      <div nz-row nzGutter="15" class="mt-15">
+        <h3 class="text-center" style="font-weight: 800;">磁盘可用空间</h3>
+        <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of diskUseList">
+          <nz-card>
+            <div echarts [options]="item" style="height: 400px"></div>
+          </nz-card>
+        </div>
       </div>
-    </div>
+    </ng-container>
   </div>
 
+  <nz-empty *ngIf="diskList.length==0" style="margin-top: 100px;"></nz-empty>
 </nz-drawer>
 <!-- GPU使用情况 -->
 <nz-drawer [nzVisible]="gpuVisible" [nzWidth]="1200" [nzClosable]="true" (nzOnClose)="closeGpu()">
@@ -128,64 +134,22 @@
 
   <div *ngIf="!gpuLoading">
 
-    <div nz-row nzGutter="15" class="mt-15">
-      <h3 class="text-center" style="font-weight: 800;">GPU 使用率</h3>
-      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of gpuCoreList">
-        <nz-card>
-          <div class="chartTitle"><label>名称：</label><span style="font-weight: bold;">{{item.gpuName}}</span></div>
-          <div echarts [options]="item.ratioList" style="height: 400px"></div>
-        </nz-card>
-      </div>
-    </div>
-    <div nz-row nzGutter="15" class="mt-15">
-      <h3 class="text-center" style="font-weight: 800;">GPU 温度</h3>
-      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of gpuTemperatureList">
-        <nz-card>
-          <div class="chartTitle"><label>名称：</label><span style="font-weight: bold;">{{item.gpuName}}</span></div>
-          <div echarts [options]="item.ratioList" style="height: 400px"></div>
-        </nz-card>
-      </div>
-    </div>
+    <ng-container *ngIf="gpuData.length>0">
+      <ng-container *ngFor="let item of gpuData">
+        <div nz-row nzGutter="15" class="mt-15">
+          <nz-card>
+            <div echarts [options]="item.temperat" style="height: 400px"></div>
+          </nz-card>
+        </div>
 
-    <div nz-row nzGutter="15" class="mt-15">
-      <h3 class="text-center" style="font-weight: 800;">GPU 内存使用情况</h3>
-      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of gpuRatioList">
-        <nz-card>
-          <div class="chartTitle"><label>名称：</label><span style="font-weight: bold;">{{item.gpuName}}</span></div>
-          <div echarts [options]="item.ratioList" style="height: 400px"></div>
-        </nz-card>
-      </div>
-    </div>
-
-    <div nz-row nzGutter="15" class="mt-15">
-      <h3 class="text-center" style="font-weight: 800;">GPU可用空间</h3>
-      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of gpuUseList">
-        <nz-card>
-          <div class="chartTitle"><label>名称：</label><span style="font-weight: bold;">{{item.gpuName}}</span></div>
-          <div echarts [options]="item.useList" style="height: 400px"></div>
-        </nz-card>
-      </div>
-    </div>
-
-    <div nz-row nzGutter="15" class="mt-15">
-      <h3 class="text-center" style="font-weight: 800;">GPU 视频引擎占用率</h3>
-      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of gpuVideoEngineList">
-        <nz-card>
-          <div class="chartTitle"><label>名称：</label><span style="font-weight: bold;">{{item.gpuName}}</span></div>
-          <div echarts [options]="item.ratioList" style="height: 400px"></div>
-        </nz-card>
-      </div>
-    </div>
-
-    <div nz-row nzGutter="15" class="mt-15">
-      <h3 class="text-center" style="font-weight: 800;">GPU 内存控制器占用率</h3>
-      <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of gpuMemoryControllerList">
-        <nz-card>
-          <div class="chartTitle"><label>名称：</label><span style="font-weight: bold;">{{item.gpuName}}</span></div>
-          <div echarts [options]="item.ratioList" style="height: 400px"></div>
-        </nz-card>
-      </div>
-    </div>
+        <div nz-row nzGutter="15" class="mt-15">
+          <nz-card>
+            <div echarts [options]="item.usageRate" style="height: 400px"></div>
+          </nz-card>
+        </div>
+      </ng-container>
+    </ng-container>
+    <nz-empty *ngIf="gpuData.length==0" style="margin-top: 100px;"></nz-empty>
 
   </div>
 </nz-drawer>

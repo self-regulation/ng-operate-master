@@ -9,6 +9,7 @@ export * from './utils/line';
 export * from './utils/basicLine';
 export * from './utils/defaultPie';
 export * from './utils/validator';
+export * from './utils/bar-line';
 
 export * from './utils/userRetain';
 export * from './utils/activeUserData';

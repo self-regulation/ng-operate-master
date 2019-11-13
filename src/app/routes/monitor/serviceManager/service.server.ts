@@ -114,9 +114,14 @@ export class ServiceServer {
             params.data = {
                 serverName: param.serverName,
                 startTime: param.startTime,
-                endTime: param.endTime,
-                // diskName: param.gpuId
+                endTime: param.endTime
             };
+            if (param.gpuId) {
+                params.data["gpuId"] = param.gpuId;
+            }
+            if (param.interval) {
+                params.data["interval"] = param.interval;
+            }
             params.callback = ((response: any) => {
                 observer.next(response);
                 observer.complete();

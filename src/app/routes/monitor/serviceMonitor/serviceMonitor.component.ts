@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { ServiceServer } from '../serviceManager/service.server';
 import { NzMessageService } from 'ng-zorro-antd';
-import { areaLine, Line } from '@shared';
+import { areaLine, Line, barLine, basicLine } from '@shared';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -29,13 +29,10 @@ export class ServiceMonitorComponent implements OnInit {
     diskLoading: boolean = true;
 
     gpuVisible: boolean = false;
-    gpuRatioList: any = [];
-    gpuUseList: any = [];
-    gpuVideoEngineList: any = []; //视频引擎占用率
-    gpuMemoryControllerList: any = [];//GPU内存控制器占用率
-    gpuCoreList: any = []; //GPU核心渲染占用率
-    gpuTemperatureList: any = [];//GPU温度
     gpuLoading: boolean = false;
+
+    gpuData: any = [];
+    gpuCoreList: any = [];
 
     devDetailVisible: boolean = false;
     devDetailRatio: any;
@@ -197,10 +194,10 @@ export class ServiceMonitorComponent implements OnInit {
     }
 
     lookDetails(data: any, type: any, serverName: any) {
-        if (!data || JSON.stringify(data) == '{}') {
-            this.message.create('error', '暂无该设备信息!');
-            return;
-        }
+        // if (!data || JSON.stringify(data) == '{}') {
+        //     this.message.create('error', '暂无该设备信息!');
+        //     return;
+        // }
         this.serverName = serverName;
         this.diskList = [];
         this.diskUseList = [];
@@ -219,77 +216,123 @@ export class ServiceMonitorComponent implements OnInit {
             this.diskLoading = false;
 
         } else {
-            this.gpuRatioList = [];
-            this.gpuUseList = [];
-            this.gpuVideoEngineList = [];
-            this.gpuMemoryControllerList = [];
-            this.gpuCoreList = [];
-            this.gpuTemperatureList = [];
-            for (let item in data) {
-                let xDate = [], seriesData = [], dataSeries = [], videoEngineSeries = [], gpuMemoryControllerListSeries = [], gpuCoreSeries = [], gpuTemperatureSeries = [];
-                data[item].forEach((gpuItem: any) => {
-                    xDate.push(moment.unix(gpuItem.createTime).format('YYYY-MM-DD HH:mm'));
-                    seriesData.push(((parseFloat(gpuItem.gpuMemoryUsed) / parseFloat(gpuItem.gpuMemoryTotal)) / 100).toFixed(2));
-                    dataSeries.push(((parseFloat(gpuItem.gpuMemoryTotal) - parseFloat(gpuItem.gpuMemoryUsed)) / 1024).toFixed(2));
-
-                });
-                videoEngineSeries = data[item].map((item: any) => {
-                    return parseFloat(item.gpuVideoEngine).toFixed(2);
-                });
-
-                gpuMemoryControllerListSeries = data[item].map((item: any) => {
-                    return parseFloat(item.gpuMemoryController).toFixed(2);
-                });
-
-                gpuCoreSeries = data[item].map((item: any) => {
-                    return parseFloat(item.gpuCore).toFixed(2);
-                });
-
-                gpuTemperatureSeries = data[item].map((item: any) => {
-                    return parseFloat(item.temp).toFixed(2);
-                });
-
-                let ratioItem = {
-                    ratioList: Line({ xDate: xDate, seriesData: seriesData, viewTitle: item + '使用率', unit: '(%)', des: '使用率' }),
-                    gpuName: data[item][0].gpuName
-                };
-
-                let useItem = {
-                    useList: Line({ xDate: xDate, seriesData: dataSeries, viewTitle: item + '可用空间大小', unit: '(G)', des: '可用空间大小' }),
-                    gpuName: data[item][0].gpuName
-                };
-
-                let videoEngine = {
-                    ratioList: Line({ xDate: xDate, seriesData: videoEngineSeries, viewTitle: item + '视频引擎占用率', unit: '(%)', des: '占用率' }),
-                    gpuName: data[item][0].gpuName
-                }
-
-                let memoryController = {
-                    ratioList: Line({ xDate: xDate, seriesData: gpuMemoryControllerListSeries, viewTitle: item + '内存控制器占用率', unit: '(%)', des: '占用率' }),
-                    gpuName: data[item][0].gpuName
-                }
-
-                let gpuCoreItem = {
-                    ratioList: Line({ xDate: xDate, seriesData: gpuCoreSeries, viewTitle: item + '渲染核心占用率', unit: '(%)', des: '占用率' }),
-                    gpuName: data[item][0].gpuName
-                }
-
-                let gpuTemperatureItem = {
-                    ratioList: Line({ xDate: xDate, seriesData: gpuTemperatureSeries, viewTitle: item + '温度', unit: '(℃)', des: '温度' }),
-                    gpuName: data[item][0].gpuName
-                }
-
-                this.gpuRatioList.push(ratioItem);
-                this.gpuUseList.push(useItem);
-                this.gpuVideoEngineList.push(videoEngine);
-                this.gpuMemoryControllerList.push(memoryController);
-                this.gpuCoreList.push(gpuCoreItem);
-                this.gpuTemperatureList.push(gpuTemperatureItem);
-                this.gpuVisible = true;
-            }
+            let params = {
+                serverName: serverName,
+                startTime: moment().subtract(1, 'hour').format('YYYY-MM-DD HH:mm:ss'),
+                endTime: moment().format('YYYY-MM-DD HH:mm:ss')
+            };
+            this.queryGpuDatas(params);
         }
 
 
+    }
+    queryGpuDatas(params) {
+        this.gpuLoading = true;
+        this.serviceServer.queryGpuDatas(params).subscribe((res: any) => {
+            this.gpuData = [];
+            this.gpuLoading = false;
+            if (res.code == 0 && JSON.stringify(res.data) != '{}') {
+                for (let gpuItem in res.data) {
+                    let xDate = [],
+                        gpuTempList = [],//核心温度
+                        gpuSmList = [],//流处理器的利用率 %
+                        gpuMemList = [],//显存利用率 %
+                        gpuEncList = [],//编码器利用率 %
+                        gpuDecList = [],//解码器利用率 %
+
+                        gpuMclkList = [],//显存频率 MHz
+                        gpuPclkList = [];//GPU频率 MHz
+                    let echartData = {
+                        usageRate: null,
+                        temperat: null
+                    };
+                    let gpuSmSeries = null, gpuMemSeries = null, gpuEncSeries = null, gpuDecSeries = null, gpuMclkSeries = null, gpuPclkSeries = null, gpuName = null, seriesData = [];
+                    res.data[gpuItem].forEach((item: any) => {
+                        xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
+                        gpuTempList.push(item.gpuTemp);
+
+                        gpuSmList.push(item.gpuSm);
+                        gpuMemList.push(item.gpuMem);
+                        gpuEncList.push(item.gpuEnc);
+                        gpuDecList.push(item.gpuDec);
+
+                        gpuMclkList.push(item.gpuMclk);
+                        gpuPclkList.push(item.gpuPclk);
+                        gpuName = item.gpuName;
+                    });
+                    gpuSmSeries = {
+                        name: '流处理器的利用率',
+                        type: 'line',
+                        data: gpuSmList
+                    };
+
+                    gpuMemSeries = {
+                        name: '显存利用率',
+                        type: 'line',
+                        data: gpuMemList
+                    };
+
+                    gpuEncSeries = {
+                        name: '编码器利用率',
+                        type: 'line',
+                        data: gpuMemList
+                    }
+
+                    gpuDecSeries = {
+                        name: '解码器利用率',
+                        type: 'line',
+                        data: gpuDecList
+                    }
+
+                    gpuMclkSeries = {
+                        name: '显存频率',
+                        type: 'bar',
+                        yAxisIndex: 1,
+                        data: gpuMclkList
+                    }
+
+                    gpuPclkSeries = {
+                        name: 'GPU频率',
+                        type: 'bar',
+                        yAxisIndex: 1,
+                        data: gpuPclkList
+                    }
+                    let params = {
+                        title: gpuName,
+                        xData: xDate,
+                        seriesData: [gpuSmSeries, gpuMemSeries, gpuEncSeries, gpuDecSeries, gpuMclkSeries, gpuPclkSeries],
+                        legend: ['流处理器的利用率', '显存利用率', '编码器利用率', '解码器利用率', '显存频率', 'GPU频率'],
+                        y1AxisName: '利用率',
+                        y1unit: '%',
+                        y2AxisName: '频率',
+                        y2unit: 'MHz',
+                        y1max: Math.ceil(Math.max(...[...gpuSmList, ...gpuMemList, ...gpuEncList, ...gpuDecList]) / 9.5) * 10,
+                        y1min: Math.floor(Math.min(...[...gpuSmList, ...gpuMemList, ...gpuEncList, ...gpuDecList]) / 10) * 10,
+                        y2max: Math.ceil(Math.max(...[...gpuMclkList, ...gpuPclkList]) / 9.5) * 10,
+                        y2min: Math.floor(Math.min(...[...gpuMclkList, ...gpuPclkList]) / 10) * 10
+                    };
+                    echartData.usageRate = barLine(params);
+                    echartData.temperat = basicLine(
+                        {
+                            name: 'GPU温度',
+                            type: 'line',
+                            data: gpuTempList
+                        },
+                        xDate,
+                        ['GPU温度'],
+                        '℃',
+                        gpuName,
+                        Math.floor(Math.min(...[...gpuTempList]) / 10) * 10,
+                        Math.ceil(Math.max(...[...gpuTempList]) / 9.5) * 10
+
+                    );
+                    this.gpuData.push(echartData);
+                }
+            } else {
+                this.message.create('error', res.message ? res.message : ((res.code == 0 && JSON.stringify(res.data) == '{}') ? '暂无数据' : '查询失败'));
+            }
+            this.gpuVisible = true;
+        });
     }
 
     showDevDetail(data: any, type: any, serverName: any) {
@@ -480,81 +523,7 @@ export class ServiceMonitorComponent implements OnInit {
                 endTime: moment().format('YYYY-MM-DD HH:mm:ss')
             }
         }
-        this.gpuRatioList = [];
-        this.gpuUseList = [];
-        this.gpuVideoEngineList = [];
-        this.gpuCoreList = [];
-        this.gpuTemperatureList = [];
-        this.gpuLoading = true;
-        this.serviceServer.queryGpuDatas(params).subscribe((res: any) => {
-            this.gpuLoading = false;
-            if (res.code == 0) {
-                if (JSON.stringify(res.data) == '{}' || !res.data) {
-                    this.message.create('warning', '暂无该设备信息数据!');
-                    return;
-                }
-                for (let item in res.data) {
-                    let xDate = [], seriesData = [], dataSeries = [], videoEngineSeries = [],
-                        gpuMemoryControllerListSeries = [], gpuCoreSeries = [], gpuTemperatureSeries = [];
-                    res.data[item].forEach((gpuItem: any) => {
-                        xDate.push(moment.unix(gpuItem.createTime).format('YYYY-MM-DD HH:mm'));
-                        seriesData.push(((parseFloat(gpuItem.gpuMemoryUsed) / parseFloat(gpuItem.gpuMemoryTotal)) / 100).toFixed(2));
-                        dataSeries.push(((parseFloat(gpuItem.gpuMemoryTotal) - parseFloat(gpuItem.gpuMemoryUsed)) / 1024).toFixed(2));
-                    });
-                    videoEngineSeries = res.data[item].map((item: any) => {
-                        return parseFloat(item.gpuVideoEngine).toFixed(2);
-                    });
-                    gpuMemoryControllerListSeries = res.data[item].map((item: any) => {
-                        return parseFloat(item.gpuMemoryController).toFixed(2);
-                    });
-                    gpuCoreSeries = res.data[item].map((item: any) => {
-                        return parseFloat(item.gpuCore).toFixed(2);
-                    });
-
-                    gpuTemperatureSeries = res.data[item].map((item: any) => {
-                        return parseFloat(item.temp).toFixed(2);
-                    });
-                    let ratioItem = {
-                        ratioList: Line({ xDate: xDate, seriesData: seriesData, viewTitle: item + '内存使用率', unit: '(%)', des: '使用率' }),
-                        gpuName: res.data[item][0].gpuName
-                    };
-
-                    let useItem = {
-                        useList: Line({ xDate: xDate, seriesData: dataSeries, viewTitle: item + '可用空间大小', unit: '(G)', des: '可用空间大小' }),
-                        gpuName: res.data[item][0].gpuName
-                    };
-
-                    let videoEngine = {
-                        ratioList: Line({ xDate: xDate, seriesData: videoEngineSeries, viewTitle: item + '视频引擎占用率', unit: '(%)', des: '占用率' }),
-                        gpuName: res.data[item][0].gpuName
-                    };
-
-                    let memoryController = {
-                        ratioList: Line({ xDate: xDate, seriesData: gpuMemoryControllerListSeries, viewTitle: item + '内存控制器占用率', unit: '(%)', des: '占用率' }),
-                        gpuName: res.data[item][0].gpuName
-                    }
-
-                    let gpuCoreItem = {
-                        ratioList: Line({ xDate: xDate, seriesData: gpuCoreSeries, viewTitle: item + '使用率', unit: '(%)', des: '使用率' }),
-                        gpuName: res.data[item][0].gpuName
-                    }
-
-                    let gpuTemperatureItem = {
-                        ratioList: Line({ xDate: xDate, seriesData: gpuTemperatureSeries, viewTitle: item + '温度', unit: '(℃)', des: '温度' }),
-                        gpuName: res.data[item][0].gpuName
-                    }
-
-                    this.gpuRatioList.push(ratioItem);
-                    this.gpuUseList.push(useItem);
-                    this.gpuVideoEngineList.push(videoEngine);
-                    this.gpuMemoryControllerList.push(memoryController);
-                    this.gpuCoreList.push(gpuCoreItem);
-                    this.gpuTemperatureList.push(gpuTemperatureItem);
-                }
-            } else {
-                this.message.create('error', res.message ? res.message : '暂无该设备信息数据!');
-            }
-        });
+        this.queryGpuDatas(params);
     }
 
 }
