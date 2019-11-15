@@ -1,55 +1,53 @@
 import { Component, OnInit } from '@angular/core';
 import { EChartOption } from 'echarts';
 import { DoughnutPie } from '@shared/utils/doughnutpie';
-import { basicLine, ActiveUserData, AverageTimeData, DefaultPie } from '@shared';
+import { basicLine, AverageTimeData, DefaultPie } from '@shared';
 import { SimpleBar } from '@shared/utils/simpleBar';
+import { DashboardServer } from './dashboard.server';
+import { forkJoin } from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.less']
+  styleUrls: ['./dashboard.component.less'],
+  providers: [DashboardServer]
 })
 export class DashboardComponent implements OnInit {
   operatSystem: any = null;
-  unit: any = 'hour';
-  activeUserTrend: any = null;
-  averageTimeData: any = null;
   serverSystem: any = null;
-  array = [
-    ['服务器异常信息1', '服务器异常信息2', '服务器异常信息3', '服务器异常信息4', '服务器异常信息5'],
-    ['服务器异常信息6', '服务器异常信息7', '服务器异常信息8', '服务器异常信息9', '服务器异常信息10'],
-    ['服务器异常信息11', '服务器异常信息12', '服务器异常信息13', '服务器异常信息14', '服务器异常信息15']];
-  salesPieData = [
-    {
-      x: '已使用',
-      y: 10,
-    },
-    {
-      x: '未使用',
-      y: 4,
-    },
 
-  ];
-  total: string;
-  isVisible = false;
-
-
-  data = [];
   now: any = +new Date(1997, 9, 3);
   oneDay = 24 * 3600 * 1000;
   value = Math.random() * 1000;
 
-  // public lineOption: EChartOption;
-  public pieOption: EChartOption;
+  monitorLoading: any = {
+    newUserInfo: false,
+    rechargeInfo: false,
+    activeUserInfo: false,
+    userRetainInfo: false,
+    userTrendInfo: false,
+    onlineTimeInfo: false,
+  };
+  newUserInfo: any = null;  //新增玩家
+  rechargeInfo: any = null;  //充值额信息
+  activeUserInfo: any = null; //活跃玩家信息
+  userRetainInfo: any = null; //玩家留存
+  userTrendInfo: any = null;  //玩家活跃趋势信息
+  userActiveInfo: any = null; //活跃玩家信息（用于获取实时在线用户等）
+  onlineTimeInfo: any = null;  //玩家在线时长统计
+  serverInfoList: any = []; //服务器信息
 
+  trendUnit: any = 'hour'; //玩家活跃趋势粒度
+  onlineUnit: any = 'hour'; //玩家在线时长粒度
+  curTime: any = moment().format("YYYY-MM-DD");
 
-  pageIndex = 1;
-  pageSize = 10;
-  totals = 1;
-  listOfData = [];
-  loading = true;
-
-  constructor() { }
+  pageNum: number = 1;
+  pageSize: number = 5;
+  pageSizeOptions = [5, 10, 20, 30, 40, 50];
+  totals = 0;
+  tableLoading = true;
+  constructor(private dashboardServer: DashboardServer) { }
 
   ngOnInit() {
     this.operatSystem = DoughnutPie({
@@ -63,49 +61,6 @@ export class DashboardComponent implements OnInit {
       ]
     });
 
-    // this.lineOption = basicLine({
-    //   title: '玩家人流量',
-    //   xData: ['2019-09-18', '2019-09-19', '2019-09-20', '2019-09-21', '2019-09-22', '2019-09-23', '2019-09-24', '2019-09-25', '2019-09-26', '2019-09-27', '2019-09-28', '2019-09-29', '2019-09-30', '2019-10-01'
-    //     , '2019-10-02', '2019-10-03', '2019-10-04', '2019-10-05', '2019-10-06', '2019-10-07', '2019-10-08', '2019-10-09', '2019-10-10', '2019-10-11', '2019-10-12', '2019-10-13', '2019-10-14', '2019-10-15', '2019-10-16', '2019-10-17', '2019-10-18'],
-    //   seriesData: [678, 345, 765, 345, 764, 234, 789, 345, 1234, 656, 342, 432, 675, 134, 765, 444, 764, 223, 889, 776, 1234, 1245, 1356, 1567, 1785, 1345, 1899, 1999, 2345, 2567, 3214],
-    //   unit: '人',
-    //   legend: ['玩家人数']
-    // });
-    this.activeUserTrend = basicLine(
-      {
-        name: '启动游戏人数',
-        type: 'line',
-        data: ActiveUserData().seriesData
-      },
-      (ActiveUserData()).xData,
-      ['启动游戏人数'],
-      '人',
-      '活跃玩家趋势'
-    );
-
-    // this.averageTimeData = SimpleBar({
-    //   xData: AverageTimeData().xData,
-    //   seriesData: AverageTimeData().seriesData,
-    //   viewTitle: '平均单日使用时长',
-    //   unit: '分',
-    //   legend: ['平均使用时长']
-    // });
-    this.averageTimeData = DoughnutPie({
-      legendData: ['小于1H', '1H~2H', '2H~3H', '3H~5H', '5H~8H', '8H~12H', '大于12H'],
-      seriesName: '游戏时间统计',
-      seriesData: [
-        { value: 100, name: '小于1H' },
-        { value: 500, name: '1H~2H' },
-        { value: 400, name: '2H~3H' },
-        { value: 300, name: '3H~5H' },
-        { value: 188, name: '5H~8H' },
-        { value: 55, name: '8H~12H' },
-        { value: 33, name: '大于12H' },
-
-      ]
-    });
-
-
     this.serverSystem = DefaultPie({
       title: '服务器使用情况',
       seriesData: [
@@ -116,8 +71,230 @@ export class DashboardComponent implements OnInit {
       legend: ['已使用', '未使用']
     });
 
-    this.searchData();
+
+    this.getNewUserInfo();
+    this.getRechargeInfo();
+    this.getActiveUserInfo();
+    this.getUserRetainInfo();
+    this.getUserTrend();
+    this.getOnlineTime({
+      startTime: moment().startOf('day').format("YYYY-MM-DD HH:mm:ss"),
+      endTime: moment().format("YYYY-MM-DD HH:mm:ss")
+    });
+    this.getServerInfo();
   }
+  //查询新增玩家
+  getNewUserInfo() {
+    this.dashboardServer.getNewUserInfo().subscribe((res: any) => {
+      this.monitorLoading.newUserInfo = true;
+      if (res.code == 0) {
+        this.newUserInfo = res.data;
+      } else {
+        this.newUserInfo = null;
+      }
+    });
+  }
+  //充值金额查询
+  getRechargeInfo() {
+    this.dashboardServer.getRecharge().subscribe((res: any) => {
+      console.log(res);
+      this.monitorLoading.rechargeInfo = true;
+      if (res.code == 0) {
+        this.rechargeInfo = res.data;
+      } else {
+        this.rechargeInfo = null;
+      }
+    });
+  }
+  //活跃玩家查询
+  getActiveUserInfo() {
+    this.dashboardServer.getActiveUser().subscribe((res: any) => {
+      this.monitorLoading.activeUserInfo = true;
+      if (res.code == 0) {
+        this.activeUserInfo = res.data;
+      } else {
+        this.activeUserInfo = null;
+      }
+    });
+  }
+  //玩家留存查询
+  getUserRetainInfo() {
+    this.dashboardServer.getUserRetainInfo().subscribe((res: any) => {
+      this.monitorLoading.userRetainInfo = true;
+      if (res.code == 0) {
+        this.userRetainInfo = res.data;
+      } else {
+        this.userRetainInfo = null;
+      }
+    });
+  }
+  //玩家活跃趋势
+  getUserTrend(params?: any) {
+    this.monitorLoading.userTrendInfo = false;
+    this.dashboardServer.getUserTrend(params ? params : null).subscribe((res: any) => {
+      this.monitorLoading.userTrendInfo = true;
+      if (res.code == 0) {
+        this.userActiveInfo = res.data;
+        if (res.data && res.data.data.length > 0) {
+          let xData = [], seriesData = [], minNum, maxNum;
+          xData = res.data.data.map((item: any) => {
+            return item.Time;
+          });
+          seriesData = res.data.data.map((item: any) => {
+            return item.Count;
+          });
+          // console.log("@@@@@@@@@@@@@");
+          // console.log(Math.min(...seriesData) + '#######' + Math.max(...seriesData));
+          // console.log(Math.floor(Math.min(...seriesData) / 10) * 10 + '#######' + Math.ceil(Math.max(...seriesData) / 9.5) * 10);
+          minNum = Math.floor(Math.min(...seriesData) / 10) * 10;
+          maxNum = Math.ceil(Math.max(...seriesData) / 9.5) * 10;
+          this.userTrendInfo = basicLine(
+            {
+              name: '启动游戏人数',
+              type: 'line',
+              data: seriesData
+            },
+            xData,
+            ['启动游戏人数'],
+            '人',
+            '玩家活跃趋势',
+            minNum,
+            maxNum,
+            10
+          );
+        } else {
+          this.userTrendInfo = null;
+        }
+      } else {
+        this.userTrendInfo = null;
+      }
+    });
+  }
+  //玩家在线时长统计
+  getOnlineTime(params: any) {
+    this.monitorLoading.onlineTimeInfo = false;
+    this.dashboardServer.getOnlineTime(params).subscribe((res: any) => {
+      this.monitorLoading.onlineTimeInfo = true;
+      if (res.code == 0) {
+        if (JSON.stringify(res.data) != '{}') {
+          let seriesData = [];
+          for (let item in res.data) {
+            let data = {};
+            data["value"] = res.data[item];
+            switch (item) {
+              case '0,1':
+                data["name"] = '小于1H';
+                seriesData.push(data);
+                break;
+              case '1,2':
+                data["name"] = '1H~2H';
+                seriesData.push(data);
+                break;
+              case '2,3':
+                data["name"] = '2H~3H';
+                seriesData.push(data);
+                break;
+              case '3,5':
+                data["name"] = '3H~5H';
+                seriesData.push(data);
+                break;
+              case '5,8':
+                data["name"] = '5H~8H';
+                seriesData.push(data);
+                break;
+              case '8,12':
+                data["name"] = '8H~12H';
+                seriesData.push(data);
+                break;
+              case '12,720':
+                data["name"] = '大于12H';
+                seriesData.push(data);
+                break;
+            }
+          }
+          this.onlineTimeInfo = DoughnutPie({
+            legendData: ['小于1H', '1H~2H', '2H~3H', '3H~5H', '5H~8H', '8H~12H', '大于12H'],
+            seriesName: '游戏时间统计',
+            seriesData: seriesData
+          });
+        } else {
+          this.onlineTimeInfo = null
+        }
+
+      } else {
+        this.onlineTimeInfo = null;
+      }
+      console.log(res);
+    });
+  }
+
+  changeOnlineUnit($event) {
+    this.onlineUnit = $event;
+    let params = {
+      startTime: '',
+      endTime: ''
+    };
+    if ($event == 'hour') {
+      params.startTime = moment().startOf('day').format("YYYY-MM-DD HH:mm:ss");
+      params.endTime = moment().format("YYYY-MM-DD HH:mm:ss");
+    } else if ($event == 'day') {
+      params.startTime = moment().subtract(7, 'days').format('YYYY-MM-DD HH:mm:ss');
+      params.endTime = moment().format('YYYY-MM-DD HH:mm:ss');
+    } else if ($event == 'week') {
+      params.startTime = moment().subtract(30, 'days').format('YYYY-MM-DD HH:mm:ss');
+      params.endTime = moment().format('YYYY-MM-DD HH:mm:ss');
+    }
+    this.getOnlineTime(params);
+  }
+
+  //玩家活跃趋势
+  changeTrendUnit($event) {
+    console.log($event);
+    this.trendUnit = $event;
+    let params = {
+      startTime: '',
+      endTime: ''
+    };
+    if ($event == 'hour') {
+      params = null;
+    } else if ($event == 'day') {
+      params.startTime = moment().subtract(7, 'days').format('YYYY-MM-DD'),
+        params.endTime = moment().format('YYYY-MM-DD')
+    } else if ($event == 'week') {
+      params.startTime = moment().subtract(30, 'days').format('YYYY-MM-DD'),
+        params.endTime = moment().format('YYYY-MM-DD')
+    }
+    this.getUserTrend(params);
+  }
+
+  //服务器信息
+  getServerInfo() {
+    this.tableLoading = true;
+    let params = {
+      pageNum: this.pageNum,
+      pageSize: this.pageSize
+    };
+    this.dashboardServer.getServerInfo(params).subscribe((res: any) => {
+      this.tableLoading = false;
+      if (res.code == 0) {
+        this.totals = res.data.total;
+        this.serverInfoList = res.data.list;
+      } else {
+        this.serverInfoList = [];
+      }
+    });
+  }
+
+  changePage($event) {
+    this.pageNum = $event;
+    this.getServerInfo();
+  }
+
+  changePageSize($event) {
+    this.pageSize = $event;
+    this.getServerInfo();
+  }
+
   randomData() {
     this.now = new Date(+this.now + this.oneDay);
     this.value = this.value + Math.random() * 21 - 10;
@@ -129,50 +306,15 @@ export class DashboardComponent implements OnInit {
       ]
     }
   }
-  showDetail() {
-    this.isVisible = true;
-  }
-
-  handleCancel() {
-    this.isVisible = false;
-  }
 
   format(val: number) {
     return `<span style="font-weight: blod !important;">${val}</span>台`;
   }
 
-
-  searchData(reset: boolean = false): void {
-    if (reset) {
-      this.pageIndex = 1;
+  getFlagByNum(param: any): any {
+    if (param) {
+      return (param.split('%')[0] - 0) >= 0 ? true : false
     }
-    this.loading = false;
-    this.totals = 200;
-    this.listOfData = [
-      {
-        key: '10.11.133.151',
-        servername: 'server1',
-        cpu: '40%',
-        gpu: '50%',
-        ram: '60%',
-        player: '11',
-      },
-      {
-        key: '10.11.133.151',
-        servername: 'server2',
-        cpu: '40%',
-        gpu: '50%',
-        ram: '60%',
-        player: '11',
-      },
-      {
-        key: '10.11.133.151',
-        servername: 'server3',
-        cpu: '40%',
-        gpu: '50%',
-        ram: '60%',
-        player: '11',
-      },
-    ];
+    return true;
   }
 }

@@ -22,8 +22,10 @@ export class ServiceMonitorComponent implements OnInit {
     loading: boolean = true;
 
     diskVisible: boolean = false;
-    diskList: any = [];
-    diskUseList: any = [];
+
+    diskUseData: any = null;
+    diskAvailableData: any = null;
+
     unit: any = 'hour';
     serverName: any = '';
     diskLoading: boolean = true;
@@ -193,28 +195,18 @@ export class ServiceMonitorComponent implements OnInit {
         return areaLine({ xDate: xDate, seriesData: seriesData });
     }
 
-    lookDetails(data: any, type: any, serverName: any) {
-        // if (!data || JSON.stringify(data) == '{}') {
-        //     this.message.create('error', '暂无该设备信息!');
-        //     return;
-        // }
+    lookDetails(type: any, serverName: any) {
         this.serverName = serverName;
-        this.diskList = [];
-        this.diskUseList = [];
         if (type == 'disk') {
-            for (let item in data) {
-                let xDate = [], seriesData = [], dataSeries = [];
-                data[item].forEach((diskItem: any) => {
-                    xDate.push(moment.unix(diskItem.createTime).format('YYYY-MM-DD HH:mm'));
-                    seriesData.push(((diskItem.free / diskItem.size) / 100).toFixed(2));
-                    dataSeries.push(((diskItem.size - diskItem.free) / 1024).toFixed(2));
-                });
-                this.diskList.push(Line({ xDate: xDate, seriesData: seriesData, viewTitle: item + '磁盘使用率', unit: '(%)', des: '使用率' }));
-                this.diskUseList.push(Line({ xDate: xDate, seriesData: dataSeries, viewTitle: item + '可用空间大小', unit: '(G)', des: '可用空间大小' }));
-            }
+            this.diskUseData = null;
+            this.diskAvailableData = null;
             this.diskVisible = true;
-            this.diskLoading = false;
-
+            let params = {
+                serverName: this.serverName,
+                startTime: moment().subtract(1, 'hours').format('YYYY-MM-DD HH:mm:ss'),
+                endTime: moment().format('YYYY-MM-DD HH:mm:ss')
+            }
+            this.queryDiskDatas(params);
         } else {
             let params = {
                 serverName: serverName,
@@ -329,7 +321,12 @@ export class ServiceMonitorComponent implements OnInit {
                     this.gpuData.push(echartData);
                 }
             } else {
-                this.message.create('error', res.message ? res.message : ((res.code == 0 && JSON.stringify(res.data) == '{}') ? '暂无数据' : '查询失败'));
+                if (res.code == 0) {
+                    this.message.create('warning', res.message ? res.message : '暂无数据');
+                } else {
+                    this.message.create('error', res.message ? res.message : '查询失败');
+                }
+
             }
             this.gpuVisible = true;
         });
@@ -339,6 +336,7 @@ export class ServiceMonitorComponent implements OnInit {
         if (!data || data.length <= 0) {
             return;
         }
+        console.log(data);
         this.devDetailRatio = {};
         this.devDetailData = {};
         let xDate = [], seriesData = [], remainData = [];
@@ -346,7 +344,7 @@ export class ServiceMonitorComponent implements OnInit {
         if (type == 'cpu') {
             this.devType = 'cpu';
             data.forEach((item: any) => {
-                xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
+                xDate.push(moment(item.createTime).format('YYYY-MM-DD HH:mm'));
                 seriesData.push((item.cpercent).toFixed(2));
             });
             this.devDetailRatio = Line({ xDate: xDate, seriesData: seriesData, viewTitle: 'CPU使用率', unit: '(%)', des: '使用率' });
@@ -354,7 +352,7 @@ export class ServiceMonitorComponent implements OnInit {
         } else if (type == 'memory') {
             this.devType = 'memory';
             data.forEach((item: any) => {
-                xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
+                xDate.push(moment(item.createTime).format('YYYY-MM-DD HH:mm'));
                 seriesData.push((((item.mtotal - item.mfree) / item.mtotal) / 100).toFixed(2));
                 remainData.push((item.mfree / 1024).toFixed(2));
             });
@@ -454,28 +452,48 @@ export class ServiceMonitorComponent implements OnInit {
                 endTime: moment().format('YYYY-MM-DD HH:mm:ss')
             }
         }
-        this.diskList = [];
-        this.diskUseList = [];
+        this.diskAvailableData = null;
+        this.diskUseData = null;
+        this.queryDiskDatas(params);
+    }
+    queryDiskDatas(params: any) {
         this.diskLoading = true;
         this.serviceServer.queryDiskDatas(params).subscribe((res: any) => {
             this.diskLoading = false;
             if (res.code == 0) {
                 if (JSON.stringify(res.data) == '{}' || !res.data) {
-                    this.message.create('warning', '暂无该设备信息数据!');
+                    this.message.create('warning', '暂无数据!');
                     return;
                 }
+                let useSeriesData = [], xDate = [], legend = [], availableSeriesData = [];
                 for (let item in res.data) {
-                    let xDate = [], seriesData = [], dataSeries = [];
+                    let seriesItem = {
+                        name: item,
+                        type: 'line',
+                        data: []
+                    };
+                    let diskAvailableItem = {
+                        name: item,
+                        type: 'line',
+                        data: []
+                    };
+                    legend.push(item);
+                    xDate = [];
                     res.data[item].forEach((diskItem: any) => {
+                        seriesItem.data.push((((diskItem.size - diskItem.free) / diskItem.size) / 100).toFixed(2));
                         xDate.push(moment.unix(diskItem.createTime).format('YYYY-MM-DD HH:mm'));
-                        seriesData.push(((diskItem.free / diskItem.size) / 100).toFixed(2));
-                        dataSeries.push(((diskItem.size - diskItem.free) / 1024).toFixed(2));
+
+                        diskAvailableItem.data.push((diskItem.free / 1024).toFixed(2));
                     });
-                    this.diskList.push(Line({ xDate: xDate, seriesData: seriesData, viewTitle: item + '磁盘使用率', unit: '(%)', des: '使用率' }));
-                    this.diskUseList.push(Line({ xDate: xDate, seriesData: dataSeries, viewTitle: item + '可用空间大小', unit: '(G)', des: '可用空间大小' }));
+                    useSeriesData.push(seriesItem);
+                    availableSeriesData.push(diskAvailableItem);
                 }
+
+                this.diskUseData = basicLine(useSeriesData, xDate, legend, '%', '磁盘使用率');
+                this.diskAvailableData = basicLine(availableSeriesData, xDate, legend, 'G', '磁盘可用大小');
+
             } else {
-                this.message.create('error', res.message ? res.message : '暂无该设备信息数据!');
+                this.message.create('error', res.message ? res.message : '查询失败!');
             }
         });
     }

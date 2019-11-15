@@ -42,6 +42,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { DynamicFormQuestionComponent } from '@core/components/dynamic-forms/dynamic-form-question.component';
 import { OperationStatus } from './pipes/operation-status.pipe';
 import { TimeTransform } from './pipes/moment.pipe';
+import { RmbConversion } from './pipes/rmb-money.pipe';
 // import { DelonACLModule } from '@delon/acl';  //权限模块
 const THIRDMODULES = [
   // NgZorroAntdModule,
@@ -95,7 +96,8 @@ const DIRECTIVES = [];
     ...COMPONENTS,
     ...DIRECTIVES,
     OperationStatus,
-    TimeTransform
+    TimeTransform,
+    RmbConversion
   ],
   exports: [
     CommonModule,
@@ -114,7 +116,8 @@ const DIRECTIVES = [];
     ...COMPONENTS,
     ...DIRECTIVES,
     OperationStatus,
-    TimeTransform
+    TimeTransform,
+    RmbConversion
   ]
 })
 export class SharedModule { }

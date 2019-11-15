@@ -62,9 +62,9 @@
           <span style="height: 65px;display: inline-block;line-height: 65px;"
             *ngIf="(server.memory).length==0">--</span>
         </td>
-        <td><a (click)="lookDetails(server.gpu,'gpu',server.serverName)">查看详情</a></td>
+        <td><a (click)="lookDetails('gpu',server.serverName)">查看详情</a></td>
         <td>
-          <a (click)="lookDetails(server.disk,'disk',server.serverName)">查看详情</a>
+          <a (click)="lookDetails('disk',server.serverName)">查看详情</a>
         </td>
       </tr>
     </tbody>
@@ -94,32 +94,25 @@
   </div>
   <nz-spin nzSimple [nzSize]="'large'" *ngIf="diskLoading" class="text-center"></nz-spin>
 
-  <div *ngIf="!diskLoading">
-    <ng-container *ngIf="diskList.length>0">
-      <div nz-row nzGutter="15" class="mt-15">
-        <h3 class="text-center" style="font-weight: 800;">磁盘使用率</h3>
-        <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of diskList">
-          <nz-card>
-            <div echarts [options]="item" style="height: 400px"></div>
-          </nz-card>
-        </div>
-      </div>
-    </ng-container>
+  <ng-container *ngIf="diskUseData">
+    <nz-card class="mt-15">
+      <div echarts [options]="diskUseData" style="height: 400px"></div>
+    </nz-card>
+  </ng-container>
+
+  <ng-container *ngIf="diskAvailableData">
+    <nz-card>
+      <div echarts [options]="diskAvailableData" style="height: 400px"></div>
+    </nz-card>
+  </ng-container>
 
 
-    <ng-container *ngIf="diskUseList.length>0">
-      <div nz-row nzGutter="15" class="mt-15">
-        <h3 class="text-center" style="font-weight: 800;">磁盘可用空间</h3>
-        <div nz-col nzSpan="12" class="gutter-row" *ngFor="let item of diskUseList">
-          <nz-card>
-            <div echarts [options]="item" style="height: 400px"></div>
-          </nz-card>
-        </div>
-      </div>
-    </ng-container>
-  </div>
 
-  <nz-empty *ngIf="diskList.length==0" style="margin-top: 100px;"></nz-empty>
+  <!-- <nz-card>
+    <div echarts [options]="diskAvailableData" style="height: 400px"></div>
+  </nz-card> -->
+
+  <nz-empty *ngIf="!diskUseData" style="margin-top: 100px;"></nz-empty>
 </nz-drawer>
 <!-- GPU使用情况 -->
 <nz-drawer [nzVisible]="gpuVisible" [nzWidth]="1200" [nzClosable]="true" (nzOnClose)="closeGpu()">

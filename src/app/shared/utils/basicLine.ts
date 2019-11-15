@@ -1,4 +1,14 @@
-export function basicLine(seriesData: any, xData: any, legend: any, unit: any = '', title?: string, min?: number, max?: number): any {
+/**
+ * 
+ * @param seriesData {name: 'legend名称',type: 'line',data: 数据}
+ * @param xData 
+ * @param legend 
+ * @param unit 
+ * @param title 
+ * @param min 
+ * @param max 
+ */
+export function basicLine(seriesData: any, xData: any, legend: any, unit: any = '', title?: string, min?: number, max?: number, splitNumber?: number): any {
     return {
         title: {
             text: title ? title : '',
@@ -17,9 +27,10 @@ export function basicLine(seriesData: any, xData: any, legend: any, unit: any = 
         },
         tooltip: {
             trigger: 'axis',
-            formatter: function (params: any) {
-                return legend[0] + ':<br/>' + params[0].name + ':&nbsp;&nbsp;&nbsp;' + params[0].value + unit;
-            },
+            // formatter: function (params: any) {
+            //     console.log(params);
+            //     // return legend[0] + ':<br/>' + params[0].name + ':&nbsp;&nbsp;&nbsp;' + params[0].value + unit;
+            // },
             axisPointer: {
                 animation: false
             }
@@ -62,7 +73,8 @@ export function basicLine(seriesData: any, xData: any, legend: any, unit: any = 
                 }
             },
             min: min ? min : null,
-            max: max ? max : null
+            max: max ? max : null,
+            interval: splitNumber ? splitNumber : null,
         },
         dataZoom: [{
             type: 'inside',

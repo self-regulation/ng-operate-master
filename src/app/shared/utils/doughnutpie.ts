@@ -15,6 +15,9 @@ export function DoughnutPie(params: any): any {
                 color: '#58afff'
             }
         },
+        grid: {
+            left: '10%',
+        },
         series: [
             {
                 name: seriesName,
