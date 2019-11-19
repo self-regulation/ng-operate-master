@@ -58,8 +58,6 @@ export class UserLoginComponent implements OnDestroy, OnInit {
       if (res.code == 0) {
         if (res.data && res.data.menuList && res.data.menuList.length > 0) {
           let menuList = this.loginService.translateDataToTree(res.data.menuList);
-          console.log(typeof menuList);
-          console.log(menuList);
           this.storageService.saveUserInfo(res.data);
           this.storageService.saveMenuInfo(menuList);
           this.menuService.add(menuList);

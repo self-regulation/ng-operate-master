@@ -3,16 +3,16 @@ import { SharedModule } from '@shared';
 
 import { MonitorModuleRoot } from './monitor-routing.module';
 import { ServiceMonitorComponent } from './serviceMonitor/serviceMonitor.component';
-import { ServiceComponent } from './serviceManager/service.component';
 import { ProcessMonitorComponent } from './processMonitor/processMonitor.component';
 
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { UserGameComponent } from './userGame/userGame.component';
 
 
 const THIRDMODULES = [NzBreadCrumbModule, NzBadgeModule];
 
-const COMPONENTS = [ServiceComponent, ServiceMonitorComponent, ProcessMonitorComponent];
+const COMPONENTS = [ServiceMonitorComponent, ProcessMonitorComponent, UserGameComponent];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({

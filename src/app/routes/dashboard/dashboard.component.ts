@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit {
     userRetainInfo: false,
     userTrendInfo: false,
     onlineTimeInfo: false,
+    serverSystem: false
   };
   newUserInfo: any = null;  //新增玩家
   rechargeInfo: any = null;  //充值额信息
@@ -60,18 +61,6 @@ export class DashboardComponent implements OnInit {
 
       ]
     });
-
-    this.serverSystem = DefaultPie({
-      title: '服务器使用情况',
-      seriesData: [
-        { value: 10, name: '已使用' },
-        { value: 3, name: '未使用' },
-      ],
-      unit: '%',
-      legend: ['已使用', '未使用']
-    });
-
-
     this.getNewUserInfo();
     this.getRechargeInfo();
     this.getActiveUserInfo();
@@ -82,11 +71,13 @@ export class DashboardComponent implements OnInit {
       endTime: moment().format("YYYY-MM-DD HH:mm:ss")
     });
     this.getServerInfo();
+    this.getServerUseRate();
   }
   //查询新增玩家
   getNewUserInfo() {
+    this.monitorLoading.newUserInfo = true;
     this.dashboardServer.getNewUserInfo().subscribe((res: any) => {
-      this.monitorLoading.newUserInfo = true;
+      this.monitorLoading.newUserInfo = false;
       if (res.code == 0) {
         this.newUserInfo = res.data;
       } else {
@@ -96,9 +87,9 @@ export class DashboardComponent implements OnInit {
   }
   //充值金额查询
   getRechargeInfo() {
+    this.monitorLoading.rechargeInfo = true;
     this.dashboardServer.getRecharge().subscribe((res: any) => {
-      console.log(res);
-      this.monitorLoading.rechargeInfo = true;
+      this.monitorLoading.rechargeInfo = false;
       if (res.code == 0) {
         this.rechargeInfo = res.data;
       } else {
@@ -108,8 +99,9 @@ export class DashboardComponent implements OnInit {
   }
   //活跃玩家查询
   getActiveUserInfo() {
+    this.monitorLoading.activeUserInfo = true;
     this.dashboardServer.getActiveUser().subscribe((res: any) => {
-      this.monitorLoading.activeUserInfo = true;
+      this.monitorLoading.activeUserInfo = false;
       if (res.code == 0) {
         this.activeUserInfo = res.data;
       } else {
@@ -119,8 +111,9 @@ export class DashboardComponent implements OnInit {
   }
   //玩家留存查询
   getUserRetainInfo() {
+    this.monitorLoading.userRetainInfo = true;
     this.dashboardServer.getUserRetainInfo().subscribe((res: any) => {
-      this.monitorLoading.userRetainInfo = true;
+      this.monitorLoading.userRetainInfo = false;
       if (res.code == 0) {
         this.userRetainInfo = res.data;
       } else {
@@ -130,9 +123,9 @@ export class DashboardComponent implements OnInit {
   }
   //玩家活跃趋势
   getUserTrend(params?: any) {
-    this.monitorLoading.userTrendInfo = false;
+    this.monitorLoading.userTrendInfo = true;
     this.dashboardServer.getUserTrend(params ? params : null).subscribe((res: any) => {
-      this.monitorLoading.userTrendInfo = true;
+      this.monitorLoading.userTrendInfo = false;
       if (res.code == 0) {
         this.userActiveInfo = res.data;
         if (res.data && res.data.data.length > 0) {
@@ -143,9 +136,6 @@ export class DashboardComponent implements OnInit {
           seriesData = res.data.data.map((item: any) => {
             return item.Count;
           });
-          // console.log("@@@@@@@@@@@@@");
-          // console.log(Math.min(...seriesData) + '#######' + Math.max(...seriesData));
-          // console.log(Math.floor(Math.min(...seriesData) / 10) * 10 + '#######' + Math.ceil(Math.max(...seriesData) / 9.5) * 10);
           minNum = Math.floor(Math.min(...seriesData) / 10) * 10;
           maxNum = Math.ceil(Math.max(...seriesData) / 9.5) * 10;
           this.userTrendInfo = basicLine(
@@ -172,9 +162,9 @@ export class DashboardComponent implements OnInit {
   }
   //玩家在线时长统计
   getOnlineTime(params: any) {
-    this.monitorLoading.onlineTimeInfo = false;
+    this.monitorLoading.onlineTimeInfo = true;
     this.dashboardServer.getOnlineTime(params).subscribe((res: any) => {
-      this.monitorLoading.onlineTimeInfo = true;
+      this.monitorLoading.onlineTimeInfo = false;
       if (res.code == 0) {
         if (JSON.stringify(res.data) != '{}') {
           let seriesData = [];
@@ -281,6 +271,27 @@ export class DashboardComponent implements OnInit {
         this.serverInfoList = res.data.list;
       } else {
         this.serverInfoList = [];
+      }
+    });
+  }
+
+  //服务器使用率
+  getServerUseRate() {
+    this.monitorLoading.serverSystem = true;
+    this.dashboardServer.getServerUseRate().subscribe((res: any) => {
+      this.monitorLoading.serverSystem = false;
+      if (res.code == 0 && JSON.stringify(res.data) != '{}') {
+        this.serverSystem = DefaultPie({
+          title: '服务器使用情况',
+          seriesData: [
+            { value: res.data.useServer, name: '已使用' },
+            { value: res.data.allServer - res.data.useServer, name: '未使用' },
+          ],
+          unit: '%',
+          legend: ['已使用', '未使用']
+        });
+      } else {
+        this.serverSystem = null;
       }
     });
   }

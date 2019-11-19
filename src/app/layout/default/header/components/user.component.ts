@@ -1,4 +1,4 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SettingsService } from '@delon/theme';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
@@ -17,8 +17,10 @@ import { StorageService } from '@core/storage/storage.service';
 // <i nz-icon nzType="setting" class="mr-sm"></i>
 // 个人设置
 // </div>
-export class HeaderUserComponent {
+export class HeaderUserComponent implements OnInit {
+
   themeSkin: any = null;
+  userInfo: any;
   constructor(
     public settings: SettingsService,
     private router: Router,
@@ -32,6 +34,9 @@ export class HeaderUserComponent {
       const body = document.getElementsByTagName('body')[0];
       body.setAttribute('customize-theme-style', this.themeSkin);
     }
+  }
+  ngOnInit(): void {
+    this.userInfo = this.storageService.getUserInfo();
   }
 
   logout() {
@@ -48,7 +53,6 @@ export class HeaderUserComponent {
       this.router.navigateByUrl('/passport/login');
     });
     this.httpBaseService.postData(params);
-    // this.router.navigateByUrl('/passport/login');
 
   }
 

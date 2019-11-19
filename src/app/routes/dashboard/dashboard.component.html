@@ -2,7 +2,7 @@
   <div nz-row [nzGutter]="24" class="pt-lg">
     <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
       <nz-card class="card-box">
-        <div nz-col [nzSpan]="24" class="card-body" *ngIf="monitorLoading.newUserInfo&&newUserInfo">
+        <div nz-col [nzSpan]="24" class="card-body" *ngIf="!monitorLoading.newUserInfo&&newUserInfo">
           <div nz-col [nzSpan]="19">
             新增玩家
           </div>
@@ -36,7 +36,7 @@
               人</span>
           </div>
         </div>
-        <div nz-col [nzSpan]="24" class="text-center" *ngIf="!monitorLoading.newUserInfo">
+        <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.newUserInfo" style="margin-top: 58px;">
           <nz-spin nzSimple></nz-spin>
         </div>
         <ng-container *ngIf="!newUserInfo">
@@ -47,7 +47,7 @@
     </div>
     <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
       <nz-card class="card-box">
-        <div nz-col [nzSpan]="24" class="card-body" *ngIf="monitorLoading.rechargeInfo&&rechargeInfo">
+        <div nz-col [nzSpan]="24" class="card-body" *ngIf="!monitorLoading.rechargeInfo&&rechargeInfo">
           <div nz-col [nzSpan]="19">
             今日充值额
           </div>
@@ -82,11 +82,17 @@
                 nzTheme="outline"></i>&nbsp;{{rechargeInfo&&rechargeInfo.amountYear?(rechargeInfo.amountYear|rmbConversion):'--'}}</span>
           </div>
         </div>
+        <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.rechargeInfo" style="margin-top: 58px;">
+          <nz-spin nzSimple></nz-spin>
+        </div>
+        <ng-container *ngIf="!rechargeInfo">
+          <nz-empty></nz-empty>
+        </ng-container>
       </nz-card>
     </div>
     <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
       <nz-card class="card-box">
-        <div nz-col [nzSpan]="24" class="card-body" *ngIf="monitorLoading.activeUserInfo&&activeUserInfo">
+        <div nz-col [nzSpan]="24" class="card-body" *ngIf="!monitorLoading.activeUserInfo&&activeUserInfo">
           <div nz-col [nzSpan]="19">
             今日|活跃玩家
           </div>
@@ -120,17 +126,17 @@
                 nzTheme="outline"></i>&nbsp;{{(activeUserInfo&&activeUserInfo?.userCountOfThisWeek)?activeUserInfo.userCountOfThisWeek:0}}人</span>
           </div>
         </div>
-        <div nz-col [nzSpan]="24" class="text-center" *ngIf="!monitorLoading.rechargeInfo">
+        <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.activeUserInfo" style="margin-top: 58px;">
           <nz-spin nzSimple></nz-spin>
         </div>
-        <ng-container *ngIf="!rechargeInfo">
+        <ng-container *ngIf="!activeUserInfo">
           <nz-empty></nz-empty>
         </ng-container>
       </nz-card>
     </div>
     <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
       <nz-card class="card-box">
-        <div nz-col [nzSpan]="24" class="card-body" *ngIf="monitorLoading.userRetainInfo&&userRetainInfo">
+        <div nz-col [nzSpan]="24" class="card-body" *ngIf="!monitorLoading.userRetainInfo&&userRetainInfo">
           <div nz-col [nzSpan]="19">
             次日玩家留存
           </div>
@@ -164,7 +170,7 @@
             </span>
           </div>
         </div>
-        <div nz-col [nzSpan]="24" class="text-center" *ngIf="!monitorLoading.userRetainInfo">
+        <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.userRetainInfo" style="margin-top: 58px;">
           <nz-spin nzSimple></nz-spin>
         </div>
         <ng-container *ngIf="!userRetainInfo">
@@ -204,12 +210,12 @@
           </div>
         </div>
       </div>
-      <ng-container *ngIf="userTrendInfo && monitorLoading.userTrendInfo">
+      <ng-container *ngIf="userTrendInfo && !monitorLoading.userTrendInfo">
         <div nz-col [nzSpan]="24">
           <div echarts [options]="userTrendInfo" style="height: 400px"></div>
         </div>
       </ng-container>
-      <div nz-col [nzSpan]="24" class="text-center" *ngIf="!monitorLoading.userTrendInfo" style="margin-top: 100px;">
+      <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.userTrendInfo" style="margin-top: 100px;">
         <nz-spin nzSimple></nz-spin>
       </div>
       <ng-container *ngIf="!userTrendInfo">
@@ -229,12 +235,12 @@
         </nz-radio-group>
       </div>
 
-      <ng-container *ngIf="onlineTimeInfo && monitorLoading.onlineTimeInfo">
+      <ng-container *ngIf="onlineTimeInfo && !monitorLoading.onlineTimeInfo">
         <div nz-col [nzSpan]="24">
           <div echarts [options]="onlineTimeInfo" class="mt-15" style="height: 400px"></div>
         </div>
       </ng-container>
-      <div nz-col [nzSpan]="24" class="text-center" *ngIf="!monitorLoading.onlineTimeInfo" style="margin-top: 100px;">
+      <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.onlineTimeInfo" style="margin-top: 100px;">
         <nz-spin nzSimple></nz-spin>
       </div>
       <ng-container *ngIf="!onlineTimeInfo">
@@ -256,8 +262,14 @@
   <div nz-col nzSpan="12" class="gutter-row mt-15">
     <nz-card class="card-chart">
       <h4>服务器|使用率</h4>
-      <p class="card-dec">2019-11-17</p>
+      <p class="card-dec">{{curTime}}</p>
       <div echarts [options]="serverSystem" style="height: 400px"></div>
+      <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.serverSystem" style="margin-top: 100px;">
+        <nz-spin nzSimple></nz-spin>
+      </div>
+      <ng-container *ngIf="!serverSystem">
+        <nz-empty></nz-empty>
+      </ng-container>
     </nz-card>
   </div>
 </div>

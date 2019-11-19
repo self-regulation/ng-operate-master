@@ -30,8 +30,6 @@ export class LoginService {
     translateDataToTree(data) {
         // 没有父节点的数据
         let parents = data.filter(value => value.parentId == 0);
-        console.log("parents@@@@@@@@@@@@@@@:");
-        console.log(parents);
         parents[0].group = true;
         parents[0].hideInBreadcrumb = true;
         // parents["group"] = true;
@@ -114,6 +112,10 @@ export class LoginService {
                             newCurrent['link'] = "/config/cfgtemplate";
                             newCurrent.order = 2;
                             break;
+                        case "ServerManager":   //"服务器管理"
+                            newCurrent['link'] = "/config/serviceManager";
+                            newCurrent.order = 2;
+                            break;
                         case "GameTask":   // "用户操作"
                             newCurrent['link'] = "/config/useraction";
                             newCurrent.order = 1;
@@ -140,19 +142,19 @@ export class LoginService {
                             break;
 
                         //实时监控---子项
-                        case "ServerManager":   //"服务器管理"
-                            newCurrent['link'] = "/monitor/serviceManager";
-                            newCurrent.order = 2;
-                            break;
+
                         case "ServerMonitor":   //"服务器性能"
                             newCurrent['link'] = "/monitor/serviceMonitor";
                             newCurrent.order = 1;
                             break;
                         case "ProcessMonitor":   //"进程监控"
                             newCurrent['link'] = "/monitor/processMonitor";
+                            newCurrent.order = 2;
+                            break;
+                        case "UserGame":   //"玩家游戏"
+                            newCurrent['link'] = "/monitor/userGameMonitor";
                             newCurrent.order = 3;
                             break;
-
 
                         case "Operation":   //在线运维
                             newCurrent.icon = "anticon-desktop"

@@ -26,7 +26,7 @@ export class ProcessMonitorComponent implements OnInit {
     unit: string = 'hour';
     devDetailLoading: boolean = false;
     processList: any = [];
-    bindList: any = [];
+    // bindList: any = [];
     constructor(private processMonitorService: ProcessMonitorService, private message: NzMessageService, private fb: FormBuilder, private router: Router) {
         this.processForm = this.fb.group({
             serverName: [null],
@@ -49,18 +49,8 @@ export class ProcessMonitorComponent implements OnInit {
         this.processMonitorService.queryAllServersMonitor(param).subscribe((res: any) => {
             this.loading = false;
             if (res.code == 0) {
-                if (JSON.stringify(res.data) != '{}') {
-                    this.bindList = (res.data.list).length > 0 ? res.data.list : [];
-                    if (res.data.list && res.data.list.length > 0) {
-                        this.formatData(res.data.list);
-                    } else {
-                        this.processList = [];
-                        this.bindList = [];
-                    }
-                    this.totals = res.data.total;
-                } else {
-                    this.processList = [];
-                }
+                this.processList = res.data.list;
+                this.totals = res.data.total;
             } else {
                 this.message.create('error', res.message ? res.message : '查询数据失败!');
             }
@@ -68,36 +58,36 @@ export class ProcessMonitorComponent implements OnInit {
 
     }
 
-    formatData(processList: any) {
-        this.processList = [];
-        processList.forEach((item: any, index) => {
-            let processItem = {
-                pid: '',
-                gameId: '',
-                name: '',
-                serverName: '',
-                processorList: [],
-                workingSetList: [],
-                userName: ''
-            };
-            if (item && item.processInfoList.length > 0) {
-                processItem.pid = item.processInfoList[0].pid;
-                processItem.gameId = item.processInfoList[0].gameId;
-                processItem.name = item.processInfoList[0].name;
-                processItem.serverName = item.processInfoList[0].ip;
-                processItem.processorList = item.processInfoList.filter((process: any) => {
-                    return process.processorTime;
-                });
+    // formatData(processList: any) {
+    //     this.processList = [];
+    //     processList.forEach((item: any, index) => {
+    //         let processItem = {
+    //             pid: '',
+    //             gameId: '',
+    //             name: '',
+    //             serverName: '',
+    //             processorList: [],
+    //             workingSetList: [],
+    //             userName: ''
+    //         };
+    //         if (item && item.processInfoList.length > 0) {
+    //             processItem.pid = item.processInfoList[0].pid;
+    //             processItem.gameId = item.processInfoList[0].gameId;
+    //             processItem.name = item.processInfoList[0].name;
+    //             processItem.serverName = item.processInfoList[0].ip;
+    //             processItem.processorList = item.processInfoList.filter((process: any) => {
+    //                 return process.processorTime;
+    //             });
 
-                processItem.workingSetList = item.processInfoList.filter((process: any) => {
-                    return process.workingSet;
-                });
-            }
-            processItem.userName = item.userName;
-            this.processList[index] = processItem;
+    //             processItem.workingSetList = item.processInfoList.filter((process: any) => {
+    //                 return process.workingSet;
+    //             });
+    //         }
+    //         processItem.userName = item.userName;
+    //         this.processList[index] = processItem;
 
-        });
-    }
+    //     });
+    // }
     changePage(event) {
         this.pageIndex = event;
         this.queryAllServersMonitor();

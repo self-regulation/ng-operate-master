@@ -2,7 +2,8 @@
 </page-header>
 
 <nz-card>
-  <nz-table [nzData]="bindList" nzShowPagination="false" [nzLoading]="tableLoading">
+  <nz-table [nzData]="bindList" nzShowPagination="false" [nzLoading]="tableLoading" (nzPageIndexChange)="changePage()"
+    class="outerLayer">
     <thead>
       <tr>
         <th style="width:15%">服务器组名称</th>
@@ -27,11 +28,13 @@
         <tr [(nzExpand)]="region.groupExpand">
           <td></td>
           <td colspan="4">
-            <nz-table nzSize="middle" [nzData]="serviceList" nzShowPagination="false">
-              <!-- [nzTotal]="totals"
-              nzShowSizeChanger="true" [nzPageSizeOptions]="pageSizeOptions" [(nzPageIndex)]="pageNum"
-              [(nzPageSize)]="pageSize" (nzPageIndexChange)="changePage($event)"
-              (nzPageSizeChange)="changePageSize($event)" -->
+            <nz-table nzBordered="false" [nzFrontPagination]="false" [nzTotal]="totals" [(nzPageIndex)]="pageNum"
+              (nzPageIndexChange)="changePage($event,region)" [(nzPageSize)]="pageSize" nzSize="middle"
+              [nzLoading]="expandLoading" [nzData]="serviceList" nzShowPagination="true">
+              <!-- <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="pictureList"
+                [nzFrontPagination]="false" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex"
+                [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+                (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }"> -->
     <tbody>
 
       <ng-container *ngIf="expandLoading">
@@ -78,13 +81,13 @@
   </tr>
   </ng-container>
   </ng-container>
-  <ng-container *ngIf="totals>10">
+  <!-- <ng-container *ngIf="totals>10">
     <tr class="text-center">
       <td colspan="7"><a (click)="loadMoreService(region)"><i nz-icon nzType="caret-down"
             nzTheme="outline"></i>加载更多</a>&nbsp;&nbsp;&nbsp;&nbsp;<a (click)="CollapseService(region)"><i nz-icon
             nzType="caret-up" nzTheme="outline"></i>收起</a></td>
     </tr>
-  </ng-container>
+  </ng-container> -->
 
 
 
@@ -117,50 +120,27 @@
       <label nz-radio-button nzValue="week">1周</label>
     </nz-radio-group>
   </div>
+
   <nz-spin nzSimple [nzSize]="'large'" *ngIf="gpuLoading" class="text-center"></nz-spin>
 
   <div *ngIf="!gpuLoading">
 
-    <div nz-row nzGutter="15" class="mt-15">
-      <nz-card>
-        <div class="chartTitle"><label>名称：</label><span style="font-weight: bold;">{{gpuName}}</span></div>
-        <div echarts [options]="gpuCoreList" style="height: 400px"></div>
-      </nz-card>
-    </div>
+    <ng-container *ngIf="gpuData.length>0">
+      <ng-container *ngFor="let item of gpuData">
+        <div nz-row nzGutter="15" class="mt-15">
+          <nz-card>
+            <div echarts [options]="item.temperat" style="height: 400px"></div>
+          </nz-card>
+        </div>
 
-    <div nz-row nzGutter="15" class="mt-15">
-      <nz-card>
-        <div class="chartTitle"><label>名称：</label><span style="font-weight: bold;">{{gpuName}}</span></div>
-        <div echarts [options]="gpuTemperatureList" style="height: 400px"></div>
-      </nz-card>
-    </div>
-    <div nz-row nzGutter="15" class="mt-15">
-      <nz-card>
-        <div class="chartTitle"><label>名称：</label><span style="font-weight: bold;">{{gpuName}}</span></div>
-        <div echarts [options]="ratioList" style="height: 400px"></div>
-      </nz-card>
-    </div>
-
-    <div nz-row nzGutter="15" class="mt-15">
-      <nz-card>
-        <div class="chartTitle"><label>名称：</label><span style="font-weight: bold;">{{gpuName}}</span></div>
-        <div echarts [options]="dataList" style="height: 400px"></div>
-      </nz-card>
-    </div>
-
-    <div nz-row nzGutter="15" class="mt-15">
-      <nz-card>
-        <div class="chartTitle"><label>名称：</label><span style="font-weight: bold;">{{gpuName}}</span></div>
-        <div echarts [options]="gpuVideoEngineList" style="height: 400px"></div>
-      </nz-card>
-    </div>
-
-    <div nz-row nzGutter="15" class="mt-15">
-      <nz-card>
-        <div class="chartTitle"><label>名称：</label><span style="font-weight: bold;">{{gpuName}}</span></div>
-        <div echarts [options]="gpuMemoryControllerList" style="height: 400px"></div>
-      </nz-card>
-    </div>
+        <div nz-row nzGutter="15" class="mt-15">
+          <nz-card>
+            <div echarts [options]="item.usageRate" style="height: 400px"></div>
+          </nz-card>
+        </div>
+      </ng-container>
+    </ng-container>
+    <nz-empty *ngIf="gpuData.length==0" style="margin-top: 100px;"></nz-empty>
 
   </div>
 </nz-drawer>

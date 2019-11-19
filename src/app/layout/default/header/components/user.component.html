@@ -3,7 +3,7 @@
     [nzDropdownMenu]="skin" nzPlacement="bottomCenter"></i>
   <font nz-dropdown nzPlacement="bottomCenter" [nzDropdownMenu]="userMenu">
     <nz-avatar [nzSrc]="settings.user.avatar" nzSize="small" class="mr-sm"></nz-avatar>
-    <span style="color: #000000de" class="user-name">{{ settings.user.name }}</span>
+    <span style="color: #000000de" class="user-name">{{ userInfo.name }}</span>
   </font>
 </div>
 <nz-dropdown-menu #userMenu="nzDropdownMenu">

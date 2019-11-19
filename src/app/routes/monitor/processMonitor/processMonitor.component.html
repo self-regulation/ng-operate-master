@@ -22,28 +22,36 @@
 
   </form>
 
-  <nz-table nzBordered="true" [nzFrontPagination]="false" [nzData]="bindList" [nzLoading]="loading" [nzTotal]="totals"
-    [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" nzShowPagination="true"
+  <nz-table nzBordered="true" [nzFrontPagination]="false" [nzData]="processList" [nzLoading]="loading"
+    [nzTotal]="totals" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" nzShowPagination="true"
     (nzPageIndexChange)="changePage($event)" [nzScroll]="{ x: '1300px' }">
     <thead>
       <tr>
-        <th nzLeft="0px">进程id</th>
+        <th nzLeft="0px">taskId</th>
+        <th>进程id</th>
         <th>服务器名称</th>
         <th>玩家</th>
         <th>游戏id</th>
         <th>游戏名称</th>
-        <th nzWidth="150px">cpu占用率</th>
-        <th nzWidth="150px">内存</th>
+        <th>cpu占用率</th>
+        <th>内存(MB)</th>
+        <th>丢包率</th>
+        <th>带宽(MB)</th>
+        <th>服务端帧率</th>
+        <th>客户端帧率</th>
+        <th>控制延迟</th>
+        <th>日期</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let process of processList;let i=index">
-        <td nzLeft="0px">{{ process.pid?process.pid:'--' }}</td>
+        <td nzLeft="0px">{{ process.taskId?process.taskId:'--' }}</td>
+        <td>{{ process.pid?process.pid:'--' }}</td>
         <td>
-          <a (click)="lookServer(process.serverName)">{{process.serverName?process.serverName:'--'}}</a>
+          <a (click)="lookServer(process.ip)">{{process.ip?process.ip:'--'}}</a>
         </td>
         <td>
-          {{process.userName?process.userName:'--'}}
+          {{process.user?process.user:'--'}}
         </td>
         <td>
           {{process.gameId?process.gameId:'--'}}
@@ -51,7 +59,31 @@
         <td>
           {{process.name?process.name:'--'}}
         </td>
-        <td (click)="showDevDetail(process.processorList,'process',process.serverName,process.userName)" class="picTd">
+        <td>
+          {{process.processorTime?(process.processorTime).toFixed(2)+'%':'--'}}
+        </td>
+        <td>
+          {{process.workingSet?process.workingSet:'--'}}
+        </td>
+        <td>
+          {{process.lostRate?(process.lostRate).toFixed(2)+'%':'--'}}
+        </td>
+        <td>
+          {{process.brandwidth?process.brandwidth:'--'}}
+        </td>
+        <td>
+          {{process.fps?process.fps:'--'}}
+        </td>
+        <td>
+          {{process.cfps?process.cfps:'--'}}
+        </td>
+        <td>
+          {{process.controlLatency?process.controlLatency:'--'}}
+        </td>
+        <td>
+          {{process.createTime?(process.createTime | timeTransform:'YYYY-MM-DD HH:mm:ss'):'--'}}
+        </td>
+        <!-- <td (click)="showDevDetail(process.processorList,'process',process.serverName,process.userName)" class="picTd">
           <div *ngIf="(process.processorList).length>0" echarts
             [options]="formateLineData(process.processorList,'process')" style="height: 65px;width: 150px;"></div>
           <span style="height: 65px;display: inline-block;line-height: 65px;"
@@ -63,7 +95,7 @@
             [options]="formateLineData(process.workingSetList,'workingSet')" style="height: 65px;width: 150px;"></div>
           <span style="height: 65px;display: inline-block;line-height: 65px;"
             *ngIf="(process.workingSetList).length==0">--</span>
-        </td>
+        </td> -->
       </tr>
     </tbody>
   </nz-table>

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { ServiceServer } from '../serviceManager/service.server';
 import { NzMessageService } from 'ng-zorro-antd';
 import { areaLine, Line, barLine, basicLine } from '@shared';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ServiceServer } from '../service.server';
 
 @Component({
     selector: 'service-monitor',

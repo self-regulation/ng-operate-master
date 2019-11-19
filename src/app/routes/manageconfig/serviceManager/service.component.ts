@@ -3,7 +3,7 @@ import { EChartOption } from 'echarts';
 import { ServiceServer } from './service.server';
 import { NzMessageService } from 'ng-zorro-antd';
 import * as moment from 'moment';
-import { Line } from '@shared';
+import { Line, barLine, basicLine } from '@shared';
 
 @Component({
     selector: 'service-monitor',
@@ -35,15 +35,15 @@ export class ServiceComponent implements OnInit {
     expandLoading: boolean = false;
     totals: any = 0;
     pageSizeOptions = [10, 20, 30, 40, 50];
+
+    gpuData: any = [];
     constructor(private serviceServer: ServiceServer, private message: NzMessageService) {
     }
     ngOnInit(): void {
-        // this.queryAllServers();
         this.initAllRegionData();
     }
     //初始化服务器组数据
     initAllRegionData() {
-        // forkJoin([this.serviceServer.queryAllRegion()])queryGameServerByRegion
         this.serviceServer.queryAllRegion().subscribe((result: any) => {
             if (result.code == 0) {
                 this.bindList = result.data;
@@ -63,43 +63,6 @@ export class ServiceComponent implements OnInit {
             }
         });
     }
-
-    //查询所有服务器
-    // queryAllServers() {
-    //     this.tableLoading = true;
-    //     this.serviceServer.queryAllServers().subscribe((res: any) => {
-    //         this.tableLoading = false;
-    //         if (res.code == 0) {
-    //             let index = 0;
-    //             if (JSON.stringify(res.data) != '{}') {
-    //                 this.bindList = [res.data];
-    //             } else {
-    //                 this.bindList = [];
-    //             }
-    //             for (let service in res.data) {
-    //                 let serviceGroup = {
-    //                     name: service,
-    //                     list: res.data[service],
-    //                     groupExpand: true
-    //                 };
-    //                 if (index == 0) {
-    //                     serviceGroup.groupExpand = true;
-    //                 } else {
-    //                     serviceGroup.groupExpand = false;
-    //                 }
-    //                 res.data[service].forEach((ser: any, sIndex) => {
-    //                     res.data[service][sIndex].devExpand = false;
-    //                 });
-    //                 index++;
-    //                 this.serviceList.push(serviceGroup);
-    //             }
-    //         } else {
-    //             this.serviceList = [];
-    //             this.message.create('error', res.message ? res.message : '查询数据失败!');
-    //         }
-    //         console.log(this.serviceList);
-    //     });
-    // }
 
     //查询服务器设备信息
     queryDevDatas(dev: string, serviceName, startTime?: any, endTime?: any) {
@@ -150,22 +113,11 @@ export class ServiceComponent implements OnInit {
                 }
             });
         } else if (dev.substr(0, 3) == 'GPU') {
-            params['gpuId'] = dev;
-            this.serviceServer.queryGpuDatas(params).subscribe((res: any) => {
-                console.log(res);
-                if (res.code == 0) {
-                    if (JSON.stringify(res.data) == '{}' || !res.data || res.data.length <= 0) {
-                        this.message.create('warning', '暂无该设备信息数据!');
-                        return;
-                    }
-                    this.reduceViewData(res.data, serviceName, dev);
-                    this.dev = dev;
-                    this.serviceName = serviceName;
-                    this.gpuVisible = true;
-                } else {
-                    this.message.create('error', res.message ? res.message : '查询数据失败!');
-                }
-            });
+            this.dev = dev;
+            this.serviceName = serviceName;
+            this.gpuVisible = true;
+            params['gpuId'] = dev.split(':')[1];
+            this.queryGpuDatas(params);
         } else {//硬盘
             params['diskName'] = dev;
             this.serviceServer.queryDiskDatas(params).subscribe((res: any) => {
@@ -207,36 +159,6 @@ export class ServiceComponent implements OnInit {
             });
             viewTitle = 'CPU';
             this.dataList = Line({ xDate: xDate, seriesData: dataSeries, viewTitle: viewTitle + "-可用空间大小", unit: '(G)', des: '可用空间' });
-        } else if (dev.substr(0, 3) == 'GPU') {
-            let videoEngineSeries = [],
-                gpuMemoryControllerListSeries = [], gpuCoreSeries = [], gpuTemperatureSeries = [];
-            viewData[dev].forEach((item: any) => {
-                xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
-                ratioSeries.push(((parseFloat(item.gpuMemoryUsed) / parseFloat(item.gpuMemoryTotal)) / 100).toFixed(2));
-                dataSeries.push(((parseFloat(item.gpuMemoryTotal) - parseFloat(item.gpuMemoryUsed)) / 1024).toFixed(2));
-            });
-            viewTitle = dev;
-            this.gpuName = viewData[dev][0].gpuName;
-            videoEngineSeries = viewData[dev].map((item: any) => {
-                return parseFloat(item.gpuVideoEngine).toFixed(2);
-            });
-            gpuMemoryControllerListSeries = viewData[dev].map((item: any) => {
-                return parseFloat(item.gpuMemoryController).toFixed(2);
-            });
-            gpuCoreSeries = viewData[dev].map((item: any) => {
-                return parseFloat(item.gpuCore).toFixed(2);
-            });
-
-            gpuTemperatureSeries = viewData[dev].map((item: any) => {
-                return parseFloat(item.temp).toFixed(2);
-            });
-            this.gpuVideoEngineList = Line({ xDate: xDate, seriesData: videoEngineSeries, viewTitle: viewTitle + '视频引擎占用率', unit: '(%)', des: '占用率' });
-            this.gpuMemoryControllerList = Line({ xDate: xDate, seriesData: gpuMemoryControllerListSeries, viewTitle: viewTitle + '内存控制器占用率', unit: '(%)', des: '占用率' });
-            this.gpuCoreList = Line({ xDate: xDate, seriesData: gpuCoreSeries, viewTitle: viewTitle + '使用率', unit: '(%)', des: '使用率' });
-            this.gpuTemperatureList = Line({ xDate: xDate, seriesData: gpuTemperatureSeries, viewTitle: viewTitle + '温度', unit: '(℃)', des: '温度' });
-            this.ratioList = Line({ xDate: xDate, seriesData: ratioSeries, viewTitle: viewTitle + "内存使用情况", unit: '(%)', des: '使用率' });
-            this.dataList = Line({ xDate: xDate, seriesData: dataSeries, viewTitle: viewTitle + "-可用空间大小", unit: '(G)', des: '可用空间' });
-            return;
         } else {
             viewData[dev].forEach((item: any) => {
                 xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
@@ -287,15 +209,14 @@ export class ServiceComponent implements OnInit {
                 this.allRegions[index].groupExpand = false;
             }
         });
-        this.serviceList = [];
         this.queryGameServerByRegion((region.name).split(":")[1]);
     }
 
     //查询服务组下的服务器信息
     queryGameServerByRegion(regionId) {
-
         this.expandLoading = true;
         this.totals = 0;
+        this.serviceList = [];
         this.serviceServer.queryGameServerByRegion({
             region: regionId,
             pageNum: this.pageNum,
@@ -304,9 +225,7 @@ export class ServiceComponent implements OnInit {
             this.expandLoading = false;
             if (res.code == 0) {
                 this.totals = res.data.total;
-                console.log(this.totals);
-                this.serviceList = this.serviceList.concat(res.data.list);
-                // this.serviceList = res.data.list;
+                this.serviceList = res.data.list;
                 this.serviceList.forEach((service: any, sIndex) => {
                     this.serviceList[sIndex].devExpand = false;
                 });
@@ -315,16 +234,124 @@ export class ServiceComponent implements OnInit {
             }
         });
     }
-
-    loadMoreService(region) {
-        this.pageNum++;
+    changePage($event?: any, region?: any) {
+        this.pageNum = $event;
         this.queryGameServerByRegion((region.name).split(":")[1]);
     }
 
-    CollapseService(region) {
-        this.pageNum = 1;
-        this.serviceList = [];
-        this.queryGameServerByRegion((region.name).split(":")[1]);
+    queryGpuDatas(params) {
+        this.gpuLoading = true;
+        this.serviceServer.queryGpuDatas(params).subscribe((res: any) => {
+            this.gpuData = [];
+            this.gpuLoading = false;
+            if (res.code == 0 && JSON.stringify(res.data) != '{}') {
+                for (let gpuItem in res.data) {
+                    let xDate = [],
+                        gpuTempList = [],//核心温度
+                        gpuSmList = [],//流处理器的利用率 %
+                        gpuMemList = [],//显存利用率 %
+                        gpuEncList = [],//编码器利用率 %
+                        gpuDecList = [],//解码器利用率 %
+
+                        gpuMclkList = [],//显存频率 MHz
+                        gpuPclkList = [];//GPU频率 MHz
+                    let echartData = {
+                        usageRate: null,
+                        temperat: null
+                    };
+                    let gpuSmSeries = null, gpuMemSeries = null, gpuEncSeries = null, gpuDecSeries = null, gpuMclkSeries = null, gpuPclkSeries = null, gpuName = null, seriesData = [];
+                    res.data[gpuItem].forEach((item: any) => {
+                        xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
+                        gpuTempList.push(item.gpuTemp);
+
+                        gpuSmList.push(item.gpuSm);
+                        gpuMemList.push(item.gpuMem);
+                        gpuEncList.push(item.gpuEnc);
+                        gpuDecList.push(item.gpuDec);
+
+                        gpuMclkList.push(item.gpuMclk);
+                        gpuPclkList.push(item.gpuPclk);
+                        gpuName = item.gpuName;
+                    });
+                    gpuSmSeries = {
+                        name: '流处理器的利用率',
+                        type: 'line',
+                        data: gpuSmList
+                    };
+
+                    gpuMemSeries = {
+                        name: '显存利用率',
+                        type: 'line',
+                        data: gpuMemList
+                    };
+
+                    gpuEncSeries = {
+                        name: '编码器利用率',
+                        type: 'line',
+                        data: gpuMemList
+                    }
+
+                    gpuDecSeries = {
+                        name: '解码器利用率',
+                        type: 'line',
+                        data: gpuDecList
+                    }
+
+                    gpuMclkSeries = {
+                        name: '显存频率',
+                        type: 'bar',
+                        yAxisIndex: 1,
+                        data: gpuMclkList
+                    }
+
+                    gpuPclkSeries = {
+                        name: 'GPU频率',
+                        type: 'bar',
+                        yAxisIndex: 1,
+                        data: gpuPclkList
+                    }
+                    let params = {
+                        title: gpuName,
+                        xData: xDate,
+                        seriesData: [gpuSmSeries, gpuMemSeries, gpuEncSeries, gpuDecSeries, gpuMclkSeries, gpuPclkSeries],
+                        legend: ['流处理器的利用率', '显存利用率', '编码器利用率', '解码器利用率', '显存频率', 'GPU频率'],
+                        y1AxisName: '利用率',
+                        y1unit: '%',
+                        y2AxisName: '频率',
+                        y2unit: 'MHz',
+                        y1max: Math.ceil(Math.max(...[...gpuSmList, ...gpuMemList, ...gpuEncList, ...gpuDecList]) / 9.5) * 10,
+                        y1min: Math.floor(Math.min(...[...gpuSmList, ...gpuMemList, ...gpuEncList, ...gpuDecList]) / 10) * 10,
+                        y2max: Math.ceil(Math.max(...[...gpuMclkList, ...gpuPclkList]) / 9.5) * 10,
+                        y2min: Math.floor(Math.min(...[...gpuMclkList, ...gpuPclkList]) / 10) * 10
+                    };
+                    echartData.usageRate = barLine(params);
+                    echartData.temperat = basicLine(
+                        {
+                            name: 'GPU温度',
+                            type: 'line',
+                            data: gpuTempList
+                        },
+                        xDate,
+                        ['GPU温度'],
+                        '℃',
+                        gpuName,
+                        Math.floor(Math.min(...[...gpuTempList]) / 10) * 10,
+                        Math.ceil(Math.max(...[...gpuTempList]) / 9.5) * 10
+
+                    );
+                    this.gpuData.push(echartData);
+                }
+            } else {
+                if (res.code == 0) {
+                    this.message.create('warning', res.message ? res.message : '暂无数据');
+                } else {
+                    this.message.create('error', res.message ? res.message : '查询失败');
+                }
+
+            }
+            this.gpuVisible = true;
+        });
     }
+
 
 }

@@ -1,0 +1,128 @@
+<page-header [title]="'玩家游戏'">
+</page-header>
+
+<nz-card>
+  <!-- <form nz-form [formGroup]="pictureForm">
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="gameId">游戏ID
+        </nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="gameId" />
+        </nz-form-control>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="pictureType">画质类型
+        </nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-select formControlName="pictureType" nzPlaceHolder="请选择" (ngModelChange)="changePictureType()">
+            <nz-option nzValue="" nzLabel="请选择"></nz-option>
+            <nz-option nzValue="1" nzLabel="最简"></nz-option>
+            <nz-option nzValue="2" nzLabel="简约"></nz-option>
+            <nz-option nzValue="3" nzLabel="均衡"></nz-option>
+            <nz-option nzValue="4" nzLabel="唯美"></nz-option>
+            <nz-option nzValue="5" nzLabel="高效"></nz-option>
+            <nz-option nzValue="6" nzLabel="电影"></nz-option>
+            <nz-option nzValue="7" nzLabel="极致"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="searchData()">查询</button>
+      </div>
+    </div>
+
+  </form> -->
+  <!-- <button nz-button (click)="addPicture()" [nzType]="'primary'">
+    <i nz-icon nzType="plus"></i>
+    <span>新增游戏画质</span>
+  </button>
+  <nz-divider nzDashed></nz-divider> -->
+  <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="userGameList"
+    [nzFrontPagination]="false" [nzLoading]="tableLoading" [nzTotal]="total" [(nzPageIndex)]="pageIndex"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1600px' }">
+    <thead>
+      <tr>
+        <th rowspan="2" nzLeft="0px">taskId</th>
+        <th rowspan="2">游戏ID</th>
+        <th rowspan="2">玩家</th>
+        <th colspan="3">CPU使用率</th>
+        <th colspan="3">内存（MB）</th>
+        <th colspan="3">丢包率</th>
+        <th colspan="3">带宽（MB）</th>
+        <th colspan="3">服务端帧率</th>
+        <th colspan="3">客户端帧率</th>
+        <th colspan="3">控制延迟（MS）</th>
+        <th rowspan="2">日期</th>
+      </tr>
+
+      <tr>
+        <th>最小值</th>
+        <th>平均值</th>
+        <th>最大值</th>
+
+        <th>最小值</th>
+        <th>平均值</th>
+        <th>最大值</th>
+
+        <th>最小值</th>
+        <th>平均值</th>
+        <th>最大值</th>
+
+        <th>最小值</th>
+        <th>平均值</th>
+        <th>最大值</th>
+
+        <th>最小值</th>
+        <th>平均值</th>
+        <th>最大值</th>
+
+        <th>最小值</th>
+        <th>平均值</th>
+        <th>最大值</th>
+
+        <th>最小值</th>
+        <th>平均值</th>
+        <th>最大值</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let game of userGameList;let i=index">
+        <td>{{ game.taskId?game.taskId:'--' }}</td>
+        <td>{{ game.gameId }}</td>
+        <td>{{ game.user }}</td>
+
+
+        <td>{{ game.cpu.min  }}</td>
+        <td>{{ game.cpu.avg }}</td>
+        <td>{{ game.cpu.max }}</td>
+
+        <td>{{ game.mem.min  }}</td>
+        <td>{{ game.mem.avg }}</td>
+        <td>{{ game.mem.max }}</td>
+
+        <td>{{ game.lostRate.min  }}</td>
+        <td>{{ game.lostRate.avg }}</td>
+        <td>{{ game.lostRate.max }}</td>
+
+        <td>{{ game.bandwidth.min  }}</td>
+        <td>{{ game.bandwidth.avg }}</td>
+        <td>{{ game.bandwidth.max }}</td>
+
+        <td>{{ game.fps.min  }}</td>
+        <td>{{ game.fps.avg }}</td>
+        <td>{{ game.fps.max }}</td>
+
+        <td>{{ game.cfps.min  }}</td>
+        <td>{{ game.cfps.avg }}</td>
+        <td>{{ game.cfps.max }}</td>
+
+        <td>{{ game.controlLatency.min  }}</td>
+        <td>{{ game.controlLatency.avg }}</td>
+        <td>{{ game.controlLatency.max }}</td>
+
+        <td>{{ game.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
