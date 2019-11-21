@@ -177,6 +177,11 @@ export class LoginService {
                             newCurrent['link'] = "/operation/devicemanage";
                             newCurrent.order = 4;
                             break;
+                        case 'ServerUpdate': //更新服务器
+                            newCurrent['link'] = "/operation/serverupdate";
+                            newCurrent.order = 5;
+                            break;
+
 
 
                     }

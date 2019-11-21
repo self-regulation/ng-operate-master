@@ -85,7 +85,8 @@ export class WebsocketService {
      * 接受到消息
      */
     onMessage(event) {
-        console.log('接收到的消息', event.data);
+        console.log('接收到的消息', event);
+        // this.sendMessage(JSON.stringify({ "cmdType": "101", "data": { "key": "v12" } }));
         // 将接受到的消息发布出去
         const message = JSON.parse(event.data);
         console.log('接收到消息时间', new Date().getTime());

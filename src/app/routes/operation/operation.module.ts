@@ -7,12 +7,13 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { PictureManageComponent } from './picture-manage/picture-manage.component';
 import { DeviceManageComponent } from './device-manage/device-manage.component';
+import { ServerUpdateComponent } from './server-update/server-update.component';
 
 
 const THIRDMODULES = [NzBreadCrumbModule, NzDatePickerModule];
 
 
-const COMPONENTS = [OperationActionComponent, ServerlogComponent, PictureManageComponent, DeviceManageComponent];
+const COMPONENTS = [OperationActionComponent, ServerlogComponent, PictureManageComponent, DeviceManageComponent, ServerUpdateComponent];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({

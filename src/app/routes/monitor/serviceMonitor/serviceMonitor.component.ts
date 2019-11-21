@@ -183,13 +183,13 @@ export class ServiceMonitorComponent implements OnInit {
         if (type == 'cpu') {
             data.forEach((item: any) => {
                 xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
-                seriesData.push((item.cpercent / 100).toFixed(2));
+                seriesData.push((item.cpercent).toFixed(2));
             });
 
         } else if (type == 'memory') {
             data.forEach((item: any) => {
                 xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
-                seriesData.push((((item.mtotal - item.mfree) / item.mtotal) / 100).toFixed(2));
+                seriesData.push((((item.mtotal - item.mfree) / item.mtotal) * 100).toFixed(2));
             });
         }
         return areaLine({ xDate: xDate, seriesData: seriesData });
@@ -353,11 +353,12 @@ export class ServiceMonitorComponent implements OnInit {
             this.devType = 'memory';
             data.forEach((item: any) => {
                 xDate.push(moment(item.createTime).format('YYYY-MM-DD HH:mm'));
-                seriesData.push((((item.mtotal - item.mfree) / item.mtotal) / 100).toFixed(2));
+                seriesData.push((((item.mtotal - item.mfree) / item.mtotal) * 100).toFixed(2));
                 remainData.push((item.mfree / 1024).toFixed(2));
             });
             this.devDetailRatio = Line({ xDate: xDate, seriesData: seriesData, viewTitle: '内存使用率', unit: '(%)', des: '使用率' });
             this.devDetailData = Line({ xDate: xDate, seriesData: remainData, viewTitle: '内存可用空间大小', unit: '(G)', des: '可用空间' });
+
         }
         this.devDetailVisible = true;
     }
@@ -410,14 +411,13 @@ export class ServiceMonitorComponent implements OnInit {
                 this.devDetailLoading = false;
                 let xDate = [], seriesData = [], remainData = [];
                 if (res.code == 0) {
-                    console.log(res);
                     if (JSON.stringify(res.data) == '{}' || !res.data) {
                         this.message.create('warning', '暂无该设备信息数据!');
                         return;
                     }
                     res.data.forEach((item: any) => {
                         xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
-                        seriesData.push((((item.mtotal - item.mfree) / item.mtotal) / 100).toFixed(2));
+                        seriesData.push((((item.mtotal - item.mfree) / item.mtotal) * 100).toFixed(2));
                         remainData.push(((item.mtotal - item.mfree) / 1024).toFixed(2));
                     });
                     this.devDetailRatio = Line({ xDate: xDate, seriesData: seriesData, viewTitle: '内存使用率', unit: '(%)', des: '使用率' });
@@ -480,7 +480,7 @@ export class ServiceMonitorComponent implements OnInit {
                     legend.push(item);
                     xDate = [];
                     res.data[item].forEach((diskItem: any) => {
-                        seriesItem.data.push((((diskItem.size - diskItem.free) / diskItem.size) / 100).toFixed(2));
+                        seriesItem.data.push((((diskItem.size - diskItem.free) / diskItem.size) * 100).toFixed(2));
                         xDate.push(moment.unix(diskItem.createTime).format('YYYY-MM-DD HH:mm'));
 
                         diskAvailableItem.data.push((diskItem.free / 1024).toFixed(2));

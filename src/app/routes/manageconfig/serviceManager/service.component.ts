@@ -148,13 +148,13 @@ export class ServiceComponent implements OnInit {
         if (dev === 'CPU') {
             viewData.forEach((item: any) => {
                 xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
-                ratioSeries.push((item.percent / 100).toFixed(2));
+                ratioSeries.push((item.percent).toFixed(2));
             });
             viewTitle = 'CPU';
         } else if (dev === 'Memory') {
             viewData.forEach((item: any) => {
                 xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
-                ratioSeries.push((((item.mtotal - item.mfree) / item.mtotal) / 100).toFixed(2));
+                ratioSeries.push((((item.mtotal - item.mfree) / item.mtotal) * 100).toFixed(2));
                 dataSeries.push(((item.mtotal - item.mfree) / 1024).toFixed(2));
             });
             viewTitle = 'CPU';
@@ -162,7 +162,7 @@ export class ServiceComponent implements OnInit {
         } else {
             viewData[dev].forEach((item: any) => {
                 xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
-                ratioSeries.push(((item.free / item.size) / 100).toFixed(2));
+                ratioSeries.push(((item.free / item.size) * 100).toFixed(2));
                 dataSeries.push(((item.size - item.free) / 1024).toFixed(2));
             });
             viewTitle = dev + '磁盘';

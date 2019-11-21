@@ -43,17 +43,18 @@
     (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1600px' }">
     <thead>
       <tr>
-        <th rowspan="2" nzLeft="0px">taskId</th>
+        <th rowspan="2" nzWidth="150px" nzLeft="0px">日期</th>
+        <th rowspan="2" nzLeft="150px">taskId</th>
         <th rowspan="2">游戏ID</th>
         <th rowspan="2">玩家</th>
-        <th colspan="3">CPU使用率</th>
-        <th colspan="3">内存（MB）</th>
-        <th colspan="3">丢包率</th>
-        <th colspan="3">带宽（MB）</th>
-        <th colspan="3">服务端帧率</th>
-        <th colspan="3">客户端帧率</th>
-        <th colspan="3">控制延迟（MS）</th>
-        <th rowspan="2">日期</th>
+        <th colspan="3">CPU使用率(%)</th>
+        <th colspan="3">内存(MB)</th>
+        <th colspan="3">丢包率(%)</th>
+        <th colspan="3">带宽(KB/s)</th>
+        <th colspan="3">服务端帧率(fps)</th>
+        <th colspan="3">客户端帧率(fps)</th>
+        <th colspan="3">控制延迟(ms)</th>
+
       </tr>
 
       <tr>
@@ -88,7 +89,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let game of userGameList;let i=index">
-        <td>{{ game.taskId?game.taskId:'--' }}</td>
+        <td nzWidth="150px" nzLeft="0px">{{ game.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td nzLeft="150px">{{ game.taskId?game.taskId:'--' }}</td>
         <td>{{ game.gameId }}</td>
         <td>{{ game.user }}</td>
 
@@ -120,8 +122,6 @@
         <td>{{ game.controlLatency.min  }}</td>
         <td>{{ game.controlLatency.avg }}</td>
         <td>{{ game.controlLatency.max }}</td>
-
-        <td>{{ game.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
       </tr>
     </tbody>
   </nz-table>
