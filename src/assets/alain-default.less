@@ -2671,7 +2671,40 @@ darker  @grey-9;
 @table-head-color: #20222A;
 @sidebar-selected: #404040;
 
-
+::ng-deep .ant-modal-confirm .ant-modal-body {
+  background-color: #212121 !important;
+  color: #ffffff !important;
+}
+::ng-deep .ant-modal-confirm-body .ant-modal-confirm-title {
+  color: #ffffff !important;
+}
+::ng-deep .ant-modal-confirm-body .ant-modal-confirm-content ul > li {
+  color: #ececec;
+}
+::ng-deep .commandModal .ant-modal-header {
+  background-color: #212121 !important;
+  border-bottom: none;
+}
+::ng-deep .commandModal .ant-modal-content {
+  background-color: #212121 !important;
+}
+::ng-deep .commandModal .ant-modal-title {
+  color: #ffffff;
+}
+::ng-deep .commandModal .ant-modal-close {
+  color: #ffffff;
+}
+::ng-deep .commandModal .ant-modal-body {
+  background-color: #212121 !important;
+}
+::ng-deep .commandModal ul > li {
+  color: #ececec;
+}
+::ng-deep .commandModal input {
+  background-color: @primary-color;
+  border: none;
+  color: #ffffff;
+}
 .checkbox-label .new-checkbox {
   border: 1px solid #d9d9d9;
   border-radius: 2px;
@@ -12096,6 +12129,9 @@ ul::-webkit-scrollbar-corner {
 [customize-theme-style='dark'] .ant-dropdown-menu-item-divider,
 [customize-theme-style='dark'] .ant-dropdown-menu-submenu-title-divider {
   background-color: #303030;
+}
+[customize-theme-style='dark'] .ant-modal-confirm-body .ant-modal-confirm-title {
+  color: #ffffff;
 }
 [customize-theme-style='dark'] .ant-spin-dot-item {
   background-color: #ffffff;
@@ -26784,6 +26820,9 @@ ul::-webkit-scrollbar-corner {
 [customize-theme-style='dark'] .ant-dropdown-menu-item-divider,
 [customize-theme-style='dark'] .ant-dropdown-menu-submenu-title-divider {
   background-color: #303030;
+}
+[customize-theme-style='dark'] .ant-modal-confirm-body .ant-modal-confirm-title {
+  color: #ffffff;
 }
 [customize-theme-style='dark'] .ant-spin-dot-item {
   background-color: #ffffff;

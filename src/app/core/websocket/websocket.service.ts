@@ -25,8 +25,8 @@ export class WebsocketService {
         this.messageSubject = new Subject();
         console.log('开始心跳检测');
         // 进入程序就进行心跳检测,避免出现开始就连接中断,后续不重连
-        this.heartCheckStart();
-        this.calcRunTime();
+        // this.heartCheckStart();
+        // this.calcRunTime();
     }
 
     /**

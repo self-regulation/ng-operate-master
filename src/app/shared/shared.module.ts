@@ -43,6 +43,7 @@ import { DynamicFormQuestionComponent } from '@core/components/dynamic-forms/dyn
 import { OperationStatus } from './pipes/operation-status.pipe';
 import { TimeTransform } from './pipes/moment.pipe';
 import { RmbConversion } from './pipes/rmb-money.pipe';
+import { CommandWindowModal } from '@core/components/command-window/command-window.component';
 // import { DelonACLModule } from '@delon/acl';  //权限模块
 const THIRDMODULES = [
   // NgZorroAntdModule,
@@ -72,7 +73,7 @@ const THIRDMODULES = [
 // #endregion
 
 // #region your componets & directives
-const COMPONENTS = [DynamicFormQuestionComponent];
+const COMPONENTS = [DynamicFormQuestionComponent, CommandWindowModal];
 const DIRECTIVES = [];
 // #endregion
 

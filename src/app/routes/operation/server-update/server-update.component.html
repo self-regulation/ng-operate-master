@@ -1,1 +1,6 @@
 <page-header [title]="'更新服务器'"></page-header>
+
+<nz-card>
+  <button nz-button type="submit" [nzType]="'primary'" (click)="openCommand()">打开命令行窗口</button>
+</nz-card>
+<command-window #command></command-window>

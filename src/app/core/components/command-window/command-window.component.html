@@ -1,3 +1,8 @@
-<nz-modal nzWidth="1000px" [(nzVisible)]="commandVisible" [nzTitle]="modalTitle" nzFooter="null">
+<nz-modal nzWidth="1000px" [(nzVisible)]="commandVisible" [nzTitle]="modalTitle" nzFooter="null" class="commandModal"
+  (nzOnCancel)="commandCancel()">
+  <ul>
+    <li *ngFor="let item of commandContent">{{item}}</li>
+    <li><input nz-input [(ngModel)]="commandInput" autofocus="autofocus" (keyup)="commandChange($event)" /></li>
+  </ul>
 
 </nz-modal>
