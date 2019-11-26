@@ -8,7 +8,7 @@
       <nz-form-item>
         <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="serverName">服务器名称</nz-form-label>
         <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
-          <input nz-input formControlName="serverName" />
+          <input nz-input formControlName="serverName" placeholder="请输入服务器名称" />
         </nz-form-control>
 
         <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2">连接状态</nz-form-label>
@@ -50,10 +50,10 @@
         <td>
           <nz-badge [nzStatus]="server.status==1?'success':'error'" [nzText]="server.status==1?'连接':'断开'"></nz-badge>
         </td>
+
         <td (click)="showDevDetail(server.cpu,'cpu',server.serverName)" class="picTd">
           <div *ngIf="(server.cpu).length>0" echarts [options]="formateLineData(server.cpu,'cpu')"
             style="height: 65px;"></div>
-
           <span style="height: 65px;display: inline-block;line-height: 65px;" *ngIf="(server.cpu).length==0">--</span>
         </td>
         <td (click)="showDevDetail(server.memory,'memory',server.serverName)" class="picTd">

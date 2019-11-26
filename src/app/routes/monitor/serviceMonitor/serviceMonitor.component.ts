@@ -163,10 +163,33 @@ export class ServiceMonitorComponent implements OnInit {
                                     }
                                 });
                             });
+
+                            // if (serverItem.cpu.length > 0) {
+                            //     serverItem.cpuInfo = areaLine({
+                            //         xDate: (serverItem.cpu).map((item: any) => {
+                            //             return moment.unix(item.createTime).format('YYYY-MM-DD HH:mm');
+                            //         }), seriesData: (serverItem.cpu).map((item: any) => {
+                            //             return (item.cpercent).toFixed(2);
+                            //         })
+                            //     });
+                            // } else {
+                            //     serverItem.cpuInfo = null;
+                            // }
+
+                            // if (serverItem.memory.length > 0) {
+                            //     serverItem.memoryInfo = areaLine({
+                            //         xDate: (serverItem.memory).map((item: any) => {
+                            //             return moment.unix(item.createTime).format('YYYY-MM-DD HH:mm');
+                            //         }), seriesData: (serverItem.memory).map((item: any) => {
+                            //             return (((item.mtotal - item.mfree) / item.mtotal) * 100).toFixed(2);
+                            //         })
+                            //     });
+                            // } else {
+                            //     serverItem.memoryInfo = null;
+                            // }
                         }
                         this.serverList.push(serverItem);
                     });
-                    console.log(this.serverList);
                 }
 
             } else {
@@ -418,7 +441,7 @@ export class ServiceMonitorComponent implements OnInit {
                     res.data.forEach((item: any) => {
                         xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
                         seriesData.push((((item.mtotal - item.mfree) / item.mtotal) * 100).toFixed(2));
-                        remainData.push(((item.mtotal - item.mfree) / 1024).toFixed(2));
+                        remainData.push((item.mfree / 1024).toFixed(2));
                     });
                     this.devDetailRatio = Line({ xDate: xDate, seriesData: seriesData, viewTitle: '内存使用率', unit: '(%)', des: '使用率' });
                     this.devDetailData = Line({ xDate: xDate, seriesData: remainData, viewTitle: '内存可用空间大小', unit: '(G)', des: '可用空间' });

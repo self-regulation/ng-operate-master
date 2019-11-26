@@ -4,9 +4,10 @@
  * @param param 图形配置
  */
 export function areaLine(param: any): any {
-    let ratioList = {}, xDate = [], seriesData = [];
+    let ratioList = {}, xDate = [], seriesData = [], unit = '';
     xDate = param.xDate;
     seriesData = param.seriesData;
+    unit = param.unit ? param.unit : '%';
     ratioList = {
         xAxis: {
             type: 'category',
@@ -31,7 +32,7 @@ export function areaLine(param: any): any {
                 markPoint: {
                     data: [
                         {
-                            value: seriesData[seriesData.length - 1] + '%',
+                            value: seriesData[seriesData.length - 1] + unit,
                             coord: [xDate[xDate.length - 1], seriesData[seriesData.length - 1]],
                             symbolSize: 15,
                             symbol: 'pin',

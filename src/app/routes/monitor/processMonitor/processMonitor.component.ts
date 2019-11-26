@@ -23,12 +23,12 @@ export class ProcessMonitorComponent implements OnInit {
     devDetailRatio: any = {};
     devType: any = '';
     devDetailVisible: boolean = false;
-    unit: string = 'hour';
     devDetailLoading: boolean = false;
     processList: any = [];
-    // bindList: any = [];
+    bindList: any = [];
     constructor(private processMonitorService: ProcessMonitorService, private message: NzMessageService, private fb: FormBuilder, private router: Router) {
         this.processForm = this.fb.group({
+            taskId: [null],
             serverName: [null],
             userName: [null]
         });
@@ -44,13 +44,107 @@ export class ProcessMonitorComponent implements OnInit {
         if (params) {
             param['serverName'] = params.serverName;
             param['userName'] = params.userName;
+            param['taskId'] = params.taskId;
         }
         this.loading = true;
         this.processMonitorService.queryAllServersMonitor(param).subscribe((res: any) => {
             this.loading = false;
             if (res.code == 0) {
-                this.processList = res.data.list;
+                this.bindList = res.data.list;
+                this.processList = [];
+                res.data.list.forEach((item: any, index) => {
+                    let processItem = {
+                        taskId: null,
+                        pid: null,
+                        ip: null,
+                        user: null,
+                        gameId: null,
+                        name: null,
+                        processorTime: [],
+                        workingSet: [],
+                        lostRate: [],
+                        brandwidth: [],
+                        fps: [],
+                        cfps: [],
+                        controlLatency: [],
+                        createTime: null
+                    };
+                    processItem.taskId = item.taskId;
+                    if (item.data.length > 0) {
+                        processItem.pid = item.data[0].pid;
+                        processItem.ip = item.data[0].ip;
+                        processItem.user = item.data[0].user;
+                        processItem.gameId = item.data[0].gameId;
+                        processItem.name = item.data[0].name;
+                        processItem.createTime = item.data[0].createTime;
+
+                        processItem.processorTime = areaLine({
+                            xDate: item.data.map((res: any) => {
+                                return moment.unix(res.createTime).format('YYYY-MM-DD HH:mm');
+                            }), seriesData: item.data.map((res: any) => {
+                                return res.processorTime;
+                            })
+                        });
+
+                        processItem.workingSet = areaLine({
+                            xDate: item.data.map((res: any) => {
+                                return moment.unix(res.createTime).format('YYYY-MM-DD HH:mm');
+                            }), seriesData: item.data.map((res: any) => {
+                                return res.workingSet;
+                            }),
+                            unit: "MB"
+                        });
+
+                        processItem.lostRate = areaLine({
+                            xDate: item.data.map((res: any) => {
+                                return moment.unix(res.createTime).format('YYYY-MM-DD HH:mm');
+                            }), seriesData: item.data.map((res: any) => {
+                                return res.lostRate;
+                            })
+                        });
+
+                        processItem.brandwidth = areaLine({
+                            xDate: item.data.map((res: any) => {
+                                return moment.unix(res.createTime).format('YYYY-MM-DD HH:mm');
+                            }), seriesData: item.data.map((res: any) => {
+                                return res.brandwidth;
+                            }),
+                            unit: "KB/s"
+                        });
+
+                        processItem.fps = areaLine({
+                            xDate: item.data.map((res: any) => {
+                                return moment.unix(res.createTime).format('YYYY-MM-DD HH:mm');
+                            }), seriesData: item.data.map((res: any) => {
+                                return res.fps;
+                            }),
+                            unit: "fps"
+                        });
+
+                        processItem.cfps = areaLine({
+                            xDate: item.data.map((res: any) => {
+                                return moment.unix(res.createTime).format('YYYY-MM-DD HH:mm');
+                            }), seriesData: item.data.map((res: any) => {
+                                return res.cfps;
+                            }),
+                            unit: "fps"
+                        });
+
+                        processItem.controlLatency = areaLine({
+                            xDate: item.data.map((res: any) => {
+                                return moment.unix(res.createTime).format('YYYY-MM-DD HH:mm');
+                            }), seriesData: item.data.map((res: any) => {
+                                return res.controlLatency;
+                            }),
+                            unit: "ms"
+                        });
+
+                    }
+                    this.processList.push(processItem);
+                    console.log(this.processList);
+                });
                 this.totals = res.data.total;
+
             } else {
                 this.message.create('error', res.message ? res.message : '查询数据失败!');
             }
@@ -58,36 +152,6 @@ export class ProcessMonitorComponent implements OnInit {
 
     }
 
-    // formatData(processList: any) {
-    //     this.processList = [];
-    //     processList.forEach((item: any, index) => {
-    //         let processItem = {
-    //             pid: '',
-    //             gameId: '',
-    //             name: '',
-    //             serverName: '',
-    //             processorList: [],
-    //             workingSetList: [],
-    //             userName: ''
-    //         };
-    //         if (item && item.processInfoList.length > 0) {
-    //             processItem.pid = item.processInfoList[0].pid;
-    //             processItem.gameId = item.processInfoList[0].gameId;
-    //             processItem.name = item.processInfoList[0].name;
-    //             processItem.serverName = item.processInfoList[0].ip;
-    //             processItem.processorList = item.processInfoList.filter((process: any) => {
-    //                 return process.processorTime;
-    //             });
-
-    //             processItem.workingSetList = item.processInfoList.filter((process: any) => {
-    //                 return process.workingSet;
-    //             });
-    //         }
-    //         processItem.userName = item.userName;
-    //         this.processList[index] = processItem;
-
-    //     });
-    // }
     changePage(event) {
         this.pageIndex = event;
         this.queryAllServersMonitor();
@@ -112,99 +176,47 @@ export class ProcessMonitorComponent implements OnInit {
         return areaLine({ xDate: xDate, seriesData: seriesData });
     }
 
-    showDevDetail(data: any, type: any, serverName: any, userName: any) {
-        if (!data || data.length <= 0) {
+    showDevDetail(data: any, type: any) {
+        if (!data || data.series[0].data.length == 0) {
             return;
         }
         this.devDetailRatio = {};
-        let xDate = [], seriesData = [];
-        this.serverName = serverName;
-        this.userName = userName;
-        if (type == 'process') {
-            this.devType = 'process';
-            data.forEach((item: any) => {
-                xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
-                seriesData.push((item.processorTime).toFixed(2));
-            });
-            this.devDetailRatio = Line({ xDate: xDate, seriesData: seriesData, viewTitle: 'CPU占用率', unit: '(%)', des: '占用率' });
+        switch (type) {
+            case 'processorTime':
+                this.devDetailRatio = Line({ xDate: data.xAxis.data, seriesData: data.series[0].data, viewTitle: 'CPU占用率', unit: '(%)', des: '占用率' });
+                break;
+            case 'workingSet':
+                this.devDetailRatio = Line({ xDate: data.xAxis.data, seriesData: data.series[0].data, viewTitle: '内存', unit: '(MB)', des: '内存' });
+                break;
+            case 'lostRate':
+                this.devDetailRatio = Line({ xDate: data.xAxis.data, seriesData: data.series[0].data, viewTitle: '丢包率', unit: '(%)', des: '丢包率' });
+                break;
+            case 'brandwidth':
+                this.devDetailRatio = Line({ xDate: data.xAxis.data, seriesData: data.series[0].data, viewTitle: '带宽', unit: '(KB/s)', des: '带宽' });
+                break;
+            case 'fps':
+                this.devDetailRatio = Line({ xDate: data.xAxis.data, seriesData: data.series[0].data, viewTitle: '服务端帧率', unit: '(fps)', des: '服务端帧率' });
+                break;
+            case 'cfps':
+                this.devDetailRatio = Line({ xDate: data.xAxis.data, seriesData: data.series[0].data, viewTitle: '客户端帧率', unit: '(fps)', des: '客户端帧率' });
+                break;
+            case 'controlLatency':
+                this.devDetailRatio = Line({ xDate: data.xAxis.data, seriesData: data.series[0].data, viewTitle: '控制延迟', unit: '(ms)', des: '控制延迟' });
+                break;
 
-        } else if (type == 'workingSet') {
-            this.devType = 'workingSet';
-            data.forEach((item: any) => {
-                xDate.push(moment.unix(item.createTime).format('YYYY-MM-DD HH:mm'));
-                seriesData.push((item.workingSet / 1024).toFixed(2));
-            });
-            this.devDetailRatio = Line({ xDate: xDate, seriesData: seriesData, viewTitle: '内存使用情况', unit: '(G)', des: '内存使用' });
         }
         this.devDetailVisible = true;
     }
 
-    //改变详情粒度
-    changeDevDetailUnit(event) {
-        let params;
-        if (event == 'hour') {
-            params = {
-                serverName: this.serverName,
-                startTime: moment().subtract(1, 'hours').format('YYYY-MM-DD HH:mm:ss'),
-                endTime: moment().format('YYYY-MM-DD HH:mm:ss')
-            }
-
-        } else if (event == 'day') {
-            params = {
-                serverName: this.serverName,
-                startTime: moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss'),
-                endTime: moment().format('YYYY-MM-DD HH:mm:ss')
-            }
-        } else if (event == 'week') {
-            params = {
-                serverName: this.serverName,
-                startTime: moment().subtract(1, 'weeks').format('YYYY-MM-DD HH:mm:ss'),
-                endTime: moment().format('YYYY-MM-DD HH:mm:ss')
-            }
-        }
-        this.devDetailLoading = true;
-        let xDate = [], seriesData = [];
-        this.processMonitorService.queryUsers(params).subscribe((res: any) => {
-            this.devDetailLoading = false;
-
-            if (res.code === 0) {
-                if (res.data && JSON.stringify(res.data) != '{}') {
-                    for (let process in res.data) {
-                        if (process == this.userName) {
-                            xDate = res.data[process].map((item: any) => {
-                                return moment(item.createTime).format('YYYY-MM-DD HH:mm:ss')
-                            });
-                            if (this.devType == 'process') {
-                                seriesData = res.data[process].map((item: any) => {
-                                    return (item.processorTime / 100).toFixed(2);
-                                });
-                                this.devDetailRatio = Line({ xDate: xDate, seriesData: seriesData, viewTitle: 'CPU占用率', unit: '(%)', des: '占用率' });
-                            } else if (this.devType == 'workingSet') {
-                                seriesData = res.data[process].map((item: any) => {
-                                    return (item.workingSet / 100).toFixed(2);
-                                });
-                                this.devDetailRatio = Line({ xDate: xDate, seriesData: seriesData, viewTitle: '磁盘消耗率', unit: '(%)', des: '磁盘消耗率' });
-                            }
-                        }
-                    }
-                }
-
-            } else {
-                this.message.create('error', res.message ? res.message : '查询数据失败!');
-                return;
-            }
-
-        });
-    }
 
     closeDevDetail(): void {
         this.devDetailVisible = false;
-        this.unit = 'hour';
     }
 
     inquireProcess(): void {
         this.pageIndex = 1;
         let params = {
+            taskId: this.processForm.value.taskId,
             serverName: this.processForm.value.serverName,
             userName: this.processForm.value.userName
         }

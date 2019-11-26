@@ -19,7 +19,7 @@ export function Line(param: any): any {
         },
         title: {
             left: 'center',
-            text: viewTitle + unit + '最新值',
+            text: viewTitle + unit,
             subtext: '最新值：' + seriesData[seriesData.length - 1] + unit,
             subtextStyle: {
                 color: '#FFAB40',

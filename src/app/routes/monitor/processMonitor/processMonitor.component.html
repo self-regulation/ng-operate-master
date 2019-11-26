@@ -4,14 +4,20 @@
   <form nz-form [formGroup]="processForm">
     <div nz-row>
       <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="taskId">taskId
+        </nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="taskId" placeholder="请输入taskId" />
+        </nz-form-control>
+
         <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="serverName">服务器名称</nz-form-label>
         <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
           <input nz-input formControlName="serverName" placeholder="请输入服务器名称" />
         </nz-form-control>
 
-        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="userName">用户名</nz-form-label>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="userName">玩家</nz-form-label>
         <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
-          <input nz-input formControlName="userName" placeholder="请输入用户名" />
+          <input nz-input formControlName="userName" placeholder="请输入玩家名称" />
         </nz-form-control>
       </nz-form-item>
 
@@ -22,30 +28,33 @@
 
   </form>
 
-  <nz-table nzBordered="true" [nzFrontPagination]="false" [nzData]="processList" [nzLoading]="loading"
-    [nzTotal]="totals" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" nzShowPagination="true"
+  <nz-table nzBordered="true" [nzFrontPagination]="false" [nzData]="bindList" [nzLoading]="loading" [nzTotal]="totals"
+    [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" nzShowPagination="true"
     (nzPageIndexChange)="changePage($event)" [nzScroll]="{ x: '1300px' }">
     <thead>
       <tr>
         <th nzLeft="0px">taskId</th>
         <th>进程id</th>
+        <th>日期</th>
         <th>服务器名称</th>
         <th>玩家</th>
         <th>游戏id</th>
         <th>游戏名称</th>
-        <th>cpu占用率</th>
+        <th>cpu占用率(%)</th>
         <th>内存(MB)</th>
-        <th>丢包率</th>
-        <th>带宽(MB)</th>
-        <th>服务端帧率</th>
-        <th>客户端帧率</th>
-        <th>控制延迟</th>
-        <th>日期</th>
+        <th>丢包率(%)</th>
+        <th>带宽(KB/s)</th>
+        <th>服务端帧率(fps)</th>
+        <th>客户端帧率(fps)</th>
+        <th>控制延迟(ms)</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let process of processList;let i=index">
         <td nzLeft="0px">{{ process.taskId?process.taskId:'--' }}</td>
+        <td>
+          {{process.createTime?(process.createTime | timeTransform:'YYYY-MM-DD HH:mm:ss'):'--'}}
+        </td>
         <td>{{ process.pid?process.pid:'--' }}</td>
         <td>
           <a (click)="lookServer(process.ip)">{{process.ip?process.ip:'--'}}</a>
@@ -59,43 +68,62 @@
         <td>
           {{process.name?process.name:'--'}}
         </td>
-        <td>
-          {{process.processorTime?(process.processorTime).toFixed(2)+'%':'--'}}
-        </td>
-        <td>
-          {{process.workingSet?process.workingSet:'--'}}
-        </td>
-        <td>
-          {{process.lostRate?(process.lostRate).toFixed(2)+'%':'--'}}
-        </td>
-        <td>
-          {{process.brandwidth?process.brandwidth:'--'}}
-        </td>
-        <td>
-          {{process.fps?process.fps:'--'}}
-        </td>
-        <td>
-          {{process.cfps?process.cfps:'--'}}
-        </td>
-        <td>
-          {{process.controlLatency?process.controlLatency:'--'}}
-        </td>
-        <td>
-          {{process.createTime?(process.createTime | timeTransform:'YYYY-MM-DD HH:mm:ss'):'--'}}
-        </td>
-        <!-- <td (click)="showDevDetail(process.processorList,'process',process.serverName,process.userName)" class="picTd">
-          <div *ngIf="(process.processorList).length>0" echarts
-            [options]="formateLineData(process.processorList,'process')" style="height: 65px;width: 150px;"></div>
+
+        <!-- (click)="showDevDetail(server.cpu,'cpu',server.serverName)" -->
+        <td class="picTd" (click)="showDevDetail(process.processorTime,'processorTime')">
+          <div *ngIf="process.processorTime.length!=0" echarts [options]="process.processorTime" style="height: 65px;">
+          </div>
+
           <span style="height: 65px;display: inline-block;line-height: 65px;"
-            *ngIf="(process.processorList).length==0">--</span>
+            *ngIf="process.processorTime.length==0">--</span>
         </td>
-        <td (click)="showDevDetail(process.workingSetList,'workingSet',process.serverName,process.userName)"
-          class="picTd">
-          <div *ngIf="(process.workingSetList).length>0" echarts
-            [options]="formateLineData(process.workingSetList,'workingSet')" style="height: 65px;width: 150px;"></div>
+
+        <td class="picTd" (click)="showDevDetail(process.workingSet,'workingSet')">
+          <div *ngIf="process.workingSet.length!=0" echarts [options]="process.workingSet" style="height: 65px;">
+          </div>
+
           <span style="height: 65px;display: inline-block;line-height: 65px;"
-            *ngIf="(process.workingSetList).length==0">--</span>
-        </td> -->
+            *ngIf="process.workingSet.length==0">--</span>
+        </td>
+
+        <td class="picTd" (click)="showDevDetail(process.lostRate,'lostRate')">
+          <div *ngIf="process.lostRate.length!=0" echarts [options]="process.lostRate" style="height: 65px;">
+          </div>
+
+          <span style="height: 65px;display: inline-block;line-height: 65px;"
+            *ngIf="process.lostRate.length==0">--</span>
+        </td>
+
+        <td class="picTd" (click)="showDevDetail(process.brandwidth,'brandwidth')">
+          <div *ngIf="process.brandwidth.length!=0" echarts [options]="process.brandwidth" style="height: 65px;">
+          </div>
+
+          <span style="height: 65px;display: inline-block;line-height: 65px;"
+            *ngIf="process.brandwidth.length==0">--</span>
+        </td>
+
+        <td class="picTd" (click)="showDevDetail(process.fps,'fps')">
+          <div *ngIf="process.fps.length!=0" echarts [options]="process.fps" style="height: 65px;">
+          </div>
+
+          <span style="height: 65px;display: inline-block;line-height: 65px;" *ngIf="process.fps.length==0">--</span>
+        </td>
+
+        <td class="picTd" (click)="showDevDetail(process.cfps,'cfps')">
+          <div *ngIf="process.cfps.length!=0" echarts [options]="process.cfps" style="height: 65px;">
+          </div>
+
+          <span style="height: 65px;display: inline-block;line-height: 65px;" *ngIf="process.cfps.length==0">--</span>
+        </td>
+
+        <td class="picTd" (click)="showDevDetail(process.controlLatency,'controlLatency')">
+          <div *ngIf="process.controlLatency.length!=0" echarts [options]="process.controlLatency"
+            style="height: 65px;">
+          </div>
+
+          <span style="height: 65px;display: inline-block;line-height: 65px;"
+            *ngIf="process.controlLatency.length==0">--</span>
+        </td>
       </tr>
     </tbody>
   </nz-table>
@@ -103,13 +131,13 @@
 
 <!-- cpu、磁盘消耗详情 -->
 <nz-drawer [nzVisible]="devDetailVisible" [nzWidth]="800" [nzClosable]="true" (nzOnClose)="closeDevDetail()">
-  <div class="mt-15">
+  <!-- <div class="mt-15">
     <nz-radio-group [(ngModel)]="unit" [nzButtonStyle]="'solid'" (ngModelChange)="changeDevDetailUnit($event)">
       <label nz-radio-button nzValue="hour">1小时</label>
       <label nz-radio-button nzValue="day">1天</label>
       <label nz-radio-button nzValue="week">1周</label>
     </nz-radio-group>
-  </div>
+  </div> -->
   <nz-spin nzSimple [nzSize]="'large'" *ngIf="devDetailLoading" class="text-center"></nz-spin>
   <div echarts [options]="devDetailRatio" style="height: 400px"></div>
 </nz-drawer>

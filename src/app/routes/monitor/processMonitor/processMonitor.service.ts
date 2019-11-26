@@ -22,6 +22,9 @@ export class ProcessMonitorService {
             if (param.userName) {
                 params.data['userName'] = param.userName;
             }
+            if (param.taskId) {
+                params.data['taskId'] = param.taskId;
+            }
             params.callback = ((response: any) => {
                 observer.next(response);
                 observer.complete();

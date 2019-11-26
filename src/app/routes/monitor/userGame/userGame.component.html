@@ -2,41 +2,32 @@
 </page-header>
 
 <nz-card>
-  <!-- <form nz-form [formGroup]="pictureForm">
+  <form nz-form [formGroup]="userGameForm">
     <div nz-row>
       <nz-form-item>
-        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="gameId">游戏ID
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="taskId">taskId
         </nz-form-label>
         <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
-          <input nz-input formControlName="gameId" />
+          <input nz-input formControlName="taskId" />
         </nz-form-control>
-        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="pictureType">画质类型
-        </nz-form-label>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="userName">玩家</nz-form-label>
         <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
-          <nz-select formControlName="pictureType" nzPlaceHolder="请选择" (ngModelChange)="changePictureType()">
-            <nz-option nzValue="" nzLabel="请选择"></nz-option>
-            <nz-option nzValue="1" nzLabel="最简"></nz-option>
-            <nz-option nzValue="2" nzLabel="简约"></nz-option>
-            <nz-option nzValue="3" nzLabel="均衡"></nz-option>
-            <nz-option nzValue="4" nzLabel="唯美"></nz-option>
-            <nz-option nzValue="5" nzLabel="高效"></nz-option>
-            <nz-option nzValue="6" nzLabel="电影"></nz-option>
-            <nz-option nzValue="7" nzLabel="极致"></nz-option>
-          </nz-select>
+          <input nz-input formControlName="userName" placeholder="请输入玩家名称" />
         </nz-form-control>
       </nz-form-item>
 
       <div nz-col [nzSpan]="24" class="text-right mb-15">
-        <button nz-button type="submit" [nzType]="'primary'" (click)="searchData()">查询</button>
+        <button nz-button type="submit" [nzType]="'primary'" (click)="getGmUserPerformance()">查询</button>
       </div>
     </div>
 
-  </form> -->
+  </form>
   <!-- <button nz-button (click)="addPicture()" [nzType]="'primary'">
     <i nz-icon nzType="plus"></i>
     <span>新增游戏画质</span>
-  </button>
-  <nz-divider nzDashed></nz-divider> -->
+  </button> -->
+  <nz-divider nzDashed></nz-divider>
   <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="userGameList"
     [nzFrontPagination]="false" [nzLoading]="tableLoading" [nzTotal]="total" [(nzPageIndex)]="pageIndex"
     [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"

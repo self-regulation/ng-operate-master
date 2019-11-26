@@ -17,6 +17,12 @@ export class UserGameServer {
                 pageNum: params.pageNum,
                 pageSize: params.pageSize
             };
+            if (params.taskId) {
+                httpParams.data['taskId'] = params.taskId
+            }
+            if (params.user) {
+                httpParams.data['user'] = params.user
+            }
             httpParams.callback = ((response: any) => {
                 observer.next(response);
                 observer.complete();
