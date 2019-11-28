@@ -1,0 +1,97 @@
+<page-header [title]="'白名单管理'"></page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="whiteListForm">
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="userName">用户名称</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="userName" placeholder="请输入用户名称" />
+        </nz-form-control>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="status">用户状态</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-select formControlName="status" nzPlaceHolder="请选择" (ngModelChange)="getWhiteUserList()">
+            <nz-option nzValue="" nzLabel="请选择"></nz-option>
+            <nz-option nzValue="0" nzLabel="不在白名单中"></nz-option>
+            <nz-option nzValue="1" nzLabel="在白名单中"></nz-option>
+          </nz-select>
+        </nz-form-control>
+
+
+      </nz-form-item>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="getWhiteUserList()">查询</button>
+      </div>
+    </div>
+
+  </form>
+  <button nz-button (click)="addUser()" [nzType]="'primary'">
+    <i nz-icon nzType="plus"></i>
+    <span>新增用户</span>
+  </button>
+  <nz-divider nzDashed></nz-divider>
+  <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="whiteList"
+    [nzFrontPagination]="false" [nzLoading]="tableLoading" [nzTotal]="total" [(nzPageIndex)]="pageNum"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>游戏用户名称</th>
+        <th>游戏id</th>
+        <th>状态</th>
+        <th>日期</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of whiteList;let i=index">
+        <td>{{ user.id }}</td>
+        <td>{{ user.userName }}</td>
+        <td>{{ user.gameId }}</td>
+        <td>{{ status[user.status] }}</td>
+        <td>{{ user.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td><a (click)="updateStatus(user)">更新状态</a></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<nz-modal nzWidth="1000px" [(nzVisible)]="whiteVisible" [nzTitle]="modalTitle" (nzOnCancel)="modalCancel()"
+  (nzOnOk)="modalOk()" [nzMask]="modalLoading" [nzOkLoading]="modalLoading">
+  <form nz-form [formGroup]="whiteModalForm">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>游戏id</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="gameId" placeholder="请输入" type="number" [disabled]="!isAddUser" />
+        <ng-container *ngIf="whiteModalForm.get('gameId')?.hasError('positiveValidator')">
+          <span class="validator-error">游戏id只能是正整数</span>
+        </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>用户名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="userName" placeholder="请输入" [disabled]="!isAddUser" />
+        <ng-container *ngIf="whiteModalForm.get('userName')?.hasError('usernameValidator')">
+          <span class="validator-error">用户名称不合法</span>
+        </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>用户状态</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-select formControlName="status" nzPlaceHolder="请选择">
+          <nz-option nzValue="" nzLabel="请选择"></nz-option>
+          <nz-option nzValue="0" nzLabel="不在白名单中"></nz-option>
+          <nz-option nzValue="1" nzLabel="在白名单中"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

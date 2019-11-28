@@ -4,6 +4,7 @@ import { RoleManageComponent } from './rolemanage/rolemanage.component';
 import { PeopleManageComponent } from './peoplemanage/peoplemanage.component';
 import { OperatelogComponent } from './operatelog/operate-log.component';
 import { MenumanageComponent } from './memumanage/menumanage.component';
+import { WhiteListComponent } from './whitelist/white-list.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
     { path: 'rolemamage', component: RoleManageComponent },
     { path: 'operatelog', component: OperatelogComponent },
     { path: 'menumanage', component: MenumanageComponent },
+    { path: 'whitelist', component: WhiteListComponent },
 ];
 
 @NgModule({

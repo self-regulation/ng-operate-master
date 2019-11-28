@@ -290,7 +290,7 @@ export class ServiceMonitorComponent implements OnInit {
                     gpuEncSeries = {
                         name: '编码器利用率',
                         type: 'line',
-                        data: gpuMemList
+                        data: gpuEncList
                     }
 
                     gpuDecSeries = {

@@ -34,6 +34,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 
 
@@ -68,7 +69,8 @@ const THIRDMODULES = [
   NzMessageModule,
   NzButtonModule,
   NzPopconfirmModule,
-  NzEmptyModule
+  NzEmptyModule,
+  NzNotificationModule
 ];
 // #endregion
 

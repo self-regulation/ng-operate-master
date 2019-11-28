@@ -100,6 +100,10 @@ export class LoginService {
                             newCurrent['link'] = "/system/operatelog";
                             newCurrent.order = 4;
                             break;
+                        case "WhiteList"://白名单
+                            newCurrent['link'] = "/system/whitelist";
+                            newCurrent.order = 5;
+                            break;
 
 
 
@@ -180,6 +184,18 @@ export class LoginService {
                         case 'ServerUpdate': //更新服务器
                             newCurrent['link'] = "/operation/serverupdate";
                             newCurrent.order = 5;
+                            break;
+                        case 'ExceptionLog': //服务器异常
+                            newCurrent['link'] = "/operation/exceptionLog";
+                            newCurrent.order = 6;
+                            break;
+                        case "RechargeUser"://用户计费
+                            newCurrent['link'] = "/operation/rechargeuser";
+                            newCurrent.order = 7;
+                            break;
+                        case "GameBill"://用户计费
+                            newCurrent['link'] = "/operation/gamebill";
+                            newCurrent.order = 8;
                             break;
 
 

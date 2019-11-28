@@ -1,0 +1,48 @@
+<page-header [title]="'异常日志'"></page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="logForm">
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="serverName">服务器名称</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="serverName" placeholder="请输入服务器名称" />
+        </nz-form-control>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="dateRange">时间</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" formControlName="dateRange"
+            [nzPlaceHolder]="['开始时间', '结束时间']" [ngModel]="dateRange" (nzOnOk)="changeDateRange($event)">
+          </nz-range-picker>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="getCloudGameLog()">查询</button>
+      </div>
+    </div>
+
+  </form>
+  <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="exceptionLogList"
+    [nzFrontPagination]="false" [nzLoading]="tableLoading" [nzTotal]="total" [(nzPageIndex)]="pageNum"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>服务器名称</th>
+        <th>日期</th>
+        <th>异常类型</th>
+        <th>日志内容</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let log of exceptionLogList;let i=index">
+        <td>{{ log.id }}</td>
+        <td>{{ log.serverName }}</td>
+        <td>{{ log.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td>{{ errorType[log.type] }}</td>
+        <td><a (click)="showDetailLog(log.log)">{{ log.log }}</a></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

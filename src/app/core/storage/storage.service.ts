@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-const MENU_PERMISSIONS: any = 'MENU_PERMISSIONS';
+// const MENU_PERMISSIONS: any = 'MENU_PERMISSIONS';
 const USER_INFO: string = 'USER_INFO';
 const MENU_INFO: string = 'MENU_INFO';
 @Injectable({
@@ -40,14 +40,15 @@ export class StorageService {
 
     //保存菜单数据
     saveMenuInfo(menuInfo: any) {
-        this.setStorageObject('MENU_INFO', menuInfo);
+        this.setStorageObject(MENU_INFO, menuInfo);
     }
     getMenuInfo() {
-        return this.getStorageObject('MENU_INFO', '{}');
+        return this.getStorageObject(MENU_INFO, '{}');
     }
 
     clearUserInfo() {
-        this.clearStorageValue("MENU_INFO");
+        localStorage.removeItem(MENU_INFO);
+        localStorage.removeItem(USER_INFO);
     }
 
 }

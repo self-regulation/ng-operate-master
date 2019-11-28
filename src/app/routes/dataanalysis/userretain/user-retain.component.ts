@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { userRetain } from '@shared';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { UserRetainServer } from './user-retain.server';
 import * as moment from 'moment';
 import { NzMessageService } from 'ng-zorro-antd';

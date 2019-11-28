@@ -8,12 +8,15 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { PictureManageComponent } from './picture-manage/picture-manage.component';
 import { DeviceManageComponent } from './device-manage/device-manage.component';
 import { ServerUpdateComponent } from './server-update/server-update.component';
+import { ExceptionLogComponent } from './exception-log/exception-log.component';
+import { RechargeUserComponent } from './recharge-user/recharge-user.component';
+import { GameBillComponent } from './game-bill/game-bill.component';
 
 
 const THIRDMODULES = [NzBreadCrumbModule, NzDatePickerModule];
 
 
-const COMPONENTS = [OperationActionComponent, ServerlogComponent, PictureManageComponent, DeviceManageComponent, ServerUpdateComponent];
+const COMPONENTS = [OperationActionComponent, ServerlogComponent, PictureManageComponent, DeviceManageComponent, ServerUpdateComponent, ExceptionLogComponent, RechargeUserComponent, GameBillComponent];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({

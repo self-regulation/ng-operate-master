@@ -1,0 +1,82 @@
+<page-header [title]="'计费记录'"></page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="chargeLogForm">
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="userName">用户名称</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="userName" placeholder="请输入用户名称" />
+        </nz-form-control>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="type">计费状态</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-select formControlName="type" nzPlaceHolder="请选择" (ngModelChange)="getChargeLogList()">
+            <nz-option nzValue="" nzLabel="请选择"></nz-option>
+            <nz-option nzValue="0" nzLabel="结束"></nz-option>
+            <nz-option nzValue="1" nzLabel="开始"></nz-option>
+          </nz-select>
+        </nz-form-control>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="gameId">游戏id</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="gameId" placeholder="请输入游戏id" />
+        </nz-form-control>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="picture">游戏画质</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-select formControlName="picture" nzPlaceHolder="请选择" (ngModelChange)="getChargeLogList()">
+            <nz-option nzValue="" nzLabel="请选择"></nz-option>
+            <nz-option nzValue="1" nzLabel="最简"></nz-option>
+            <nz-option nzValue="2" nzLabel="简约"></nz-option>
+            <nz-option nzValue="3" nzLabel="均衡"></nz-option>
+            <nz-option nzValue="4" nzLabel="唯美"></nz-option>
+            <nz-option nzValue="5" nzLabel="高效"></nz-option>
+            <nz-option nzValue="6" nzLabel="电影"></nz-option>
+            <nz-option nzValue="7" nzLabel="极致"></nz-option>
+          </nz-select>
+        </nz-form-control>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="resource">所需资源</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="resource" placeholder="请输入正整数" type="number" />
+        </nz-form-control>
+
+      </nz-form-item>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="getChargeLogList()">查询</button>
+      </div>
+    </div>
+
+  </form>
+  <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="chargeLogList"
+    [nzFrontPagination]="false" [nzLoading]="tableLoading" [nzTotal]="total" [(nzPageIndex)]="pageNum"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th>taskId</th>
+        <th>充值时间</th>
+        <th>游戏id</th>
+        <th>游戏用户名称</th>
+        <th>计费状态</th>
+        <th>游戏画质</th>
+        <th>所需资源</th>
+        <th>创建时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of chargeLogList;let i=index">
+        <td>{{ item.taskId }}</td>
+        <td>{{ item.timingTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{ item.gameId }}</td>
+        <td>{{ item.userName }}</td>
+        <td>{{ type[item.type] }}</td>
+        <td>{{ allPictureTypes[item.picture] }}</td>
+        <td>{{ item.resource }}</td>
+        <td>{{ item.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
