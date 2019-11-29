@@ -19,8 +19,10 @@ const routes: Routes = [
     // canActivate: [SimpleGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent, data: { title: '仪表盘', titleI18n: '西山居' } },
-      { path: 'analysis', loadChildren: () => import('./dataanalysis/analysis.module').then(m => m.AnalysisModule) },
+      { path: 'dashboard', component: DashboardComponent, data: { title: '云端监控', titleI18n: '西山居' } },
+      { path: 'gamemanage', loadChildren: () => import('./gamemanage/gamemanage.module').then(m => m.GameManageModule) },//游戏管理
+      { path: 'playermanage', loadChildren: () => import('./playermanage/playermanage.module').then(m => m.PlayerManageModule) },//玩家白名单管理
+      { path: 'analysis', loadChildren: () => import('./dataanalysis/analysis.module').then(m => m.AnalysisModule) },//数据分析
       { path: 'operation', loadChildren: () => import('./operation/operation.module').then(m => m.OperationModule) },
       { path: 'config', loadChildren: () => import('./manageconfig/manageconfig.module').then(m => m.SetGameModule) },
       { path: 'system', loadChildren: () => import('./system/system.module').then(m => m.SystemModule) },

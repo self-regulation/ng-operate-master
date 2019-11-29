@@ -55,7 +55,8 @@ export class LoginService {
                         reuse: false
                     };
                     switch (current.menukey) {
-                        case "HomePage":    //首页
+                        /**------------------------1首页------------------------- */
+                        case "HomePage":
                             newCurrent.icon = "anticon-home";
                             newCurrent.order = 1;
                             break;
@@ -64,24 +65,120 @@ export class LoginService {
                             newCurrent['link'] = "/dashboard";
                             newCurrent.order = 1;
                             break;
-                        case "userRetention": //"用户留存"
-                            newCurrent['link'] = "/analysis/userRetain";
+                        /**------------------------2实时监控------------------------- */
+                        case "Monitor":
+                            newCurrent.icon = "anticon-dashboard";
                             newCurrent.order = 2;
                             break;
+                        //实时监控---子项
 
-                        // case "DataAnalysis":    //数据分析
-                        //     newCurrent.icon = "anticon-home";
-                        //     newCurrent.order = 1;
-                        //     break;
-                        // //数据分析---子项
-                        // case "UserRetain": //"用户留存"
-                        //     newCurrent['link'] = "/dashboard";
-                        //     newCurrent.order = 1;
-                        //     break;
-
-                        case "System":  //系统管理
-                            newCurrent.icon = "anticon-setting";
+                        case "ServerMonitor":   //"服务器性能"
+                            newCurrent['link'] = "/monitor/serviceMonitor";
+                            newCurrent.order = 1;
+                            break;
+                        case "ProcessMonitor":   //"进程监控"
+                            newCurrent['link'] = "/monitor/processMonitor";
+                            newCurrent.order = 2;
+                            break;
+                        case "UserGame":   //"玩家游戏"
+                            newCurrent['link'] = "/monitor/userGameMonitor";
+                            newCurrent.order = 3;
+                            break;
+                        case 'ExceptionLog': //服务器异常
+                            newCurrent['link'] = "/monitor/exceptionLog";
+                            newCurrent.order = 4;
+                            break;
+                        case "ServerLog":   //"服务器日志"
+                            newCurrent['link'] = "/monitor/serverlog";
                             newCurrent.order = 5;
+                            break;
+                        /**------------------------3在线运维------------------------- */
+                        case "Operation":   //在线运维
+                            newCurrent.icon = "anticon-desktop"
+                            newCurrent.order = 3;
+                            break;
+                        //在线运维---子项
+                        case "OperationManager":   //"运维操作"
+                            newCurrent['link'] = "/operation/action";
+                            newCurrent.order = 1;
+                            break;
+
+
+                        case 'DeviceManager': //设备管理
+                            newCurrent['link'] = "/operation/devicemanage";
+                            newCurrent.order = 2;
+                            break;
+                        case 'ServerUpdate': //更新服务器
+                            newCurrent['link'] = "/operation/serverupdate";
+                            newCurrent.order = 3;
+                            break;
+
+                        /**------------------------4数据分析------------------------- */
+                        case "DataAnalysis":
+                            newCurrent.icon = "anticon-pie-chart";
+                            newCurrent['link'] = "/analysis";
+                            newCurrent.order = 4;
+                            break;
+                        //数据分析---子项
+                        case "UserRetention": //"用户留存"
+                            newCurrent['link'] = "/analysis/userRetain";
+                            newCurrent.order = 1;
+                            break;
+
+                        /**------------------------5游戏管理------------------------- */
+                        case "GameManage":
+                            newCurrent.icon = "anticon-laptop";
+                            newCurrent['link'] = "/gamemanage";
+                            newCurrent.order = 5;
+                            break;
+
+                        case 'PictureManager': //画质管理
+                            newCurrent['link'] = "/gamemanage/picturemanage";
+                            newCurrent.order = 1;
+                            break;
+                        /**------------------------6云玩家管理------------------------- */
+                        case "PlayerManage":
+                            newCurrent.icon = "anticon-team";
+                            newCurrent['link'] = "/playermanage";
+                            newCurrent.order = 6;
+                            break;
+                        //玩家白名单管理
+                        case "WhiteList":
+                            newCurrent['link'] = "/playermanage/whitelist";
+                            newCurrent.order = 1;
+                            break;
+                        //充值用户
+                        case "RechargeUser":
+                            newCurrent['link'] = "/playermanage/rechargeuser";
+                            newCurrent.order = 2;
+                            break;
+                        //用户计费
+                        case "GameBill":
+                            newCurrent['link'] = "/playermanage/gamebill";
+                            newCurrent.order = 3;
+                            break;
+                        /**------------------------7 配置管理------------------------- */
+                        case "Configuration":   //配置管理
+                            newCurrent.icon = "anticon-tool";
+                            newCurrent.order = 7;
+                            break;
+                        //配置管理---子项      
+                        case "GameManager":   //"管理配置"
+                            newCurrent['link'] = "/config/cfgtemplate";
+                            newCurrent.order = 2;
+                            break;
+                        case "ServerManager":   //"服务器管理"
+                            newCurrent['link'] = "/config/serviceManager";
+                            newCurrent.order = 2;
+                            break;
+                        case "GameTask":   // "用户操作"
+                            newCurrent['link'] = "/config/useraction";
+                            newCurrent.order = 1;
+                            break;
+                        /**------------------------8 系统管理------------------------- */
+                        case "System":
+                            newCurrent.icon = "anticon-setting";
+                            newCurrent.order = 8;
                             break;
                         //系统管理---子项
                         case "UserManager": //用户管理
@@ -100,34 +197,11 @@ export class LoginService {
                             newCurrent['link'] = "/system/operatelog";
                             newCurrent.order = 4;
                             break;
-                        case "WhiteList"://白名单
-                            newCurrent['link'] = "/system/whitelist";
-                            newCurrent.order = 5;
-                            break;
 
-
-
-                        case "Configuration":   //配置管理
-                            newCurrent.icon = "anticon-tool";
-                            newCurrent.order = 4;
-                            break;
-                        //配置管理---子项      
-                        case "GameManager":   //"管理配置"
-                            newCurrent['link'] = "/config/cfgtemplate";
-                            newCurrent.order = 2;
-                            break;
-                        case "ServerManager":   //"服务器管理"
-                            newCurrent['link'] = "/config/serviceManager";
-                            newCurrent.order = 2;
-                            break;
-                        case "GameTask":   // "用户操作"
-                            newCurrent['link'] = "/config/useraction";
-                            newCurrent.order = 1;
-                            break;
-
+                        /**------------------------9 个人中心------------------------- */
                         case "PersonInfo":  //个人中心
                             newCurrent.icon = "anticon-user";
-                            newCurrent.order = 6;
+                            newCurrent.order = 9;
                             break;
 
                         //个人中心---子项
@@ -139,66 +213,6 @@ export class LoginService {
                             newCurrent['link'] = "/center/resetpassword";
                             newCurrent.order = 2;
                             break;
-
-                        case "Monitor": //实时监控
-                            newCurrent.icon = "anticon-dashboard";
-                            newCurrent.order = 2;
-                            break;
-
-                        //实时监控---子项
-
-                        case "ServerMonitor":   //"服务器性能"
-                            newCurrent['link'] = "/monitor/serviceMonitor";
-                            newCurrent.order = 1;
-                            break;
-                        case "ProcessMonitor":   //"进程监控"
-                            newCurrent['link'] = "/monitor/processMonitor";
-                            newCurrent.order = 2;
-                            break;
-                        case "UserGame":   //"玩家游戏"
-                            newCurrent['link'] = "/monitor/userGameMonitor";
-                            newCurrent.order = 3;
-                            break;
-
-                        case "Operation":   //在线运维
-                            newCurrent.icon = "anticon-desktop"
-                            newCurrent.order = 3;
-                            break;
-                        //在线运维---子项
-                        case "OperationManager":   //"运维操作"
-                            newCurrent['link'] = "/operation/action";
-                            newCurrent.order = 1;
-                            break;
-                        case "ServerLog":   //"服务器日志"
-                            newCurrent['link'] = "/operation/serverlog";
-                            newCurrent.order = 2;
-                            break;
-                        case 'PictureManager': //画质管理
-                            newCurrent['link'] = "/operation/picturemanage";
-                            newCurrent.order = 3;
-                            break;
-                        case 'DeviceManager': //设备管理
-                            newCurrent['link'] = "/operation/devicemanage";
-                            newCurrent.order = 4;
-                            break;
-                        case 'ServerUpdate': //更新服务器
-                            newCurrent['link'] = "/operation/serverupdate";
-                            newCurrent.order = 5;
-                            break;
-                        case 'ExceptionLog': //服务器异常
-                            newCurrent['link'] = "/operation/exceptionLog";
-                            newCurrent.order = 6;
-                            break;
-                        case "RechargeUser"://用户计费
-                            newCurrent['link'] = "/operation/rechargeuser";
-                            newCurrent.order = 7;
-                            break;
-                        case "GameBill"://用户计费
-                            newCurrent['link'] = "/operation/gamebill";
-                            newCurrent.order = 8;
-                            break;
-
-
 
                     }
                     // 此时找到父节点对应的一个子节点

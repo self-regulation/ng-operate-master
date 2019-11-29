@@ -9,12 +9,11 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { MenumanageComponent } from './memumanage/menumanage.component';
-import { WhiteListComponent } from './whitelist/white-list.component';
 
 
 const THIRDMODULES = [NzBreadCrumbModule, NzDatePickerModule, NzCheckboxModule];
 
-const COMPONENTS = [PeopleManageComponent, RoleManageComponent, OperatelogComponent, MenumanageComponent, WhiteListComponent];
+const COMPONENTS = [PeopleManageComponent, RoleManageComponent, OperatelogComponent, MenumanageComponent];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({
