@@ -1,6 +1,56 @@
-<page-header [title]="'更新服务器'"></page-header>
+<page-header [title]="'服务器更新'"></page-header>
 
 <nz-card>
-  <button nz-button type="submit" [nzType]="'primary'" (click)="openCommand()">打开命令行窗口</button>
+  <!-- <button nz-button type="submit" [nzType]="'primary'" (click)="openCommand()">打开命令行窗口</button> -->
+
+  <form nz-form [formGroup]="serverForm">
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="serverName">服务器名称</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="serverName" placeholder="请输入服务器名称" />
+        </nz-form-control>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2">连接状态</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-select formControlName="status" nzPlaceHolder="请选择" (ngModelChange)="inquireServerInfo()">
+            <nz-option nzValue="" nzLabel="请选择"></nz-option>
+            <nz-option nzValue="1" nzLabel="连接"></nz-option>
+            <nz-option nzValue="0" nzLabel="断开"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="inquireServerInfo()">查询</button>
+      </div>
+    </div>
+
+  </form>
+  <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="serverInfoList"
+    [nzFrontPagination]="false" [nzLoading]="tableLoading" [nzTotal]="total" [(nzPageIndex)]="pageNum"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th>服务器名称</th>
+        <th>服务器分区Id</th>
+        <th>服务器分区名称</th>
+        <th>当前操作状态</th>
+        <th>服务器连接状态</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let server of serverInfoList;let i=index">
+        <td>{{ server.serverName }}</td>
+        <td>{{ server.regionId }}</td>
+        <td>{{ server.regionName?server.regionName:'--' }}</td>
+        <td>{{ server.idle?'空闲':'更新中'}}</td>
+        <td>
+          <nz-badge [nzStatus]="server.status=='1'?'success':'error'" [nzText]="server.status=='1'?'连接':'断开'">
+          </nz-badge>
+      </tr>
+    </tbody>
+  </nz-table>
 </nz-card>
-<command-window #command></command-window>
+<!-- <command-window #command></command-window> -->

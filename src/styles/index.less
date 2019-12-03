@@ -187,6 +187,28 @@ ul::-webkit-scrollbar-corner {
   box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
 }
 
+//消息通知闹铃
+.alain-default__nav-item,
+.alain-default__nav nz-badge {
+  color: #212121;
+}
+
+.notice-icon__btn:hover {
+  background-color: #20222a;
+}
+
+//消息提醒通知框
+.ant-notification-notice-with-icon .ant-notification-notice-message {
+  margin-left: 0px;
+}
+
+.ant-notification-notice-with-icon .ant-notification-notice-description {
+  margin-left: 0px;
+}
+
+.ant-notification-notice {
+  top: 28px !important;
+}
 
 // 暗黑主题
 [customize-theme-style='dark'] {
@@ -517,7 +539,7 @@ ul::-webkit-scrollbar-corner {
   }
 
   //svg图标 anticon-close-circle
-  .anticon:not(.anticon-caret-up):not(.anticon-caret-down):not(.anticon-check-circle):not(.anticon-right):not(.anticon-left):not(.anticon-filter) {
+  .anticon:not(.anticon-caret-up):not(.anticon-caret-down):not(.anticon-check-circle):not(.anticon-right):not(.anticon-left):not(.anticon-filter):not(.ant-notification-close-icon) {
     color: #ffffff;
   }
 
@@ -567,9 +589,9 @@ ul::-webkit-scrollbar-corner {
     color: #ffffff;
   }
 
-  // .ant-form-item-control span {
-  //   color: #ffffff;
-  // }
+  .ant-form-item-control span {
+    color: #ffffff;
+  }
 
   //时间序列
   .ant-collapse {
@@ -659,6 +681,11 @@ ul::-webkit-scrollbar-corner {
   .ant-spin-dot-item {
     background-color: #ffffff;
     border-top: none;
+  }
+
+  //消息通知栏
+  .ant-notification-notice-close {
+    color: #333333;
   }
 
   //自定义组件样式

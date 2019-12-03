@@ -43,7 +43,7 @@ export class HeaderUserComponent implements OnInit {
     const params = new AgentHttpParams();
     params.url = '/admin/logout';
     params.callback = ((response: any) => {
-      if (response.code == 0 && response.data) {
+      if (response.code == 0) {
         this.message.create('success', response.message ? response.message : '操作成功!');
       } else {
         this.message.create('error', response.message ? response.message : '操作失败!');

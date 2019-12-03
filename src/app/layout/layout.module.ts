@@ -17,11 +17,13 @@ const COMPONENTS = [
 ];
 
 const HEADERCOMPONENTS = [
-  HeaderUserComponent
+  HeaderUserComponent,
+  HeaderNotifyComponent
 ];
 
 // passport
 import { LayoutPassportComponent } from './passport/passport.component';
+import { HeaderNotifyComponent } from './default/header/components/notify.component';
 const PASSPORT = [
   LayoutPassportComponent
 ];

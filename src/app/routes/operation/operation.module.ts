@@ -6,9 +6,10 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { DeviceManageComponent } from './device-manage/device-manage.component';
 import { ServerUpdateComponent } from './server-update/server-update.component';
+import { NzBadgeModule } from 'ng-zorro-antd';
 
 
-const THIRDMODULES = [NzBreadCrumbModule, NzDatePickerModule];
+const THIRDMODULES = [NzBreadCrumbModule, NzBadgeModule, NzDatePickerModule];
 
 
 const COMPONENTS = [OperationActionComponent, DeviceManageComponent, ServerUpdateComponent];
