@@ -84,14 +84,7 @@ export class LoginService {
                             newCurrent['link'] = "/monitor/userGameMonitor";
                             newCurrent.order = 3;
                             break;
-                        case 'ExceptionLog': //服务器异常
-                            newCurrent['link'] = "/monitor/exceptionLog";
-                            newCurrent.order = 4;
-                            break;
-                        case "ServerLog":   //"服务器日志"
-                            newCurrent['link'] = "/monitor/serverlog";
-                            newCurrent.order = 5;
-                            break;
+
                         /**------------------------3在线运维------------------------- */
                         case "Operation":   //在线运维
                             newCurrent.icon = "anticon-desktop"
@@ -169,16 +162,32 @@ export class LoginService {
                             break;
                         case "ServerManager":   //"服务器管理"
                             newCurrent['link'] = "/config/serviceManager";
-                            newCurrent.order = 2;
+                            newCurrent.order = 1;
                             break;
                         case "GameTask":   // "用户操作"
                             newCurrent['link'] = "/config/useraction";
+                            newCurrent.order = 3;
+                            break;
+
+                        /**------------------------8 平台日志------------------------- */
+                        case "PlatformLog":
+                            newCurrent.icon = "anticon-bug";
+                            newCurrent.order = 8;
+                            break;
+                        case 'ExceptionLog': //服务器异常
+                            newCurrent['link'] = "/platformlog/exceptionLog";
                             newCurrent.order = 1;
                             break;
-                        /**------------------------8 系统管理------------------------- */
+                        case "ServerLog":   //"服务器日志"
+                            newCurrent['link'] = "/platformlog/serverlog";
+                            newCurrent.order = 2;
+                            break;
+
+
+                        /**------------------------9 系统管理------------------------- */
                         case "System":
                             newCurrent.icon = "anticon-setting";
-                            newCurrent.order = 8;
+                            newCurrent.order = 9;
                             break;
                         //系统管理---子项
                         case "UserManager": //用户管理
@@ -198,10 +207,10 @@ export class LoginService {
                             newCurrent.order = 4;
                             break;
 
-                        /**------------------------9 个人中心------------------------- */
+                        /**------------------------10 个人中心------------------------- */
                         case "PersonInfo":  //个人中心
                             newCurrent.icon = "anticon-user";
-                            newCurrent.order = 9;
+                            newCurrent.order = 10;
                             break;
 
                         //个人中心---子项

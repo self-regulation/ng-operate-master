@@ -39,7 +39,9 @@ export class ServerlogComponent implements OnInit {
             startTime: this.startTime ? this.startTime : '',
             endTime: this.endTime ? this.endTime : ''
         };
+        this.loading = true;
         this.serverLogService.getLogList(params).subscribe((res: any) => {
+            this.loading = false;
             if (res.code == 0) {
                 this.logList = res.data.list;
                 this.total = res.data.total;

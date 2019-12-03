@@ -26,9 +26,11 @@ const routes: Routes = [
       { path: 'operation', loadChildren: () => import('./operation/operation.module').then(m => m.OperationModule) },
       { path: 'config', loadChildren: () => import('./manageconfig/manageconfig.module').then(m => m.SetGameModule) },
       { path: 'system', loadChildren: () => import('./system/system.module').then(m => m.SystemModule) },
+      { path: 'platformlog', loadChildren: () => import('./platformlog/platformlog.module').then(m => m.PlatformLogModule) },
       { path: 'center', loadChildren: () => import('./personalcenter/personal-center.module').then(m => m.PersonalCenterModule) },
       { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
       { path: 'monitor', loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule) },
+
     ]
   },
   // 全屏布局
