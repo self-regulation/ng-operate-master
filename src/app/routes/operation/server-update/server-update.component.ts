@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ServerUpdateService } from './server-update.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'server-update',
@@ -18,7 +19,7 @@ export class ServerUpdateComponent implements OnInit {
     total: number = 0;
     tableLoading: boolean = false;
     pageSizeOptions = [10, 20, 30, 40, 50];
-    constructor(private serverUpdateService: ServerUpdateService, private message: NzMessageService, private fb: FormBuilder) {
+    constructor(private serverUpdateService: ServerUpdateService, private message: NzMessageService, private fb: FormBuilder, private router: Router) {
 
     }
     ngOnInit(): void {
@@ -41,13 +42,17 @@ export class ServerUpdateComponent implements OnInit {
         this.serverUpdateService.inquireServerInfo(params).subscribe((res: any) => {
             this.tableLoading = false;
             if (res.code == 0) {
-                console.log(res);
                 this.serverInfoList = res.data.list;
                 this.total = res.data.total;
             } else {
                 this.message.create('error', res.message ? res.message : '查询失败!');
             }
         });
+    }
+    //服务器日志记录/serverrecord , { queryParams: { name: serverName } }
+    showServerRecord(serverName: any) {
+        console.log(serverName);
+        this.router.navigate(['/operation/serverrecord'], { queryParams: { name: serverName } });
     }
 
     changePage(event) {

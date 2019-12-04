@@ -42,7 +42,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let server of serverInfoList;let i=index">
-        <td>{{ server.serverName }}</td>
+        <td><a (click)="showServerRecord(server.serverName)">{{ server.serverName }}</a></td>
         <td>{{ server.regionId }}</td>
         <td>{{ server.regionName?server.regionName:'--' }}</td>
         <td>{{ server.idle?'空闲':'更新中'}}</td>
@@ -53,4 +53,4 @@
     </tbody>
   </nz-table>
 </nz-card>
-<!-- <command-window #command></command-window> -->
+<!-- <command-window #command></command-window>  (click)="showServerRecord(server.serverName)"-->

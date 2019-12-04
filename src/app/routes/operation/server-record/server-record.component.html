@@ -1,0 +1,98 @@
+<page-header [title]="'服务器更新记录'" [breadcrumb]="breadcrumb">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item routerLink="/dashboard"><a>首页</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item routerLink="/operation/serverupdate"><a>服务器更新</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item><a>服务器更新记录</a></nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </ng-template>
+</page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="serverRecordForm">
+    <div nz-row>
+      <nz-form-item>
+        <!-- <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="serverName">服务器名称</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="serverName" placeholder="请输入服务器名称" />
+        </nz-form-control> -->
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="dateRange">日期</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" formControlName="dateRange"
+            [nzPlaceHolder]="['开始时间', '结束时间']" [ngModel]="dateRange" (nzOnOk)="changeDateRange($event)">
+          </nz-range-picker>
+        </nz-form-control>
+
+      </nz-form-item>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="getServerRecord()">查询</button>
+      </div>
+    </div>
+
+  </form>
+  <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="serverRecordList"
+    [nzFrontPagination]="false" [nzLoading]="tableLoading" [nzTotal]="total" [(nzPageIndex)]="pageNum"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th>操作ID</th>
+        <th>服务器名称</th>
+        <th>日期</th>
+        <th>更新操作类型</th>
+        <th>当前结果</th>
+        <th>更新过程详情</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let server of serverRecordList;let i=index">
+        <td>{{ server.tid }}</td>
+        <td>{{ server.serverName }}</td>
+        <td>{{ server.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{ server.cmdType }}</td>
+        <td>{{ curOperateType[server.type]}}</td>
+        <td><a (click)="lookResposeDetail(server.tid)">查看详情</a></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<nz-modal nzWidth="1000px" [(nzVisible)]="ServerResponseVisible" nzTitle="服务器指令执行详情"
+  (nzOnCancel)="serverResponseCancel()" (nzOnOk)="serverResponseCancel()" [nzMask]="responseModalLoading">
+  <form nz-form>
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label style="float: left;">服务器名称</nz-form-label>
+        <nz-form-control style="float: left;">
+          <span>
+            {{serverName}}
+          </span>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+  <nz-timeline>
+    <ng-container *ngFor="let item of serverResponseList;let i=index">
+      <nz-timeline-item [nzDot]="dotTemplate" style="padding-bottom: 10px;">
+        <nz-collapse>
+          <nz-collapse-panel [nzHeader]="formateHeader(item.createTime,item.type)" [nzActive]="false"
+            [nzShowArrow]="false">
+            <p>{{item.log?item.log:'暂无日志信息'}}</p>
+          </nz-collapse-panel>
+        </nz-collapse>
+      </nz-timeline-item>
+    </ng-container>
+
+
+  </nz-timeline>
+
+  <ng-template #dotTemplate>
+    <i nz-icon nzType="clock-circle-o" style="font-size: 16px;"></i>
+  </ng-template>
+
+  <ng-container *ngIf="serverResponseList.length==0">
+    <nz-empty></nz-empty>
+  </ng-container>
+</nz-modal>
