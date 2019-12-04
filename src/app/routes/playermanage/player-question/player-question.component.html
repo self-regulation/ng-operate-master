@@ -1,0 +1,53 @@
+<page-header [title]="'问卷调查'"></page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="questionForm">
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="userName">玩家名称</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="userName" placeholder="请输入用户名称" />
+        </nz-form-control>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="dateRange">日期</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" formControlName="dateRange"
+            [nzPlaceHolder]="['开始时间', '结束时间']" [ngModel]="dateRange" (nzOnOk)="changeDateRange($event)"
+            (ngModelChange)="clear($event)">
+          </nz-range-picker>
+        </nz-form-control>
+
+
+      </nz-form-item>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="getQuestionNaireData()">查询</button>
+      </div>
+    </div>
+
+  </form>
+
+  <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="questionList"
+    [nzFrontPagination]="false" [nzLoading]="tableLoading" [nzTotal]="total" [(nzPageIndex)]="pageNum"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th>eventId</th>
+        <th>玩家名称</th>
+        <th>日期</th>
+        <th>问卷来源</th>
+        <th>问卷结果</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of questionList;let i=index">
+        <td>{{ item.eventId }}</td>
+        <td>{{ item.userName }}</td>
+        <td>{{ item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{ item.source }}</td>
+        <td><a (click)="lookResult(item.data)">查看结果</a></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

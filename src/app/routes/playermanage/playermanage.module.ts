@@ -9,11 +9,13 @@ import { PlayerManageRoutingModule } from './playermanage-routing.module';
 import { WhiteListComponent } from './whitelist/white-list.component';
 import { RechargeUserComponent } from './recharge-user/recharge-user.component';
 import { GameBillComponent } from './game-bill/game-bill.component';
+import { PlayerQuestionComponent } from './player-question/player-question.component';
+import { QuestionDetailComponent } from './question-detail/question-detail.component';
 
 
 const THIRDMODULES = [NzBreadCrumbModule, NzDatePickerModule, NzBadgeModule];
 
-const COMPONENTS = [WhiteListComponent, RechargeUserComponent, GameBillComponent];
+const COMPONENTS = [WhiteListComponent, RechargeUserComponent, GameBillComponent, PlayerQuestionComponent, QuestionDetailComponent];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({

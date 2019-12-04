@@ -48,7 +48,6 @@ export class WhiteListComponent implements OnInit {
         };
         this.tableLoading = true;
         this.whiteListService.getWhiteUserList(params).subscribe((res: any) => {
-            console.log(res);
             this.tableLoading = false;
             if (res.code == 0) {
                 this.whiteList = res.data.list;

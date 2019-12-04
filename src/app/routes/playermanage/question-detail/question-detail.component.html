@@ -1,0 +1,551 @@
+<page-header [title]="'问卷详情---云剑网3 邀请测试'" [breadcrumb]="breadcrumb">
+  <ng-template #breadcrumb>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item routerLink="/dashboard"><a>首页</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item routerLink="/playermanage/playerquestion"><a>问卷调查</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item><a>问卷详情</a></nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <button style="float: right;" nz-button type="submit" [nzType]="'primary'"
+      routerLink="/playermanage/playerquestion">返回</button>
+  </ng-template>
+</page-header>
+
+<nz-card>
+  <form nz-form>
+    <div nz-row>
+      <h3>第1部分 体验设备配置</h3>
+      <nz-divider nzDashed></nz-divider>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form1" class="text-left">
+          1. 您可以体验剑网3云端的设备是？ * （必填，单选）
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <nz-radio-group nzDisabled="true">
+            <label nz-radio [ngStyle]="style" nzValue="A">台式电脑</label>
+            <label nz-radio [ngStyle]="style" nzValue="B">笔记本电脑</label>
+            <label nz-radio [ngStyle]="style" nzValue="C">其他（请填写）</label>
+          </nz-radio-group>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[1]}}
+        </nz-form-control>
+
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form2" class="text-left">
+          2. 您设备的操作系统符合以下哪个？ * (必填, 单选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <nz-radio-group nzDisabled="true">
+            <label nz-radio [ngStyle]="style" nzValue="A">不知道</label>
+            <label nz-radio [ngStyle]="style" nzValue="B">Windows7及以上</label>
+            <label nz-radio [ngStyle]="style" nzValue="C">MacOS10.12及以上</label>
+            <label nz-radio [ngStyle]="style" nzValue="D">以上都不符合</label>
+          </nz-radio-group>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[2]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form3" class="text-left">
+          3. 您设备的内存大小是？ * (必填, 单选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <nz-radio-group nzDisabled="true">
+            <label nz-radio [ngStyle]="style" nzValue="A">不知道</label>
+            <label nz-radio [ngStyle]="style" nzValue="B">4GB以下</label>
+            <label nz-radio [ngStyle]="style" nzValue="C">4GB</label>
+            <label nz-radio [ngStyle]="style" nzValue="D">8GB</label>
+            <label nz-radio [ngStyle]="style" nzValue="E">16GB</label>
+            <label nz-radio [ngStyle]="style" nzValue="F">32GB</label>
+            <label nz-radio [ngStyle]="style" nzValue="G">32GB以上</label>
+          </nz-radio-group>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[3]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form4" class="text-left">
+          4. 您设备的CPU具体型号是？ * (必填, 单选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <nz-radio-group nzDisabled="true">
+            <label nz-radio [ngStyle]="style" nzValue="A">不知道</label>
+            <label nz-radio [ngStyle]="style" nzValue="B">酷睿i9</label>
+            <label nz-radio [ngStyle]="style" nzValue="C">酷睿i7</label>
+            <label nz-radio [ngStyle]="style" nzValue="D">酷睿i5</label>
+            <label nz-radio [ngStyle]="style" nzValue="E">酷睿i3</label>
+            <label nz-radio [ngStyle]="style" nzValue="F">至强E3</label>
+            <label nz-radio [ngStyle]="style" nzValue="G">至强E5</label>
+            <label nz-radio [ngStyle]="style" nzValue="H">锐龙 R5</label>
+            <label nz-radio [ngStyle]="style" nzValue="I">锐龙 R7</label>
+            <label nz-radio [ngStyle]="style" nzValue="J">锐龙 R3</label>
+            <label nz-radio [ngStyle]="style" nzValue="K">奔腾/赛扬</label>
+            <label nz-radio [ngStyle]="style" nzValue="L">其他（请填写）</label>
+          </nz-radio-group>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[4]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form5" class="text-left">
+          5. 您设备的硬盘大小是？ * (必填, 单选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <nz-radio-group nzDisabled="true">
+            <label nz-radio [ngStyle]="style" nzValue="A">不知道</label>
+            <label nz-radio [ngStyle]="style" nzValue="B">500GB以下</label>
+            <label nz-radio [ngStyle]="style" nzValue="C">500GB</label>
+            <label nz-radio [ngStyle]="style" nzValue="D">1TB</label>
+            <label nz-radio [ngStyle]="style" nzValue="E">2TB</label>
+            <label nz-radio [ngStyle]="style" nzValue="F">2TB以上</label>
+          </nz-radio-group>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[5]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form6" class="text-left">
+          6. 您设备的显卡是？ * (必填, 单选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <nz-radio-group nzDisabled="true">
+            <label nz-radio [ngStyle]="style" nzValue="A">不知道</label>
+            <label nz-radio [ngStyle]="style" nzValue="B">NVIDIA（N卡）</label>
+            <label nz-radio [ngStyle]="style" nzValue="C">AMD（A卡）</label>
+            <label nz-radio [ngStyle]="style" nzValue="D">其他（请填写）</label>
+          </nz-radio-group>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[6]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <h3>第2部分 网络情况</h3>
+      <nz-divider nzDashed></nz-divider>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form7" class="text-left">
+          7. 您平常玩电脑游戏时，使用最多的网络途径是？ * (必填, 多选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>有线宽带</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>热点</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>无线WiFi</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>不知道/不记得了</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>其他（请填写）</span></label>
+          </div>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[7]}}
+        </nz-form-control>
+
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form8" class="text-left">
+          8. 请问您宽带的运营商是？ * (必填, 单选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <nz-radio-group nzDisabled="true">
+            <label nz-radio [ngStyle]="style" nzValue="A">不知道/不记得了</label>
+            <label nz-radio [ngStyle]="style" nzValue="B">中国电信</label>
+            <label nz-radio [ngStyle]="style" nzValue="C">中国联通</label>
+            <label nz-radio [ngStyle]="style" nzValue="D">中国移动</label>
+            <label nz-radio [ngStyle]="style" nzValue="E">长城宽带</label>
+            <label nz-radio [ngStyle]="style" nzValue="F">广电宽带</label>
+            <label nz-radio [ngStyle]="style" nzValue="G">教育网</label>
+            <label nz-radio [ngStyle]="style" nzValue="H">其他（请填写）</label>
+          </nz-radio-group>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[8]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          9. 请问您使用的宽带大小是？ * (必填, 单选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <nz-radio-group nzDisabled="true">
+            <label nz-radio [ngStyle]="style" nzValue="A">不知道/不记得了</label>
+            <label nz-radio [ngStyle]="style" nzValue="B">小于10M</label>
+            <label nz-radio [ngStyle]="style" nzValue="C">10-19M</label>
+            <label nz-radio [ngStyle]="style" nzValue="D">20-49M</label>
+            <label nz-radio [ngStyle]="style" nzValue="E">50-99M</label>
+            <label nz-radio [ngStyle]="style" nzValue="F">100-499M</label>
+            <label nz-radio [ngStyle]="style" nzValue="G">500M及以上</label>
+          </nz-radio-group>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[9]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <h3>第3部分 游戏经历</h3>
+      <nz-divider nzDashed></nz-divider>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form7" class="text-left">
+          10. 请问您玩过以下哪些类型的游戏？ * (必填, 多选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>没有玩过游戏</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>网页游戏</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>云游戏</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>电脑客户端游戏（电脑上需要安装下载的网游或单机游戏）</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>手机游戏</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>主机/掌机游戏（包括PS4/Switch/NDS等）</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>其他（请填写）</span></label>
+          </div>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[10]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          11. 最近三个月，您平均每天会花多少时间玩游戏？ * (必填, 单选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <nz-radio-group nzDisabled="true">
+            <label nz-radio [ngStyle]="style" nzValue="A">偶尔有空才玩一次</label>
+            <label nz-radio [ngStyle]="style" nzValue="B">30分钟以内</label>
+            <label nz-radio [ngStyle]="style" nzValue="C">30分~1小时</label>
+            <label nz-radio [ngStyle]="style" nzValue="D">1~2小时</label>
+            <label nz-radio [ngStyle]="style" nzValue="E">2~4小时</label>
+            <label nz-radio [ngStyle]="style" nzValue="F">4~6小时</label>
+            <label nz-radio [ngStyle]="style" nzValue="G">6~8小时</label>
+            <label nz-radio [ngStyle]="style" nzValue="I">8小时以上</label>
+          </nz-radio-group>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[11]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          12. 最近三个月，请问您平均每月投入在游戏上的花费是？ * (必填, 单选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <nz-radio-group nzDisabled="true">
+            <label nz-radio [ngStyle]="style" nzValue="A">没有付费</label>
+            <label nz-radio [ngStyle]="style" nzValue="B">1~100元</label>
+            <label nz-radio [ngStyle]="style" nzValue="C">101~200元</label>
+            <label nz-radio [ngStyle]="style" nzValue="D">201~500元</label>
+            <label nz-radio [ngStyle]="style" nzValue="E">501~1000元</label>
+            <label nz-radio [ngStyle]="style" nzValue="F">1001~2000元</label>
+            <label nz-radio [ngStyle]="style" nzValue="G">2001~5000元</label>
+            <label nz-radio [ngStyle]="style" nzValue="I">5001元及以上</label>
+          </nz-radio-group>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[12]}}
+        </nz-form-control>
+      </nz-form-item>
+      <h3>第4部分 剑网3经历</h3>
+      <nz-divider nzDashed></nz-divider>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          13. 最近1个月，您是否还在玩剑网3？ * (必填, 单选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <nz-radio-group nzDisabled="true">
+            <label nz-radio [ngStyle]="style" nzValue="A">最近1个月还在玩</label>
+            <label nz-radio [ngStyle]="style" nzValue="B">没有玩，但还没超过3个月</label>
+            <label nz-radio [ngStyle]="style" nzValue="C">已经超过3个月没玩了</label>
+          </nz-radio-group>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[13]}}
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          14. 您初次来玩剑网3，是哪一年？
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[14]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          15. 您最后一次登录剑网3，是哪一年？
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[15]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form7" class="text-left">
+          16. 在剑网3，您经常参与的玩法有？ * (必填, 多选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>单人/小队PVP活动，例如JJC、吃鸡、李渡鬼域</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>休闲活动，例如收集外观/宠物/挂件、做成就/奇遇、截图等</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>当时主流/顶级RAID本，例如满级25人本、10人本</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>大型多人PVP活动，例如大小攻防，世界BOSS等</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>日常，例如跑商，大战，据点贸易等</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>其他（请填写）</span></label>
+          </div>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[16]}}
+        </nz-form-control>
+      </nz-form-item>
+      <h3>第5部分 其他</h3>
+      <nz-divider nzDashed></nz-divider>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          17. 您的性别是? * (必填, 单选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <nz-radio-group nzDisabled="true">
+            <label nz-radio [ngStyle]="style" nzValue="A">男</label>
+            <label nz-radio [ngStyle]="style" nzValue="B">女</label>
+          </nz-radio-group>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[17]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          18. 您的职业是？ * (必填, 单选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <nz-radio-group nzDisabled="true">
+            <label nz-radio [ngStyle]="style" nzValue="A">游戏行业从业人员</label>
+            <label nz-radio [ngStyle]="style" nzValue="B">个体业主（如经营自己的饭店等）</label>
+            <label nz-radio [ngStyle]="style" nzValue="C">上班族</label>
+            <label nz-radio [ngStyle]="style" nzValue="D">自由职业者</label>
+            <label nz-radio [ngStyle]="style" nzValue="E">大学在读（包括专科/本科/研究生/博士等）</label>
+            <label nz-radio [ngStyle]="style" nzValue="F">高中在读（包括中专/技校等）</label>
+            <label nz-radio [ngStyle]="style" nzValue="G">初中及小学在读（包括初中/小学）</label>
+            <label nz-radio [ngStyle]="style" nzValue="H">其他</label>
+          </nz-radio-group>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[18]}}
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          19. 您的出生年份是？
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[19]}}
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          20. 此时此刻，您所在的省份为？
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[20]}}
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          21. 请问您申请本次先锋测试的原因是？ * (必填, 最多200字)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[21]}}
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          22. 您可能会在哪些场景下使用剑网3云端？ * (必填, 最多200字)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[22]}}
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          23. 您在使用剑网3云端的时候，可能会玩哪些玩法？ * (必填, 最多200字)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[23]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form7" class="text-left">
+          24. 请问您更倾向在什么时间体验剑网3云端？ * (必填, 多选)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24">
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>00:01-06:00</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>06:01-12:00</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>12:01-14:00</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>14:01-18:00</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>18:01-21:00</span></label>
+          </div>
+          <div>
+            <label class="checkbox-label">
+              <input type="checkbox" class="my-checkbox">
+              <span class="new-checkbox"></span>&nbsp;&nbsp;<span>21:01-24:00</span></label>
+          </div>
+        </nz-form-control>
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[24]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          25. 您的金山通行证是？（用于测试资格激活） * (必填)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[25]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          26. 请问您的手机号是？（以便我们通知您申请结果） * (必填, 只允许填写数字)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[26]}}
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          27. 欢迎留下您的QQ号，可能会掉落意外惊喜哦( • ̀ω•́ )✧ (只允许填写数字)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24" class="answer">
+          玩家答案:&nbsp;&nbsp;{{questionResult[27]}}
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </form>
+</nz-card>

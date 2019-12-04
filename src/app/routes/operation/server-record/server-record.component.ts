@@ -30,11 +30,6 @@ export class ServerRecordComponent implements OnInit {
     constructor(private serverRecordService: ServerRecordService, private message: NzMessageService, private route: ActivatedRoute, private fb: FormBuilder) {
         this.route.queryParams.subscribe((res: any) => {
             JSON.stringify(res) != '{}' ? this.serverName = res.name : this.serverName = '';
-            // if (JSON.stringify(res) != '{}') {
-            //     this.serverName = res.name;
-            // } else {
-            //     this.serverName = '';
-            // }
         });
     }
 

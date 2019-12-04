@@ -2844,7 +2844,34 @@ darker  @grey-9;
 .avatarHolder > img {
   border-radius: 50%;
 }
-
+.checkbox-label .new-checkbox {
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  background-color: #fff;
+  color: #00000040;
+}
+.checkbox-label span {
+  color: #00000040;
+}
+.checkbox-label .new-checkbox:hover {
+  border-color: @primary-color;
+}
+.my-checkbox {
+  color: #00000040;
+}
+.my-checkbox:checked + span {
+  border-color: @primary-color;
+  background-color: @primary-color;
+}
+.my-checkbox:checked + span::before {
+  border-bottom: 2px solid #fff;
+  background-color: @primary-color;
+  border-right: 2px solid #fff;
+  color: #00000040;
+}
+.answer {
+  color: #42b983;
+}
 
 .server-icon {
   color: #3598dc;

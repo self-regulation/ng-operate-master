@@ -150,6 +150,11 @@ export class LoginService {
                             newCurrent['link'] = "/playermanage/gamebill";
                             newCurrent.order = 3;
                             break;
+                        //问卷调查
+                        case "PlayerQuestion":
+                            newCurrent['link'] = "/playermanage/playerquestion";
+                            newCurrent.order = 4;
+                            break;
                         /**------------------------7 配置管理------------------------- */
                         case "Configuration":   //配置管理
                             newCurrent.icon = "anticon-tool";
