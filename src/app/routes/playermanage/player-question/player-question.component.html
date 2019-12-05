@@ -9,6 +9,15 @@
           <input nz-input formControlName="userName" placeholder="请输入用户名称" />
         </nz-form-control>
 
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="status">玩家状态</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-select formControlName="status" nzPlaceHolder="请选择" (ngModelChange)="getQuestionNaireData()">
+            <nz-option nzValue="" nzLabel="请选择"></nz-option>
+            <nz-option nzValue="0" nzLabel="不在白名单中"></nz-option>
+            <nz-option nzValue="1" nzLabel="在白名单中"></nz-option>
+          </nz-select>
+        </nz-form-control>
+
         <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="dateRange">日期</nz-form-label>
         <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
           <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" formControlName="dateRange"
@@ -36,8 +45,10 @@
         <th>eventId</th>
         <th>玩家名称</th>
         <th>日期</th>
+        <th>状态</th>
         <th>问卷来源</th>
         <th>问卷结果</th>
+        <th>操作</th>
       </tr>
     </thead>
     <tbody>
@@ -45,8 +56,13 @@
         <td>{{ item.eventId }}</td>
         <td>{{ item.userName }}</td>
         <td>{{ item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{ (item.status == true || item.status == 1) ? '在白名单中' : '不在白名单中' }}</td>
         <td>{{ item.source }}</td>
         <td><a (click)="lookResult(item.data)">查看结果</a></td>
+        <td>
+          <a nz-popconfirm (nzOnConfirm)="addWhiteList(item.userName)" nzPopconfirmPlacement="top"
+            nzTitle="确认将该玩家添加至白名单?">添加白名单</a>
+        </td>
       </tr>
     </tbody>
   </nz-table>

@@ -19,6 +19,7 @@ export class WhiteListComponent implements OnInit {
     pageSize: number = 10;
     pageSizeOptions = [10, 20, 30, 40, 50];
     status: any = { "0": "不在白名单中", "1": "在白名单中" };
+    userType: any = { "1": "管理员", "2": "开发人员", "3": "普通玩家" };
     modalTitle: "新增用户";
     whiteVisible: boolean = false;
     modalLoading: boolean = false;
@@ -30,12 +31,14 @@ export class WhiteListComponent implements OnInit {
     ngOnInit(): void {
         this.whiteListForm = this.fb.group({
             userName: [null],
-            status: [null]
+            status: [null],
+            playerType: [null]
         });
         this.whiteModalForm = this.fb.group({
             gameId: [null, [Validators.required, positiveValidator]],
             userName: [null, [Validators.required, usernameValidator]],
-            status: [null, [Validators.required]]
+            status: [null, [Validators.required]],
+            playerType: [null, [Validators.required]],
         });
         this.getWhiteUserList();
     }
@@ -43,6 +46,7 @@ export class WhiteListComponent implements OnInit {
         let params = {
             userName: this.whiteListForm.value.userName,
             status: this.whiteListForm.value.status,
+            playerType: this.whiteListForm.value.playerType,
             pageNum: this.pageNum,
             pageSize: this.pageSize
         };
@@ -73,7 +77,8 @@ export class WhiteListComponent implements OnInit {
         this.whiteModalForm = this.fb.group({
             gameId: [null, [Validators.required, positiveValidator]],
             userName: [null, [Validators.required]],
-            status: [null, [Validators.required]]
+            status: [null, [Validators.required]],
+            playerType: [null, [Validators.required]]
         });
         this.whiteVisible = true;
         this.isAddUser = true;
@@ -93,7 +98,8 @@ export class WhiteListComponent implements OnInit {
             let params = {
                 gameId: this.whiteModalForm.value.gameId,
                 userName: this.whiteModalForm.value.userName,
-                status: this.whiteModalForm.value.status
+                status: this.whiteModalForm.value.status,
+                playerType: this.whiteModalForm.value.playerType
             };
             this.whiteListService.addUser(params).subscribe((res: any) => {
                 if (res.code == 0) {
@@ -105,19 +111,18 @@ export class WhiteListComponent implements OnInit {
                 }
             });
         } else {
-            console.log(this.whiteModalForm);
             for (const i in this.whiteModalForm.controls) {
                 this.whiteModalForm.controls[i].markAsDirty();
                 this.whiteModalForm.controls[i].updateValueAndValidity();
             }
             if (this.whiteModalForm.status === "INVALID") {
-                console.log(this.whiteModalForm);
                 this.message.create('warring', '请完整填写数据!');
                 return
             }
             let params = {
                 id: this.modifyUser.id,
-                status: this.whiteModalForm.value.status
+                status: this.whiteModalForm.value.status,
+                playerType: this.whiteModalForm.value.playerType
             };
             this.whiteListService.updateUser(params).subscribe((res: any) => {
                 if (res.code == 0) {
@@ -144,7 +149,8 @@ export class WhiteListComponent implements OnInit {
         this.whiteModalForm = this.fb.group({
             gameId: [{ value: user.gameId, disabled: true }],
             userName: [{ value: user.userName, disabled: true }],
-            status: [user.status + "", [Validators.required]]
+            status: [user.status + "", [Validators.required]],
+            playerType: [user.type + "", [Validators.required]],
         });
         this.whiteVisible = true;
         this.isAddUser = false;

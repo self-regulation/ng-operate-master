@@ -19,6 +19,14 @@
         <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
           <input nz-input formControlName="userName" placeholder="请输入玩家名称" />
         </nz-form-control>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="dateRange">日期</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" formControlName="dateRange"
+            [nzPlaceHolder]="['开始时间', '结束时间']" [ngModel]="dateRange" (nzOnOk)="changeDateRange($event)"
+            (ngModelChange)="clear($event)">
+          </nz-range-picker>
+        </nz-form-control>
       </nz-form-item>
 
       <div nz-col [nzSpan]="24" class="text-right mb-15">

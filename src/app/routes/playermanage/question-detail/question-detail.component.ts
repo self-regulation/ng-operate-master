@@ -5,11 +5,16 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
     selector: "question-detail",
     templateUrl: "./question-detail.component.html",
-    styleUrls: ["./question-detail.component.less"]
+    styleUrls: ["./question-detail.component.less"],
 })
 export class QuestionDetailComponent implements OnInit {
     // questionDetailForm: FormGroup;
     questionResult: any = null;
+    style = {
+        display: 'block',
+        height: '30px',
+        lineHeight: '30px'
+    };
     constructor(private fb: FormBuilder, private route: ActivatedRoute) {
         this.route.queryParams.subscribe((res: any) => {
             JSON.stringify(res) != '{}' ? this.questionResult = JSON.parse(res.questionResult) : this.questionResult = null;

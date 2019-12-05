@@ -25,6 +25,12 @@ export class ProcessMonitorService {
             if (param.taskId) {
                 params.data['taskId'] = param.taskId;
             }
+            if (param.startTime) {
+                params.data['startTime'] = param.startTime;
+            }
+            if (param.endTime) {
+                params.data['endTime'] = param.endTime;
+            }
             params.callback = ((response: any) => {
                 observer.next(response);
                 observer.complete();

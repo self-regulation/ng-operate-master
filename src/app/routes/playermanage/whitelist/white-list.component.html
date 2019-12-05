@@ -4,12 +4,12 @@
   <form nz-form [formGroup]="whiteListForm">
     <div nz-row>
       <nz-form-item>
-        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="userName">用户名称</nz-form-label>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="userName">玩家名称</nz-form-label>
         <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
           <input nz-input formControlName="userName" placeholder="请输入用户名称" />
         </nz-form-control>
 
-        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="status">用户状态</nz-form-label>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="status">玩家状态</nz-form-label>
         <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
           <nz-select formControlName="status" nzPlaceHolder="请选择" (ngModelChange)="getWhiteUserList()">
             <nz-option nzValue="" nzLabel="请选择"></nz-option>
@@ -18,6 +18,15 @@
           </nz-select>
         </nz-form-control>
 
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="playerType">玩家类型</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-select formControlName="playerType" nzPlaceHolder="请选择" (ngModelChange)="getWhiteUserList()">
+            <nz-option nzValue="" nzLabel="请选择"></nz-option>
+            <nz-option nzValue="1" nzLabel="管理员"></nz-option>
+            <nz-option nzValue="2" nzLabel="开发人员"></nz-option>
+            <nz-option nzValue="3" nzLabel="普通玩家"></nz-option>
+          </nz-select>
+        </nz-form-control>
 
       </nz-form-item>
 
@@ -29,7 +38,7 @@
   </form>
   <button nz-button (click)="addUser()" [nzType]="'primary'">
     <i nz-icon nzType="plus"></i>
-    <span>新增用户</span>
+    <span>新增玩家</span>
   </button>
   <nz-divider nzDashed></nz-divider>
   <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="whiteList"
@@ -39,7 +48,8 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>游戏用户名称</th>
+        <th>游戏玩家名称</th>
+        <th>游戏玩家类型</th>
         <th>游戏id</th>
         <th>状态</th>
         <th>日期</th>
@@ -50,6 +60,7 @@
       <tr *ngFor="let user of whiteList;let i=index">
         <td>{{ user.id }}</td>
         <td>{{ user.userName }}</td>
+        <td>{{ userType[user.type] }}</td>
         <td>{{ user.gameId }}</td>
         <td>{{ status[user.status] }}</td>
         <td>{{ user.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
@@ -74,22 +85,34 @@
 
 
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>用户名称</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>玩家名称</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
         <input nz-input formControlName="userName" placeholder="请输入" [disabled]="!isAddUser" />
         <ng-container *ngIf="whiteModalForm.get('userName')?.hasError('usernameValidator')">
-          <span class="validator-error">用户名称不合法</span>
+          <span class="validator-error">玩家名称不合法</span>
         </ng-container>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>用户状态</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>玩家状态</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
         <nz-select formControlName="status" nzPlaceHolder="请选择">
           <nz-option nzValue="" nzLabel="请选择"></nz-option>
           <nz-option nzValue="0" nzLabel="不在白名单中"></nz-option>
           <nz-option nzValue="1" nzLabel="在白名单中"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>玩家类型</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-select formControlName="playerType" nzPlaceHolder="请选择">
+          <nz-option nzValue="" nzLabel="请选择"></nz-option>
+          <nz-option nzValue="1" nzLabel="管理员"></nz-option>
+          <nz-option nzValue="2" nzLabel="开发人员"></nz-option>
+          <nz-option nzValue="3" nzLabel="普通玩家"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>

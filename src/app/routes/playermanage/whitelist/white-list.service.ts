@@ -23,6 +23,9 @@ export class WhiteListService {
             if (params.status) {
                 httpParams.data["status"] = params.status;
             }
+            if (params.playerType) {
+                httpParams.data["type"] = params.playerType;
+            }
             httpParams.callback = ((response: any) => {
                 observer.next(response);
                 observer.complete();
@@ -40,6 +43,7 @@ export class WhiteListService {
                 gameId: params.gameId,
                 userName: params.userName,
                 status: params.status,
+                type: params.playerType
             };
             httpParams.callback = ((response: any) => {
                 observer.next(response);
@@ -50,7 +54,6 @@ export class WhiteListService {
     }
 
     //更新用户状态
-    // admin-cloudgame-dev.tech.kingsoft.net:9092/admin/user/update
     updateUser(params: any) {
         return new Observable((observer) => {
             const httpParams = new AgentHttpParams();
@@ -59,6 +62,9 @@ export class WhiteListService {
                 id: params.id,
                 status: params.status
             };
+            if (params.playerType) {
+                httpParams.data["type"] = params.playerType;
+            }
             httpParams.callback = ((response: any) => {
                 observer.next(response);
                 observer.complete();

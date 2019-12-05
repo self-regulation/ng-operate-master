@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  // SERVER_URL: `http://10.11.164.165:9091`,
+  // SERVER_URL: `http://admin-cloudgame-tech.xsj.kingsoft.net:9092`,
   SERVER_URL: `http://admin-cloudgame-dev.tech.kingsoft.net:9092`,
   // SERVER_URL: ``,
   production: false,

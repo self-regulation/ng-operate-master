@@ -16,12 +16,12 @@ export class HeaderComponent implements OnInit {
     private storageService: StorageService) { }
 
   ngOnInit(): void {
-    let menuList = this.storageService.getMenuInfo();
-    console.log("存储的menuList");
-    console.log(menuList);
-    if (this.menuService.menus.length <= 0 && menuList != '{}') {
-      this.menuService.add(menuList);
-    }
+    // let menuList = this.storageService.getMenuInfo();
+    // console.log("存储的menuList");
+    // console.log(menuList);
+    // if (this.menuService.menus.length <= 0 && menuList != '{}') {
+    //   this.menuService.add(menuList);
+    // }
   }
   toggleCollapsedSidebar() {
     this.settings.setLayout('collapsed', !this.settings.layout.collapsed);

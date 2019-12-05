@@ -28,7 +28,8 @@ export class PlayerQuestionComponent implements OnInit {
     ngOnInit(): void {
         this.questionForm = this.fb.group({
             userName: [null],
-            dateRange: [null]
+            dateRange: [null],
+            status: [null]
         });
 
         this.getQuestionNaireData();
@@ -40,7 +41,8 @@ export class PlayerQuestionComponent implements OnInit {
             pageSize: this.pageSize,
             userName: this.questionForm.value.userName,
             startDate: this.startDate,
-            endDate: this.endDate
+            endDate: this.endDate,
+            status: this.questionForm.value.status
         };
         this.tableLoading = true;
         this.playerQuestionService.getQuestionNaireData(params).subscribe((res: any) => {
@@ -64,6 +66,20 @@ export class PlayerQuestionComponent implements OnInit {
     lookResult(questionDetail) {
         console.log(questionDetail);
         this.router.navigate(['/playermanage/questiondetail'], { queryParams: { questionResult: JSON.stringify(questionDetail) } });
+    }
+
+    addWhiteList(userName: any) {
+        let params = {
+            userName: userName
+        };
+        this.playerQuestionService.addUserToWhitelist(params).subscribe((res: any) => {
+            if (res.code == 0) {
+                this.message.create('success', res.message ? res.message : '操作成功!');
+                this.getQuestionNaireData();
+            } else {
+                this.message.create('error', res.message ? res.message : '操作失败!');
+            }
+        });
     }
 
     clear(event: any) {

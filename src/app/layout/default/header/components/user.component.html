@@ -1,12 +1,13 @@
 <div nz-row [nzGutter]="24">
-  <div nz-col nzXs="6" style="margin-top: 3px;">
-    <header-notify></header-notify>
+  <div nz-col nzXs="4" style="margin-top: 3px;">
+    <!-- <header-notify></header-notify> -->
+    <!-- <span> </span> -->
   </div>
-  <div nz-col nzXs="18">
+  <div nz-col nzXs="20">
     <div class="alain-default__nav-item d-flex align-items-center px-sm">
       <i nz-icon nzType="skin" nzTheme="outline" style="color:#58afff;font-size: 18px;margin-right: 25px;" nz-dropdown
         [nzDropdownMenu]="skin" nzPlacement="bottomCenter"></i>
-      <font nz-dropdown nzPlacement="bottomCenter" [nzDropdownMenu]="userMenu">
+      <font nz-dropdown nzPlacement="bottomCenter" [nzDropdownMenu]="userMenu" style="min-width: 105px;">
         <nz-avatar [nzSrc]="settings.user.avatar" nzSize="small" class="mr-sm"></nz-avatar>
         <span style="color: #000000de" class="user-name">{{ userInfo.name }}</span>
       </font>

@@ -28,7 +28,7 @@
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[1]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[1]}}</p>
         </nz-form-control>
 
       </nz-form-item>
@@ -47,7 +47,7 @@
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[2]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[2]}}</p>
         </nz-form-control>
       </nz-form-item>
 
@@ -68,7 +68,7 @@
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[3]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[3]}}</p>
         </nz-form-control>
       </nz-form-item>
 
@@ -94,7 +94,7 @@
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[4]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[4]}}</p>
         </nz-form-control>
       </nz-form-item>
 
@@ -114,7 +114,7 @@
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[5]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[5]}}</p>
         </nz-form-control>
       </nz-form-item>
 
@@ -132,7 +132,7 @@
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[6]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[6]}}</p>
         </nz-form-control>
       </nz-form-item>
 
@@ -171,14 +171,25 @@
           </div>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[7]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[7]}}</p>
         </nz-form-control>
 
       </nz-form-item>
 
       <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          8. 请问您宽带的归属地是？
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24" class="answer">
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[8]}}</p>
+        </nz-form-control>
+      </nz-form-item>
+
+
+      <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form8" class="text-left">
-          8. 请问您宽带的运营商是？ * (必填, 单选)
+          9. 请问您宽带的运营商是？ * (必填, 单选)
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
@@ -194,13 +205,13 @@
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[8]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[9]}}</p>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          9. 请问您使用的宽带大小是？ * (必填, 单选)
+          10. 请问您使用的宽带大小是？ * (必填, 单选)
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
@@ -215,7 +226,7 @@
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[9]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[10]}}</p>
         </nz-form-control>
       </nz-form-item>
 
@@ -223,7 +234,7 @@
       <nz-divider nzDashed></nz-divider>
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form7" class="text-left">
-          10. 请问您玩过以下哪些类型的游戏？ * (必填, 多选)
+          11. 请问您玩过以下哪些类型的游戏？ * (必填, 多选)
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
@@ -264,13 +275,13 @@
           </div>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[10]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[11]}}</p>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          11. 最近三个月，您平均每天会花多少时间玩游戏？ * (必填, 单选)
+          12. 最近三个月，您平均每天会花多少时间玩游戏？ * (必填, 单选)
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
@@ -286,13 +297,13 @@
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[11]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[12]}}</p>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          12. 最近三个月，请问您平均每月投入在游戏上的花费是？ * (必填, 单选)
+          13. 最近三个月，请问您平均每月投入在游戏上的花费是？ * (必填, 单选)
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
@@ -308,14 +319,14 @@
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[12]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[13]}}</p>
         </nz-form-control>
       </nz-form-item>
       <h3>第4部分 剑网3经历</h3>
       <nz-divider nzDashed></nz-divider>
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          13. 最近1个月，您是否还在玩剑网3？ * (必填, 单选)
+          14. 最近1个月，您是否还在玩剑网3？ * (必填, 单选)
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
@@ -326,32 +337,32 @@
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[13]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[14]}}</p>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          14. 您初次来玩剑网3，是哪一年？
+          15. 您初次来玩剑网3，是哪一年？
         </nz-form-label>
 
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[14]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[15]}}</p>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          15. 您最后一次登录剑网3，是哪一年？
+          16. 您最后一次登录剑网3，是哪一年？
         </nz-form-label>
 
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[15]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[16]}}</p>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form7" class="text-left">
-          16. 在剑网3，您经常参与的玩法有？ * (必填, 多选)
+          17. 在剑网3，您经常参与的玩法有？ * (必填, 多选)
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
@@ -387,14 +398,14 @@
           </div>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[16]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[17]}}</p>
         </nz-form-control>
       </nz-form-item>
       <h3>第5部分 其他</h3>
       <nz-divider nzDashed></nz-divider>
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          17. 您的性别是? * (必填, 单选)
+          18. 您的性别是? * (必填, 单选)
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
@@ -404,13 +415,13 @@
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[17]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[18]}}</p>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          18. 您的职业是？ * (必填, 单选)
+          19. 您的职业是？ * (必填, 单选)
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
@@ -426,58 +437,40 @@
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[18]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[19]}}</p>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          19. 您的出生年份是？
+          20. 您的出生年份是？
         </nz-form-label>
 
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[19]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[20]}}</p>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          20. 此时此刻，您所在的省份为？
+          21. 此时此刻，您所在的省份为？
         </nz-form-label>
 
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[20]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[21]}}</p>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          21. 请问您申请本次先锋测试的原因是？ * (必填, 最多200字)
+          22. 请问您申请本次先锋测试的原因是？ * (必填, 最多100字)
         </nz-form-label>
 
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[21]}}
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          22. 您可能会在哪些场景下使用剑网3云端？ * (必填, 最多200字)
-        </nz-form-label>
-
-        <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[22]}}
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          23. 您在使用剑网3云端的时候，可能会玩哪些玩法？ * (必填, 最多200字)
-        </nz-form-label>
-
-        <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[23]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[22]}}</p>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form7" class="text-left">
-          24. 请问您更倾向在什么时间体验剑网3云端？ * (必填, 多选)
+          23. 请问您更倾向在什么时间体验剑网3云端？ * (必填, 多选)
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
@@ -513,37 +506,59 @@
           </div>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[24]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[23]}}</p>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          25. 您的金山通行证是？（用于测试资格激活） * (必填)
+          24. 您可能会在哪些场景下使用剑网3云端？ * (必填, 最多100字)
         </nz-form-label>
 
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[25]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[24]}}</p>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          26. 请问您的手机号是？（以便我们通知您申请结果） * (必填, 只允许填写数字)
+          25. 您在使用剑网3云端的时候，可能会玩哪些玩法？ * (必填, 最多100字)
         </nz-form-label>
 
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[26]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[25]}}</p>
+        </nz-form-control>
+      </nz-form-item>
+
+
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          26. 您的金山通行证是？（用于测试资格激活） * (必填)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24" class="answer">
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[26]}}</p>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
-          27. 欢迎留下您的QQ号，可能会掉落意外惊喜哦( • ̀ω•́ )✧ (只允许填写数字)
+          27. 请问您的手机号是？（以便我们通知您申请结果） * (必填, 只允许填写数字)
         </nz-form-label>
 
         <nz-form-control [nzXs]="24" class="answer">
-          玩家答案:&nbsp;&nbsp;{{questionResult[27]}}
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[27]}}</p>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+          28. 欢迎留下您的QQ号，可能会掉落意外惊喜哦( • ̀ω•́ )✧ (只允许填写数字)
+        </nz-form-label>
+
+        <nz-form-control [nzXs]="24" class="answer">
+          <p>玩家答案:&nbsp;&nbsp;{{questionResult[28]}}</p>
         </nz-form-control>
       </nz-form-item>
     </div>

@@ -26,26 +26,31 @@ export class ProcessMonitorComponent implements OnInit {
     devDetailLoading: boolean = false;
     processList: any = [];
     bindList: any = [];
+    startTime: any = moment().startOf('day').format('YYYY-MM-DD HH:mm');
+    endTime: any = moment().format('YYYY-MM-DD HH:mm');
+    dateRange: any = [moment().startOf('day').format('YYYY-MM-DD HH:mm'), moment().format('YYYY-MM-DD HH:mm')];
     constructor(private processMonitorService: ProcessMonitorService, private message: NzMessageService, private fb: FormBuilder, private router: Router) {
         this.processForm = this.fb.group({
             taskId: [null],
             serverName: [null],
-            userName: [null]
+            userName: [null],
+            dateRange: [this.dateRange]
         });
     }
     ngOnInit(): void {
         this.queryAllServersMonitor();
     }
-    queryAllServersMonitor(params?: any) {
+    queryAllServersMonitor() {
         let param = {
             pageNum: this.pageIndex,
-            pageSize: this.pageSize
+            pageSize: this.pageSize,
+            taskId: this.processForm.value.taskId,
+            serverName: this.processForm.value.serverName,
+            userName: this.processForm.value.userName,
+            startTime: this.startTime,
+            endTime: this.endTime
         }
-        if (params) {
-            param['serverName'] = params.serverName;
-            param['userName'] = params.userName;
-            param['taskId'] = params.taskId;
-        }
+
         this.loading = true;
         this.processMonitorService.queryAllServersMonitor(param).subscribe((res: any) => {
             this.loading = false;
@@ -215,17 +220,27 @@ export class ProcessMonitorComponent implements OnInit {
 
     inquireProcess(): void {
         this.pageIndex = 1;
-        let params = {
-            taskId: this.processForm.value.taskId,
-            serverName: this.processForm.value.serverName,
-            userName: this.processForm.value.userName
-        }
-        this.queryAllServersMonitor(params);
+        this.queryAllServersMonitor();
     }
 
     //查看服务器
     lookServer(serverName: any) {
         console.log(serverName);
         this.router.navigate(['/monitor/serviceMonitor'], { queryParams: { name: serverName } });
+    }
+
+    changeDateRange($event) {
+        this.startTime = moment($event[0]).format('YYYY-MM-DD HH:mm');
+        this.endTime = moment($event[1]).format('YYYY-MM-DD HH:mm');
+        this.dateRange = [this.startTime, this.endTime];
+        this.queryAllServersMonitor();
+    }
+
+    clear(event: any) {
+        if (!event || event.length <= 0) {
+            this.startTime = '';
+            this.endTime = '';
+            this.queryAllServersMonitor();
+        }
     }
 }
