@@ -3,7 +3,6 @@ import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 // import {AgentHttpParams} from '../interfaces/agent-http-params';
 // import {SessionService} from '../../core/services/session.service';
-import { AppModule } from "../../app.module";
 import { AgentHttpParams } from './agent-http-params';
 // 该服务注册到根模块中（注意:懒加载的模块无法享受该服务）
 @Injectable({

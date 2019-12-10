@@ -22,9 +22,9 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
-              // "src/favicon.ico",
+              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
@@ -33,7 +33,7 @@
             "scripts": [
               "node_modules/ajv/dist/ajv.bundle.js",
               "node_modules/echarts/dist/echarts.min.js",
-              "node_modules/moment/min/moment.min.js",
+              "node_modules/moment/min/moment.min.js"
             ]
           },
           "configurations": {
@@ -79,7 +79,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng-operate-master:build",
+            "browserTarget": "ng-operate-master:build"
             // "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
@@ -106,9 +106,8 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              // "src/favicon.ico",
-              "src/assets",
-              "_mock"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
               "src/styles.less"

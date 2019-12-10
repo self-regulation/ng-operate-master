@@ -4,6 +4,9 @@ import { NotificationComponent } from '@core/notification/notification.component
 import { NzNotificationService } from 'ng-zorro-antd';
 import { StorageService } from '@core/storage/storage.service';
 import { MenuService } from '@delon/theme';
+import { AgentHttpParams } from '@core/net/agent-http-params';
+import { HttpBaseService } from '@core/net/http-base.service';
+import { Router } from '@angular/router';
 // import { Router, NavigationEnd } from '@angular/router';
 // import { filter } from 'rxjs/operators';
 // import { VERSION as VERSION_ZORRO, NzModalService } from 'ng-zorro-antd';
@@ -22,17 +25,25 @@ export class AppComponent implements OnInit {
     private webSocketService: WebsocketService,
     private notification: NzNotificationService,
     private storageService: StorageService,
-    private menuService: MenuService) {
+    private menuService: MenuService,
+    private httpBaseService: HttpBaseService,
+    private router: Router) {
     // renderer.setAttribute(el.nativeElement, 'ng-alain-version', VERSION_ALAIN.full);
     // renderer.setAttribute(el.nativeElement, 'ng-zorro-version', VERSION_ZORRO.full);
   }
 
   ngOnInit() {
     let menuList = this.storageService.getMenuInfo();
-    if (this.menuService.menus.length <= 0 && menuList != '{}') {
+    if (this.menuService.menus.length <= 0 && JSON.stringify(menuList) != '{}') {
       this.menuService.add(menuList);
     } else {
-
+      const params = new AgentHttpParams();
+      params.url = '/admin/logout';
+      params.callback = ((response: any) => {
+        this.storageService.clearUserInfo();
+        this.router.navigateByUrl('/passport/login');
+      });
+      this.httpBaseService.postData(params);
     }
     // 接收消息
     // this.webSocketService.messageSubject.subscribe(
@@ -47,9 +58,5 @@ export class AppComponent implements OnInit {
 
   }
   ngAfterViewInit(): void {
-    // this.notificationCom.createBasicNotification({
-    //   qq: 111,
-    //   rrr: 777
-    // });
   }
 }

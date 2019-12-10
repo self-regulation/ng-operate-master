@@ -85,8 +85,8 @@
     [nzFrontPagination]="false" [nzLoading]="loading" [nzData]="bindList" [nzScroll]="{ x: '1300px' }">
     <thead>
       <tr>
-        <th>日期</th>
-        <th nzLeft="0px" nzShowFilter="true" [nzFilters]="stayDayList" [nzFilterMultiple]="false"
+        <th nzLeft="0px">日期</th>
+        <th nzLeft="104px" nzShowFilter="true" [nzFilters]="stayDayList" [nzFilterMultiple]="false"
           (nzFilterChange)="changeDays($event)">总人数
         </th>
         <ng-container *ngFor="let day of dayList;let j=index">
@@ -96,9 +96,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of userRetainList;let i=index">
-        <td nzWidth="100px">{{ user.dateTime }}</td>
+        <td nzWidth="100px" nzLeft="0px">{{ user.dateTime }}</td>
         <ng-container *ngFor="let item of user.datas;let j=index">
-          <td nzLeft="0px" *ngIf="j==0"><a routerLink="/analysis/userList">{{ item }}</a></td>
+          <!-- routerLink="/analysis/userList" -->
+          <td nzLeft="104px" *ngIf="j==0"><a>{{ item }}</a></td>
           <td *ngIf="j>0">{{item}}</td>
         </ng-container>
 
