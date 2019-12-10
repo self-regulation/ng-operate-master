@@ -33,6 +33,7 @@ export class MenuManageServer {
             const params = new AgentHttpParams();
             params.url = '/admin/sys/menu/save';
             params.data = {
+                parentIds: param.parentIds,
                 parentId: param.parentId,
                 name: param.name,
                 menukey: param.menukey,

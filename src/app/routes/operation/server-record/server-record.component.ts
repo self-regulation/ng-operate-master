@@ -109,4 +109,12 @@ export class ServerRecordComponent implements OnInit {
     formateHeader(time, type) {
         return moment(time).format('YYYY-MM-DD HH:mm') + '      ' + this.curOperateType[type];
     }
+
+    clear(event: any) {
+        if (!event || event.length <= 0) {
+            this.startTime = '';
+            this.endTime = '';
+            this.getServerRecord();
+        }
+    }
 }

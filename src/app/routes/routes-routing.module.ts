@@ -11,6 +11,7 @@ import { UserLoginComponent } from './passport/login/login.component';
 // single pages
 import { CallbackComponent } from './callback/callback.component';
 import { ACLGuard } from '@delon/acl';
+import { HomePageComponent } from './home/home.component';
 
 const routes: Routes = [
   {
@@ -18,8 +19,9 @@ const routes: Routes = [
     component: LayoutDefaultComponent,
     // canActivate: [SimpleGuard],
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent, data: { title: '云端监控', titleI18n: '西山居' } },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomePageComponent, data: { title: '首页', titleI18n: '西山居' } },
+      { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
       { path: 'gamemanage', loadChildren: () => import('./gamemanage/gamemanage.module').then(m => m.GameManageModule) },//游戏管理
       { path: 'playermanage', loadChildren: () => import('./playermanage/playermanage.module').then(m => m.PlayerManageModule) },//玩家白名单管理
       { path: 'analysis', loadChildren: () => import('./dataanalysis/analysis.module').then(m => m.AnalysisModule) },//数据分析
@@ -58,11 +60,11 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(
       routes, {
-        useHash: environment.useHash,
-        // NOTICE: If you use `reuse-tab` component and turn on keepingScroll you can set to `disabled`
-        // Pls refer to https://ng-alain.com/components/reuse-tab
-        scrollPositionRestoration: 'top',
-      }
+      useHash: environment.useHash,
+      // NOTICE: If you use `reuse-tab` component and turn on keepingScroll you can set to `disabled`
+      // Pls refer to https://ng-alain.com/components/reuse-tab
+      scrollPositionRestoration: 'top',
+    }
     )],
   exports: [RouterModule],
 })

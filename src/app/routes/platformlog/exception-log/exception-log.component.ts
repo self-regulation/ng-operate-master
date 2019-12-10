@@ -76,4 +76,12 @@ export class ExceptionLogComponent implements OnInit {
         this.pageSize = event;
         this.getCloudGameLog();
     }
+
+    clear(event: any) {
+        if (!event || event.length <= 0) {
+            this.startTime = '';
+            this.endTime = '';
+            this.getCloudGameLog();
+        }
+    }
 }

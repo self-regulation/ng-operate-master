@@ -11,7 +11,7 @@
 </page-header>
 
 <nz-card>
-  <form nz-form>
+  <form nz-form [formGroup]="questionDetailForm">
     <div nz-row>
       <h3>第1部分 体验设备配置</h3>
       <nz-divider nzDashed></nz-divider>
@@ -21,10 +21,10 @@
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
-          <nz-radio-group nzDisabled="true">
-            <label nz-radio [ngStyle]="style" nzValue="A">台式电脑</label>
-            <label nz-radio [ngStyle]="style" nzValue="B">笔记本电脑</label>
-            <label nz-radio [ngStyle]="style" nzValue="C">其他（请填写）</label>
+          <nz-radio-group nzDisabled="true" [(ngModel)]="questionDetailForm.value.form1" formControlName="form1">
+            <label nz-radio [ngStyle]="style" nzValue="台式电脑">台式电脑</label>
+            <label nz-radio [ngStyle]="style" nzValue="笔记本电脑">笔记本电脑</label>
+            <label nz-radio [ngStyle]="style" nzValue="Q">其他（请填写）</label>
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
@@ -39,11 +39,11 @@
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
-          <nz-radio-group nzDisabled="true">
-            <label nz-radio [ngStyle]="style" nzValue="A">不知道</label>
-            <label nz-radio [ngStyle]="style" nzValue="B">Windows7及以上</label>
-            <label nz-radio [ngStyle]="style" nzValue="C">MacOS10.12及以上</label>
-            <label nz-radio [ngStyle]="style" nzValue="D">以上都不符合</label>
+          <nz-radio-group nzDisabled="true" [(ngModel)]="questionDetailForm.value.form2" formControlName="form2">
+            <label nz-radio [ngStyle]="style" nzValue="不知道">不知道</label>
+            <label nz-radio [ngStyle]="style" nzValue="Windows7及以上">Windows7及以上</label>
+            <label nz-radio [ngStyle]="style" nzValue="MacOS10.12及以上">MacOS10.12及以上</label>
+            <label nz-radio [ngStyle]="style" nzValue="以上都不符合">以上都不符合</label>
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
@@ -57,14 +57,14 @@
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
-          <nz-radio-group nzDisabled="true">
-            <label nz-radio [ngStyle]="style" nzValue="A">不知道</label>
-            <label nz-radio [ngStyle]="style" nzValue="B">4GB以下</label>
-            <label nz-radio [ngStyle]="style" nzValue="C">4GB</label>
-            <label nz-radio [ngStyle]="style" nzValue="D">8GB</label>
-            <label nz-radio [ngStyle]="style" nzValue="E">16GB</label>
-            <label nz-radio [ngStyle]="style" nzValue="F">32GB</label>
-            <label nz-radio [ngStyle]="style" nzValue="G">32GB以上</label>
+          <nz-radio-group nzDisabled="true" [(ngModel)]="questionDetailForm.value.form3" formControlName="form3">
+            <label nz-radio [ngStyle]="style" nzValue="不知道">不知道</label>
+            <label nz-radio [ngStyle]="style" nzValue="4GB以下">4GB以下</label>
+            <label nz-radio [ngStyle]="style" nzValue="4GB">4GB</label>
+            <label nz-radio [ngStyle]="style" nzValue="8GB">8GB</label>
+            <label nz-radio [ngStyle]="style" nzValue="16GB">16GB</label>
+            <label nz-radio [ngStyle]="style" nzValue="32GB">32GB</label>
+            <label nz-radio [ngStyle]="style" nzValue="32GB以上">32GB以上</label>
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
@@ -78,19 +78,19 @@
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
-          <nz-radio-group nzDisabled="true">
-            <label nz-radio [ngStyle]="style" nzValue="A">不知道</label>
-            <label nz-radio [ngStyle]="style" nzValue="B">酷睿i9</label>
-            <label nz-radio [ngStyle]="style" nzValue="C">酷睿i7</label>
-            <label nz-radio [ngStyle]="style" nzValue="D">酷睿i5</label>
-            <label nz-radio [ngStyle]="style" nzValue="E">酷睿i3</label>
-            <label nz-radio [ngStyle]="style" nzValue="F">至强E3</label>
-            <label nz-radio [ngStyle]="style" nzValue="G">至强E5</label>
-            <label nz-radio [ngStyle]="style" nzValue="H">锐龙 R5</label>
-            <label nz-radio [ngStyle]="style" nzValue="I">锐龙 R7</label>
-            <label nz-radio [ngStyle]="style" nzValue="J">锐龙 R3</label>
-            <label nz-radio [ngStyle]="style" nzValue="K">奔腾/赛扬</label>
-            <label nz-radio [ngStyle]="style" nzValue="L">其他（请填写）</label>
+          <nz-radio-group nzDisabled="true" [(ngModel)]="questionDetailForm.value.form4" formControlName="form4">
+            <label nz-radio [ngStyle]="style" nzValue="不知道">不知道</label>
+            <label nz-radio [ngStyle]="style" nzValue="酷睿i9">酷睿i9</label>
+            <label nz-radio [ngStyle]="style" nzValue="酷睿i7">酷睿i7</label>
+            <label nz-radio [ngStyle]="style" nzValue="酷睿i5">酷睿i5</label>
+            <label nz-radio [ngStyle]="style" nzValue="酷睿i3">酷睿i3</label>
+            <label nz-radio [ngStyle]="style" nzValue="至强E3">至强E3</label>
+            <label nz-radio [ngStyle]="style" nzValue="至强E5">至强E5</label>
+            <label nz-radio [ngStyle]="style" nzValue="锐龙R5">锐龙R5</label>
+            <label nz-radio [ngStyle]="style" nzValue="锐龙R7">锐龙R7</label>
+            <label nz-radio [ngStyle]="style" nzValue="锐龙R3">锐龙R3</label>
+            <label nz-radio [ngStyle]="style" nzValue="奔腾/赛扬">奔腾/赛扬</label>
+            <label nz-radio [ngStyle]="style" nzValue="Q">其他（请填写）</label>
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
@@ -104,13 +104,13 @@
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
-          <nz-radio-group nzDisabled="true">
-            <label nz-radio [ngStyle]="style" nzValue="A">不知道</label>
-            <label nz-radio [ngStyle]="style" nzValue="B">500GB以下</label>
-            <label nz-radio [ngStyle]="style" nzValue="C">500GB</label>
-            <label nz-radio [ngStyle]="style" nzValue="D">1TB</label>
-            <label nz-radio [ngStyle]="style" nzValue="E">2TB</label>
-            <label nz-radio [ngStyle]="style" nzValue="F">2TB以上</label>
+          <nz-radio-group nzDisabled="true" [(ngModel)]="questionDetailForm.value.form5" formControlName="form5">
+            <label nz-radio [ngStyle]="style" nzValue="不知道">不知道</label>
+            <label nz-radio [ngStyle]="style" nzValue="500GB以下">500GB以下</label>
+            <label nz-radio [ngStyle]="style" nzValue="500GB">500GB</label>
+            <label nz-radio [ngStyle]="style" nzValue="1TB">1TB</label>
+            <label nz-radio [ngStyle]="style" nzValue="2TB">2TB</label>
+            <label nz-radio [ngStyle]="style" nzValue="2TB以上">2TB以上</label>
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
@@ -124,11 +124,11 @@
         </nz-form-label>
 
         <nz-form-control [nzXs]="24">
-          <nz-radio-group nzDisabled="true">
-            <label nz-radio [ngStyle]="style" nzValue="A">不知道</label>
-            <label nz-radio [ngStyle]="style" nzValue="B">NVIDIA（N卡）</label>
-            <label nz-radio [ngStyle]="style" nzValue="C">AMD（A卡）</label>
-            <label nz-radio [ngStyle]="style" nzValue="D">其他（请填写）</label>
+          <nz-radio-group nzDisabled="true" [(ngModel)]="questionDetailForm.value.form6" formControlName="form6">
+            <label nz-radio [ngStyle]="style" nzValue="不知道">不知道</label>
+            <label nz-radio [ngStyle]="style" nzValue="NVIDIA（N卡）">NVIDIA（N卡）</label>
+            <label nz-radio [ngStyle]="style" nzValue="AMD（A卡）">AMD（A卡）</label>
+            <label nz-radio [ngStyle]="style" nzValue="Q">其他（请填写）</label>
           </nz-radio-group>
         </nz-form-control>
         <nz-form-control [nzXs]="24" class="answer">
@@ -177,7 +177,7 @@
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
+        <nz-form-label [nzXs]="24" nzFor="form8" class="text-left">
           8. 请问您宽带的归属地是？
         </nz-form-label>
 
@@ -188,7 +188,7 @@
 
 
       <nz-form-item>
-        <nz-form-label [nzXs]="24" nzFor="form8" class="text-left">
+        <nz-form-label [nzXs]="24" nzFor="form9" class="text-left">
           9. 请问您宽带的运营商是？ * (必填, 单选)
         </nz-form-label>
 

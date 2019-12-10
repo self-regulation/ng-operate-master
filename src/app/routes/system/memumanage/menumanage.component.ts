@@ -150,7 +150,6 @@ export class MenumanageComponent implements OnInit {
     }
     //修改二级菜单
     modifySecondMenu(parentName, menuData) {
-        console.log(menuData);
         this.modalTitle = "修改二级菜单";
         this.isSecond = true;
         this.menuModalForm = this.fb.group({
@@ -171,10 +170,10 @@ export class MenumanageComponent implements OnInit {
     modifyFirstMenu(isSecond, menuData) {
         this.modalTitle = "修改一级菜单";
         this.isSecond = isSecond;
-        console.log(menuData);
         this.menuModalForm = this.fb.group({
             id: [menuData.id],
             parentId: [menuData.parentId],
+            parentIds: [menuData.parentIds],
             name: [menuData.name, [Validators.required]],
             sort: [menuData.sort, [Validators.required, positiveValidator]],
             menukey: [menuData.menukey, [Validators.required, alphaValidator]],

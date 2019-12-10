@@ -94,7 +94,7 @@ export class StartupService {
       };
       // console.log("用户的信息@@@@@@@@@");
       // console.log(userInfo);
-      // this.aclService.setRole(['admin']);
+      // this.aclService.setRole(['mai003']);
       this.aclService.setFull(true);
       this.settingService.setApp(app);
       this.settingService.setUser(user);

@@ -78,6 +78,7 @@ export class OperatelogComponent implements OnInit {
         if (!event || event.length <= 0) {
             this.startTime = '';
             this.endTime = '';
+            this.getLogList();
         }
     }
 }   

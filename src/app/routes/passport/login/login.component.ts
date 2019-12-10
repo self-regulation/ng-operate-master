@@ -61,11 +61,16 @@ export class UserLoginComponent implements OnDestroy, OnInit {
           this.storageService.saveUserInfo(res.data);
           this.storageService.saveMenuInfo(menuList);
           this.menuService.add(menuList);
+          console.log("@@@@@@@@@@@@@@@@@@@@@@");
+          console.log(menuList);
+          this.router.navigateByUrl('/home');
         }
 
         this.message.create('success', res.message ? res.message : '操作成功!');
-        this.router.navigateByUrl('/dashboard');
+
+
       } else {
+        this.refresh();
         this.message.create('error', res.message ? res.message : '操作失败!');
       }
     });
