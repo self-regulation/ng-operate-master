@@ -32,8 +32,6 @@ export class LoginService {
         let parents = data.filter(value => value.parentId == 0);
         parents[0].group = true;
         parents[0].hideInBreadcrumb = true;
-        // parents["group"] = true;
-        // parents["hideInBreadcrumb"] = true;
         // 有父节点的数据
         let children = data.filter(value => value.parentId !== 'undefined' && value.parentId != null || value.parentId != '');
 
@@ -207,9 +205,14 @@ export class LoginService {
                             newCurrent['link'] = "/system/menumanage";
                             newCurrent.order = 3;
                             break;
+
+                        case "MenuAuthorization": //菜单授权
+                            newCurrent['link'] = "/system/menuauthorization";
+                            newCurrent.order = 4;
+                            break;
                         case "LogManager"://操作日志
                             newCurrent['link'] = "/system/operatelog";
-                            newCurrent.order = 4;
+                            newCurrent.order = 5;
                             break;
 
                         /**------------------------10 个人中心------------------------- */

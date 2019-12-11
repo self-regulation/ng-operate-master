@@ -239,4 +239,19 @@ export class PeopleManageComponent implements OnInit {
         this.getUserList(params);
     }
 
+    formateUserRole(roleList: any) {
+        if (roleList && roleList.length > 0) {
+            let roleName = '';
+            roleList.forEach((item: any, index) => {
+                if (roleList.length - 1 == index) {
+                    roleName += item.name;
+                } else {
+                    roleName += item.name + ',';
+                }
+
+            });
+            return roleName;
+        }
+    }
+
 }

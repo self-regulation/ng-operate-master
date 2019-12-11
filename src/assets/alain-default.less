@@ -2891,6 +2891,30 @@ darker  @grey-9;
   background: @primary-color;
   color: #fff;
 }
+
+::ng-deep .ant-menu-inline,
+::ng-deep .ant-menu-vertical,
+::ng-deep .ant-menu-vertical-left {
+  border-right: none;
+}
+::ng-deep .ant-menu {
+  background: #20222a;
+  color: #b2b2b2;
+}
+::ng-deep .ant-menu li:hover {
+  color: #ffffff;
+}
+::ng-deep .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #3598dc;
+  color: #ffffff;
+}
+::ng-deep .ant-table-row-expand-icon {
+  background: @primary-color;
+  color: #fff;
+}
+.server-icon {
+  color: #3598dc;
+}
 ::ng-deep input:-webkit-autofill {
   -webkit-text-fill-color: #ffffff !important;
 }
@@ -12209,6 +12233,9 @@ ul::-webkit-scrollbar-corner {
 [customize-theme-style='dark'] .exception__cont-desc {
   color: #ffffff;
 }
+[customize-theme-style='dark'] .ant-checkbox-wrapper span {
+  color: #ffffff;
+}
 html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -26917,6 +26944,9 @@ ul::-webkit-scrollbar-corner {
   color: #ffffff !important;
 }
 [customize-theme-style='dark'] .exception__cont-desc {
+  color: #ffffff;
+}
+[customize-theme-style='dark'] .ant-checkbox-wrapper span {
   color: #ffffff;
 }
 
