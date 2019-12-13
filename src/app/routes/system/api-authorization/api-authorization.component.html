@@ -1,0 +1,110 @@
+<page-header [title]="'API授权'">
+</page-header>
+
+<div nz-row [nzGutter]="24" class="pt-lg">
+  <div nz-col nzXs="8" class="left-box">
+    <nz-card class="card-box">
+      <div nz-col [nzSpan]="24" class="text-center" *ngIf="!allRoleList">
+        <nz-spin nzSimple></nz-spin>
+      </div>
+      <ul nz-menu>
+        <li nz-menu-item *ngFor="let item of allRoleList;let i=index" [nzSelected]="selectRoleIndex==i?true:false"
+          (click)="selectMenu(item,i)">{{item.name}}</li>
+      </ul>
+
+    </nz-card>
+  </div>
+  <div nz-col nzXs="16">
+    <nz-card class="card-box">
+      <button nz-button (click)="addApiAuthorization()" [nzType]="'primary'" [nzLoading]="modalLoading">
+        <i nz-icon nzType="plus"></i>
+        <span>添加API权限</span>
+      </button>
+      <nz-divider nzDashed></nz-divider>
+
+      <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="roleOfApiList"
+        [nzFrontPagination]="false" [nzLoading]="tableLoading" [nzTotal]="total" [(nzPageIndex)]="pageNum"
+        [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+        (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>name</th>
+            <th>parentId</th>
+            <th>path</th>
+            <th>日期</th>
+            <th nzRight="0px">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of roleOfApiList;let i=index">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.parentId }}</td>
+            <td>{{ item.path }}</td>
+            <td>{{ item.updateDate | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+            <td nzRight="0px">
+              <a nz-popconfirm (nzOnConfirm)="deleteApi(item.id)" nzPopconfirmPlacement="top" nzTitle="确认删除该条数据?">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+
+    </nz-card>
+  </div>
+</div>
+
+<nz-modal nzWidth="1000px" [(nzVisible)]="addApiListVisible" nzTitle="添加API权限" (nzOnCancel)="addApiCancel()"
+  (nzOnOk)="addApiOk()" [nzMask]="modalLoading" [nzOkLoading]="modalLoading" nzOkText="确定添加">
+  <form nz-form [formGroup]="apiForm">
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="name">name
+        </nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="name" />
+        </nz-form-control>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="path">path
+        </nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="path" />
+        </nz-form-control>
+
+        <div nz-col nz-col nzSm="8" nzLg="5" nzXXl="4" class="text-right">
+          <button nz-button type="submit" [nzType]="'primary'" (click)="getAllRoleApi()">查询</button>
+        </div>
+      </nz-form-item>
+
+
+    </div>
+
+  </form>
+  <nz-divider nzDashed></nz-divider>
+  <nz-table nzBordered="true" [(nzShowPagination)]="isShowPagination" nzShowSizeChanger="true" [nzData]="allApiList"
+    [nzFrontPagination]="false" [nzLoading]="allApiTableLoading" [nzTotal]="allApiTotal" [(nzPageIndex)]="allApiPageNum"
+    [(nzPageSize)]="allApiPageSize" [nzPageSizeOptions]="allApiPageSizeOptions"
+    (nzPageIndexChange)="changeAllApiPage($event)" (nzPageSizeChange)="changeAllApiPageSize($event)"
+    [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" (nzCheckedChange)="checkAll($event)"></th>
+        <th>ID</th>
+        <th>name</th>
+        <th>parentId</th>
+        <th>path</th>
+        <!-- <th>日期</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of allApiList;let i=index">
+        <td nzShowCheckbox (nzCheckedChange)="refreshStatus(item.checked,item.id,i)" [(nzChecked)]="item.checked"></td>
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.parentId }}</td>
+        <td>{{ item.path }}</td>
+        <!-- <td>{{ item.updateDate | date:'yyyy-MM-dd HH:mm:ss' }}</td> -->
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>

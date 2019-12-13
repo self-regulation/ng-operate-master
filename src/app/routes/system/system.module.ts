@@ -10,11 +10,13 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { MenumanageComponent } from './memumanage/menumanage.component';
 import { MenuAuthorizationComponent } from './menuauthorization/menu-authorization.component';
+import { ApiListComponent } from './apilist/api-list.component';
+import { ApiAuthorizationComponent } from './api-authorization/api-authorization.component';
 
 
 const THIRDMODULES = [NzBreadCrumbModule, NzDatePickerModule, NzCheckboxModule];
 
-const COMPONENTS = [PeopleManageComponent, RoleManageComponent, OperatelogComponent, MenumanageComponent, MenuAuthorizationComponent];
+const COMPONENTS = [PeopleManageComponent, RoleManageComponent, OperatelogComponent, MenumanageComponent, MenuAuthorizationComponent, ApiListComponent, ApiAuthorizationComponent];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({

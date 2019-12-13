@@ -1,0 +1,91 @@
+<page-header [title]="'API列表'">
+</page-header>
+
+
+<nz-card>
+  <form nz-form [formGroup]="apiForm">
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="name">name
+        </nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="name" />
+        </nz-form-control>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="path">path
+        </nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="path" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="getAllRoleApi()">查询</button>
+      </div>
+    </div>
+
+  </form>
+  <button nz-button (click)="addApi()" [nzType]="'primary'">
+    <i nz-icon nzType="plus"></i>
+    <span>新增API</span>
+  </button>
+  <nz-divider nzDashed></nz-divider>
+  <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="allApiList"
+    [nzFrontPagination]="false" [nzLoading]="tableLoading" [nzTotal]="total" [(nzPageIndex)]="pageNum"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>name</th>
+        <th>parentId</th>
+        <th>path</th>
+        <th>日期</th>
+        <th nzRight="0px">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of allApiList;let i=index">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.parentId }}</td>
+        <td>{{ item.path }}</td>
+        <td>{{ item.updateDate | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td nzRight="0px">
+          <a nz-popconfirm (nzOnConfirm)="deleteApi(item.id)" nzPopconfirmPlacement="top" nzTitle="确认删除该条数据?">删除</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<nz-modal nzWidth="1000px" [(nzVisible)]="addApiListVisible" nzTitle="新增API" (nzOnCancel)="addApiCancel()"
+  (nzOnOk)="addApiOk()" [nzMask]="modalLoading" [nzOkLoading]="modalLoading">
+  <form nz-form [formGroup]="addApiListForm" class="mt-15">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>api名称</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="name" placeholder="请输入" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>api标识</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="menukey" placeholder="请输入" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>路径</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="path" placeholder="请输入" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">备注</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input formControlName="remarks" placeholder="备注" />
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</nz-modal>

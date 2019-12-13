@@ -214,6 +214,14 @@ export class LoginService {
                             newCurrent['link'] = "/system/operatelog";
                             newCurrent.order = 5;
                             break;
+                        case "ApiList"://Api列表
+                            newCurrent['link'] = "/system/apiList";
+                            newCurrent.order = 6;
+                            break;
+                        case "ApiAuthorization"://Api授权
+                            newCurrent['link'] = "/system/apiauthorization";
+                            newCurrent.order = 7;
+                            break;
 
                         /**------------------------10 个人中心------------------------- */
                         case "PersonInfo":  //个人中心
