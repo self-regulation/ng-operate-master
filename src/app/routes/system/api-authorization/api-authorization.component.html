@@ -88,7 +88,7 @@
     [nzScroll]="{ x: '1300px' }">
     <thead>
       <tr>
-        <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" (nzCheckedChange)="checkAll($event)"></th>
+        <th [(nzChecked)]="isAllDisplayDataChecked" (nzCheckedChange)="checkAll($event)"></th>
         <th>ID</th>
         <th>name</th>
         <th>parentId</th>
@@ -98,7 +98,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of allApiList;let i=index">
-        <td nzShowCheckbox (nzCheckedChange)="refreshStatus(item.checked,item.id,i)" [(nzChecked)]="item.checked"></td>
+        <td nzShowCheckbox="true" (nzCheckedChange)="refreshStatus(item.checked,item.id,i)"
+          [(nzChecked)]="item.checked"></td>
         <td>{{ item.id }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.parentId }}</td>

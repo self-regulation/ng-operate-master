@@ -86,7 +86,7 @@ export class PlayerQuestionComponent implements OnInit {
         if (!event || event.length <= 0) {
             this.startDate = '';
             this.endDate = '';
-            this.getQuestionNaireData();
+            // this.getQuestionNaireData();
         }
     }
 

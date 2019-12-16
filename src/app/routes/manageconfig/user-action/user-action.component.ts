@@ -156,12 +156,12 @@ export class UserActionComponent implements OnInit {
         if (!event || event.length <= 0) {
             this.startTime = '';
             this.endTime = '';
-            let gameVo = {
-                pageIndex: this.pageIndex,
-                pageSize: this.pageSize
+            // let gameVo = {
+            //     pageIndex: this.pageIndex,
+            //     pageSize: this.pageSize
 
-            }
-            this.getGameTask(gameVo);
+            // }
+            // this.getGameTask(gameVo);
         }
     }
 

@@ -81,7 +81,7 @@ export class ExceptionLogComponent implements OnInit {
         if (!event || event.length <= 0) {
             this.startTime = '';
             this.endTime = '';
-            this.getCloudGameLog();
+            // this.getCloudGameLog();
         }
     }
 }

@@ -9,9 +9,10 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { ServiceComponent } from './serviceManager/service.component';
 import { NzBadgeModule } from 'ng-zorro-antd';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 
-const THIRDMODULES = [NzBreadCrumbModule, NzDatePickerModule, NzBadgeModule];
+const THIRDMODULES = [NzBreadCrumbModule, NzDatePickerModule, NzBadgeModule, NgxEchartsModule];
 
 const COMPONENTS = [CfgTemplateComponent, UserActionComponent, ServiceComponent];
 const COMPONENTS_NOROUNT = [];

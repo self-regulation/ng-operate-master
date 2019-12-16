@@ -3,8 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  SERVER_URL: `./`,
+  SERVER_URL: `http://admin-cloudgame-dev.tech.kingsoft.net:9092`,
   production: false,
+  test: false,
   useHash: true,
   hmr: true,
 };

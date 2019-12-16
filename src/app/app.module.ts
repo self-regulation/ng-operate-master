@@ -7,12 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // #region default language
 // Reference: https://ng-alain.com/docs/i18n
 import { default as ngLang } from '@angular/common/locales/zh';
-import { NZ_I18N, zh_CN as zorroLang } from 'ng-zorro-antd';
+// import { NZ_I18N, zh_CN as zorroLang } from 'ng-zorro-antd';
 import { DELON_LOCALE, zh_CN as delonLang } from '@delon/theme';
 const LANG = {
   abbr: 'zh',
   ng: ngLang,
-  zorro: zorroLang,
+  // zorro: zorroLang,
   delon: delonLang,
 };
 // register angular
@@ -20,7 +20,7 @@ import { registerLocaleData } from '@angular/common';
 registerLocaleData(LANG.ng, LANG.abbr);
 const LANG_PROVIDES = [
   { provide: LOCALE_ID, useValue: LANG.abbr },
-  { provide: NZ_I18N, useValue: LANG.zorro },
+  // { provide: NZ_I18N, useValue: LANG.zorro },
   { provide: DELON_LOCALE, useValue: LANG.delon },
 ];
 // #endregion

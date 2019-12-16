@@ -6,8 +6,7 @@ import {
   HttpHandler,
   HttpErrorResponse,
   HttpEvent,
-  HttpResponseBase,
-  HttpResponse,
+  HttpResponseBase
 } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { mergeMap, catchError } from 'rxjs/operators';
@@ -15,6 +14,7 @@ import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { environment } from '@env/environment';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
+import { StorageService } from '@core/storage/storage.service';
 
 const CODEMESSAGE = {
   200: '服务器成功返回请求的数据。',
@@ -39,7 +39,7 @@ const CODEMESSAGE = {
  */
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
-  constructor(private injector: Injector, private router: Router, private message: NzMessageService) { }
+  constructor(private injector: Injector, private router: Router, private message: NzMessageService, private storageService: StorageService) { }
 
   private get notification(): NzNotificationService {
     return this.injector.get(NzNotificationService);
@@ -89,6 +89,7 @@ export class DefaultInterceptor implements HttpInterceptor {
         // }
         break;
       case 401:
+        this.storageService.clearUserInfo();
         this.notification.error(`未登录或登录已过期，请重新登录。`, ``);
         // 清空 token 信息
         (this.injector.get(DA_SERVICE_TOKEN) as ITokenService).clear();
@@ -124,6 +125,7 @@ export class DefaultInterceptor implements HttpInterceptor {
         if (event.body && event.body.code) {
           switch (event.body.code) {
             case 10000:
+              this.storageService.clearUserInfo();
               // this.message.create('error', '未登录或登录已过期，请重新登录！');
               this.router.navigateByUrl('/passport/login');
               break;

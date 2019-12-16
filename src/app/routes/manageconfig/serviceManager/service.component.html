@@ -3,7 +3,7 @@
 
 <nz-card>
   <nz-table [nzData]="bindList" nzShowPagination="false" [nzLoading]="tableLoading" (nzPageIndexChange)="changePage()"
-    class="outerLayer">
+    class="outerLayer" nzHideOnSinglePage=true>
     <thead>
       <tr>
         <th style="width:15%">服务器组名称</th>

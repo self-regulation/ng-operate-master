@@ -60,7 +60,7 @@ export class PictureManageServer {
                 needGpu: param.needGpu,
                 needCpu: param.needCpu,
                 needMemory: param.needMemory,
-                needSources: param.needSources
+                needResources: param.needSources
             };
             params.callback = ((response: any) => {
                 observer.next(response);
@@ -71,6 +71,8 @@ export class PictureManageServer {
     }
     //更新游戏画质
     updatePicture(param: any) {
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        console.log(param);
         return new Observable((observer) => {
             const params = new AgentHttpParams();
             params.url = '/admin/picture/update';
@@ -80,7 +82,7 @@ export class PictureManageServer {
                 needGpu: param.needGpu,
                 needCpu: param.needCpu,
                 needMemory: param.needMemory,
-                needSources: param.needSources,
+                needResources: param.needSources,
                 id: param.id
             };
             params.callback = ((response: any) => {

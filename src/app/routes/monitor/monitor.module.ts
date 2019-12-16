@@ -9,9 +9,10 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { UserGameComponent } from './userGame/userGame.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 
-const THIRDMODULES = [NzBreadCrumbModule, NzBadgeModule, NzDatePickerModule];
+const THIRDMODULES = [NzBreadCrumbModule, NzBadgeModule, NzDatePickerModule, NgxEchartsModule];
 
 const COMPONENTS = [ServiceMonitorComponent, ProcessMonitorComponent, UserGameComponent];
 const COMPONENTS_NOROUNT = [];

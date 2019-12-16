@@ -10,6 +10,12 @@ preloaderFinished();
 import { hmrBootstrap } from './hmr';
 if (environment.production) {
   enableProdMode();
+  enableProdMode();
+  window.console.log = function () { };
+  window.console.info = function () { };
+  window.console.warn = function () { };
+  window.console.error = function () { };
+  window.console.debug = function () { };
 }
 
 const bootstrap = () => {

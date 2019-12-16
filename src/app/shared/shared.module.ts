@@ -38,7 +38,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 
 
-import { NgxEchartsModule } from 'ngx-echarts';
+// import { NgxEchartsModule } from 'ngx-echarts';
 
 import { DynamicFormQuestionComponent } from '@core/components/dynamic-forms/dynamic-form-question.component';
 import { OperationStatus } from './pipes/operation-status.pipe';
@@ -92,7 +92,7 @@ const DIRECTIVES = [];
     // DelonFormModule,
     // DelonChartModule,
     // third libs
-    NgxEchartsModule,
+    // NgxEchartsModule,
     ...THIRDMODULES
   ],
   declarations: [
@@ -114,7 +114,7 @@ const DIRECTIVES = [];
     // DelonFormModule,
     // DelonChartModule,
     // third libs
-    NgxEchartsModule,
+    // NgxEchartsModule,
     ...THIRDMODULES,
     // your components
     ...COMPONENTS,

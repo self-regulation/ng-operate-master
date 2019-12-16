@@ -7,9 +7,10 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzBadgeModule } from 'ng-zorro-antd';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 
-const THIRDMODULES = [NzBreadCrumbModule, NzDatePickerModule, NzBadgeModule];
+const THIRDMODULES = [NzBreadCrumbModule, NzDatePickerModule, NzBadgeModule, NgxEchartsModule];
 
 const COMPONENTS = [DashboardComponent];
 const COMPONENTS_NOROUNT = [];

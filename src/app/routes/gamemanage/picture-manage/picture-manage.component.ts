@@ -148,6 +148,7 @@ export class PictureManageComponent implements OnInit {
     }
     //更新游戏画质
     updatePicture(picture) {
+        console.log(picture);
         this.pictureData = picture;
         this.modalTitle = '修改游戏画质';
         this.isAddPicture = false;
@@ -158,7 +159,7 @@ export class PictureManageComponent implements OnInit {
             needGpu: [picture.needGpu, [Validators.required, positiveValidator]],
             needCpu: [picture.needCpu, [Validators.required, positiveValidator]],
             needMemory: [picture.needMemory, [Validators.required, positiveValidator]],
-            needSources: [picture.needSources, [Validators.required, positiveValidator]],
+            needSources: [picture.needResources, [Validators.required, positiveValidator]],
         });
         this.pictureTypes = picture.pictureType + '';
 

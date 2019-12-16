@@ -7,6 +7,7 @@ export const environment = {
   SERVER_URL: `http://admin-cloudgame-dev.tech.kingsoft.net:9092`,
   // SERVER_URL: `http://127.0.0.1:9093`,
   production: false,
+  test: false,
   useHash: true,
   hmr: false,
 };
