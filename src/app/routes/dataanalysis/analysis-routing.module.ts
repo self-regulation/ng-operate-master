@@ -4,11 +4,13 @@ import { UserRetainComponent } from './userretain/user-retain.component';
 import { UserListComponent } from './userList/user-list.component';
 import { UserDetailComponent } from './userDetail/user-detail.component';
 import { ACLGuard } from '@delon/acl';
+import { UserdataCollectComponent } from './userdata-collect/userdata-collect.component';
 
 const routes: Routes = [
     { path: 'userRetain', component: UserRetainComponent },
     { path: 'userList', component: UserListComponent },
     { path: 'userDetail', component: UserDetailComponent },
+    { path: 'userdataCollect', component: UserdataCollectComponent },
 ];
 
 @NgModule({

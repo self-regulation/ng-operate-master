@@ -1,0 +1,64 @@
+<page-header [title]="'画质管理'">
+</page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="userDataForm">
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="userName">玩家名称</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="userName" placeholder="请输入玩家名称" />
+        </nz-form-control>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="eventName">事件名称</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="eventName" placeholder="请输入事件名称" />
+        </nz-form-control>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="dateRange">日期</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" formControlName="dateRange"
+            [nzPlaceHolder]="['开始时间', '结束时间']" [ngModel]="dateRange" (nzOnOk)="changeDateRange($event)"
+            (ngModelChange)="clear($event)">
+          </nz-range-picker>
+        </nz-form-control>
+
+
+      </nz-form-item>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="getUserdataCollect()">查询</button>
+      </div>
+    </div>
+
+  </form>
+  <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="userDataList"
+    [nzFrontPagination]="false" [nzLoading]="tableLoading" [nzTotal]="total" [(nzPageIndex)]="pageNum"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th>日期</th>
+        <th>游戏玩家名称</th>
+        <th>事件名称</th>
+        <th>采集来源</th>
+        <th>IP</th>
+        <th>CPU</th>
+        <th>GPU</th>
+        <th>内存</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userDataList;let i=index">
+        <td>{{ user.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td nz-tooltip [nzTitle]="user?.userName">{{ user.userName }}</td>
+        <td>{{ user.eventName }}</td>
+        <td>{{ user.source }}</td>
+        <td>{{ user.data.ip }}</td>
+        <td nz-tooltip [nzTitle]="user.data?.cpu">{{ user.data.cpu }}</td>
+        <td nz-tooltip [nzTitle]="user.data?.gpu">{{ user.data.gpu }}</td>
+        <td>{{ user.data.memory }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

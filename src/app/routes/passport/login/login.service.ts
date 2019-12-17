@@ -115,6 +115,10 @@ export class LoginService {
                             newCurrent['link'] = "/analysis/userRetain";
                             newCurrent.order = 1;
                             break;
+                        case "UserdataCollect": //"用户设备信息埋点"
+                            newCurrent['link'] = "/analysis/userdataCollect";
+                            newCurrent.order = 2;
+                            break;
 
                         /**------------------------5游戏管理------------------------- */
                         case "GameManage":

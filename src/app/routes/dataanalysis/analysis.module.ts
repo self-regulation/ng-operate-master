@@ -9,8 +9,9 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { UserdataCollectComponent } from './userdata-collect/userdata-collect.component';
 
-const COMPONENTS = [UserRetainComponent, UserListComponent, UserDetailComponent];
+const COMPONENTS = [UserRetainComponent, UserListComponent, UserDetailComponent, UserdataCollectComponent];
 const COMPONENTS_NOROUNT = [];
 const THIRDMODULES = [NzDatePickerModule, NzBreadCrumbModule, NzTimelineModule, NgxEchartsModule];
 

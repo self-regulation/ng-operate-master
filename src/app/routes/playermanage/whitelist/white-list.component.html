@@ -76,10 +76,10 @@
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>游戏id</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input formControlName="gameId" placeholder="请输入" type="number" [disabled]="!isAddUser" />
-        <ng-container *ngIf="whiteModalForm.get('gameId')?.hasError('positiveValidator')">
-          <span class="validator-error">游戏id只能是正整数</span>
-        </ng-container>
+        <nz-select formControlName="gameId" nzPlaceHolder="请选择" [nzDisabled]="whiteModalForm.value.disGameId">
+          <nz-option nzValue="" nzLabel="请选择"></nz-option>
+          <nz-option nzValue="10112" nzLabel="10112"></nz-option>
+        </nz-select>
       </nz-form-control>
     </nz-form-item>
 

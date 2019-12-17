@@ -20,7 +20,7 @@ export class WhiteListComponent implements OnInit {
     pageSizeOptions = [10, 20, 30, 40, 50];
     status: any = { "0": "不在白名单中", "1": "在白名单中" };
     userType: any = { "1": "管理员", "2": "开发人员", "3": "普通玩家" };
-    modalTitle: "新增用户";
+    modalTitle: string = "新增玩家";
     whiteVisible: boolean = false;
     modalLoading: boolean = false;
     isAddUser: boolean = true;
@@ -35,10 +35,11 @@ export class WhiteListComponent implements OnInit {
             playerType: [null]
         });
         this.whiteModalForm = this.fb.group({
-            gameId: [null, [Validators.required, positiveValidator]],
+            gameId: [null, [Validators.required]],
             userName: [null, [Validators.required, usernameValidator]],
             status: [null, [Validators.required]],
             playerType: [null, [Validators.required]],
+            disGameId: [true]
         });
         this.getWhiteUserList();
     }
@@ -74,11 +75,13 @@ export class WhiteListComponent implements OnInit {
     }
 
     addUser() {
+        this.modalTitle = "新增玩家";
         this.whiteModalForm = this.fb.group({
-            gameId: [null, [Validators.required, positiveValidator]],
+            gameId: [null, [Validators.required]],
             userName: [null, [Validators.required]],
             status: [null, [Validators.required]],
-            playerType: [null, [Validators.required]]
+            playerType: [null, [Validators.required]],
+            disGameId: [false]
         });
         this.whiteVisible = true;
         this.isAddUser = true;
@@ -91,7 +94,6 @@ export class WhiteListComponent implements OnInit {
                 this.whiteModalForm.controls[i].updateValueAndValidity();
             }
             if (this.whiteModalForm.status === "INVALID") {
-                console.log(this.whiteModalForm);
                 this.message.create('warring', '请完整填写数据!');
                 return
             }
@@ -146,11 +148,13 @@ export class WhiteListComponent implements OnInit {
     updateStatus(user: any) {
         this.modifyUser = user;
         this.whiteModalForm = null;
+        this.modalTitle = "更新玩家状态";
         this.whiteModalForm = this.fb.group({
             gameId: [{ value: user.gameId, disabled: true }],
             userName: [{ value: user.userName, disabled: true }],
             status: [user.status + "", [Validators.required]],
             playerType: [user.type + "", [Validators.required]],
+            disGameId: [true]
         });
         this.whiteVisible = true;
         this.isAddUser = false;
