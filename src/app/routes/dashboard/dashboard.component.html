@@ -1,309 +1,313 @@
-<div>
-  <div nz-row [nzGutter]="24" class="pt-lg">
-    <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
-      <nz-card class="card-box">
-        <div nz-col [nzSpan]="24" class="card-body" *ngIf="!monitorLoading.newUserInfo&&newUserInfo">
-          <div nz-col [nzSpan]="19">
-            新增玩家
-          </div>
-          <div nz-col [nzSpan]="4">
-            <nz-tooltip nzTitle="今日新增的玩家">
-              <i nz-tooltip nz-icon nzType="info-circle"></i>
-            </nz-tooltip>
-          </div>
-          <div nz-col [nzSpan]="24">
-            <p class="statistic-num color-blue"><i nz-icon nzType="user"
-                nzTheme="outline"></i>&nbsp;{{(newUserInfo&&newUserInfo?.newUserCountToday)?newUserInfo.newUserCountToday:0}}人
-            </p>
-          </div>
-          <div nz-col [nzSpan]="24">
-            <span>日同比</span>&nbsp;&nbsp;<span
-              [ngStyle]="{'color': getFlagByNum(newUserInfo?.dayOnDay)?'red':'green'}">{{(newUserInfo&&newUserInfo.dayOnDay)?newUserInfo.dayOnDay:'--'}}
-              <i *ngIf="getFlagByNum(newUserInfo?.dayOnDay)" nz-icon nzType="caret-up" nzTheme="outline"></i>
-              <i *ngIf="!getFlagByNum(newUserInfo?.dayOnDay)" nz-icon nzType="caret-down" nzTheme="outline"></i>
-            </span>
-          </div>
-          <div nz-col [nzSpan]="24">
-            <span>周同比</span>&nbsp;&nbsp;<span
-              [ngStyle]="{'color': getFlagByNum(newUserInfo?.weekOnWeek)?'red':'green'}">{{(newUserInfo&&newUserInfo.weekOnWeek)?newUserInfo.weekOnWeek:'--'}}
-              <i *ngIf="getFlagByNum(newUserInfo?.weekOnWeek)" nz-icon nzType="caret-up" nzTheme="outline"></i>
-              <i *ngIf="!getFlagByNum(newUserInfo?.weekOnWeek)" nz-icon nzType="caret-down" nzTheme="outline"></i>
-            </span>
-          </div>
-          <div nz-col [nzSpan]="24" class="mt-15">
-            <span>总玩家数：</span><span
-              class="color-blue statistic-allnum">{{newUserInfo.allUserCount?newUserInfo.allUserCount:'--'}}
-              人</span>
-          </div>
-        </div>
-        <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.newUserInfo" style="margin-top: 58px;">
-          <nz-spin nzSimple></nz-spin>
-        </div>
-        <ng-container *ngIf="!newUserInfo">
-          <nz-empty></nz-empty>
-        </ng-container>
+<div style="margin-right: 10px; margin-left: 10px;">
 
-      </nz-card>
-    </div>
-    <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
-      <nz-card class="card-box">
-        <div nz-col [nzSpan]="24" class="card-body" *ngIf="!monitorLoading.rechargeInfo&&rechargeInfo">
-          <div nz-col [nzSpan]="19">
-            今日充值额
+  <div>
+    <div nz-row [nzGutter]="24" class="pt-15">
+      <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" class="box-left">
+        <nz-card class="card-box">
+          <div nz-col [nzSpan]="24" class="card-body" *ngIf="!monitorLoading.newUserInfo&&newUserInfo">
+            <div nz-col [nzSpan]="19">
+              新增玩家
+            </div>
+            <div nz-col [nzSpan]="5" class="text-right">
+              <nz-tooltip nzTitle="今日新增的玩家">
+                <i nz-tooltip nz-icon nzType="info-circle"></i>
+              </nz-tooltip>
+            </div>
+            <div nz-col [nzSpan]="24">
+              <p class="statistic-num color-blue"><i nz-icon nzType="user"
+                  nzTheme="outline"></i>&nbsp;{{(newUserInfo&&newUserInfo?.newUserCountToday)?newUserInfo.newUserCountToday:0}}人
+              </p>
+            </div>
+            <div nz-col [nzSpan]="24">
+              <span>日同比</span>&nbsp;&nbsp;<span
+                [ngStyle]="{'color': getFlagByNum(newUserInfo?.dayOnDay)?'red':'green'}">{{(newUserInfo&&newUserInfo.dayOnDay)?newUserInfo.dayOnDay:'--'}}
+                <i *ngIf="getFlagByNum(newUserInfo?.dayOnDay)" nz-icon nzType="caret-up" nzTheme="outline"></i>
+                <i *ngIf="!getFlagByNum(newUserInfo?.dayOnDay)" nz-icon nzType="caret-down" nzTheme="outline"></i>
+              </span>
+            </div>
+            <div nz-col [nzSpan]="24">
+              <span>周同比</span>&nbsp;&nbsp;<span
+                [ngStyle]="{'color': getFlagByNum(newUserInfo?.weekOnWeek)?'red':'green'}">{{(newUserInfo&&newUserInfo.weekOnWeek)?newUserInfo.weekOnWeek:'--'}}
+                <i *ngIf="getFlagByNum(newUserInfo?.weekOnWeek)" nz-icon nzType="caret-up" nzTheme="outline"></i>
+                <i *ngIf="!getFlagByNum(newUserInfo?.weekOnWeek)" nz-icon nzType="caret-down" nzTheme="outline"></i>
+              </span>
+            </div>
+            <div nz-col [nzSpan]="24" class="mt-15">
+              <span>总玩家数：</span><span
+                class="color-blue statistic-allnum">{{newUserInfo.allUserCount?newUserInfo.allUserCount:'--'}}
+                人</span>
+            </div>
           </div>
-          <div nz-col [nzSpan]="4">
-            <nz-tooltip nzTitle="今日充值额(单位:元)">
-              <i nz-tooltip nz-icon nzType="info-circle"></i>
-            </nz-tooltip>
+          <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.newUserInfo" style="margin-top: 58px;">
+            <nz-spin nzSimple></nz-spin>
           </div>
-          <div nz-col [nzSpan]="24">
-            <p class="statistic-num color-red"><i nz-icon nzType="account-book"
-                nzTheme="outline"></i>&nbsp;{{rechargeInfo&&rechargeInfo.amountToday?(rechargeInfo.amountToday|rmbConversion):'--'}}
-            </p>
-          </div>
-          <div nz-col [nzSpan]="24">
-            <span>日同比</span>&nbsp;&nbsp;
-            <span
-              [ngStyle]="{'color': getFlagByNum(rechargeInfo?.dayOnDay)?'red':'green'}">{{(rechargeInfo&&rechargeInfo.dayOnDay)?rechargeInfo.dayOnDay:'--'}}
-              <i *ngIf="getFlagByNum(rechargeInfo?.dayOnDay)" nz-icon nzType="caret-up" nzTheme="outline"></i>
-              <i *ngIf="!getFlagByNum(rechargeInfo?.dayOnDay)" nz-icon nzType="caret-down" nzTheme="outline"></i>
-            </span>
-          </div>
-          <div nz-col [nzSpan]="24">
-            <span>周同比</span>&nbsp;&nbsp;
-            <span
-              [ngStyle]="{'color': getFlagByNum(rechargeInfo?.weekOnWeek)?'red':'green'}">{{(rechargeInfo&&rechargeInfo.weekOnWeek)?rechargeInfo.weekOnWeek:'--'}}
-              <i *ngIf="getFlagByNum(rechargeInfo?.weekOnWeek)" nz-icon nzType="caret-up" nzTheme="outline"></i>
-              <i *ngIf="!getFlagByNum(rechargeInfo?.weekOnWeek)" nz-icon nzType="caret-down" nzTheme="outline"></i>
-            </span>
-          </div>
-          <div nz-col [nzSpan]="24" class="mt-15">
-            <span>今年充值额：</span><span class="statistic-allnum color-red"><i nz-icon nzType="account-book"
-                nzTheme="outline"></i>&nbsp;{{rechargeInfo&&rechargeInfo.amountYear?(rechargeInfo.amountYear|rmbConversion):'--'}}</span>
-          </div>
-        </div>
-        <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.rechargeInfo" style="margin-top: 58px;">
-          <nz-spin nzSimple></nz-spin>
-        </div>
-        <ng-container *ngIf="!rechargeInfo">
-          <nz-empty></nz-empty>
-        </ng-container>
-      </nz-card>
-    </div>
-    <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
-      <nz-card class="card-box">
-        <div nz-col [nzSpan]="24" class="card-body" *ngIf="!monitorLoading.activeUserInfo&&activeUserInfo">
-          <div nz-col [nzSpan]="19">
-            今日|活跃玩家
-          </div>
-          <div nz-col [nzSpan]="4">
-            <nz-tooltip nzTitle="今日活跃玩家人数">
-              <i nz-tooltip nz-icon nzType="info-circle"></i>
-            </nz-tooltip>
-          </div>
+          <ng-container *ngIf="!newUserInfo">
+            <nz-empty></nz-empty>
+          </ng-container>
 
-          <div nz-col [nzSpan]="24">
-            <p class="statistic-num color-purple"><i nz-icon nzType="team"
-                nzTheme="outline"></i>&nbsp;{{(activeUserInfo&&activeUserInfo?.userCountOfToday)?activeUserInfo.userCountOfToday:0}}人
-            </p>
+        </nz-card>
+      </div>
+      <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" class="dashboard-box">
+        <nz-card class="card-box">
+          <div nz-col [nzSpan]="24" class="card-body" *ngIf="!monitorLoading.rechargeInfo&&rechargeInfo">
+            <div nz-col [nzSpan]="19">
+              今日充值额
+            </div>
+            <div nz-col [nzSpan]="5" class="text-right">
+              <nz-tooltip nzTitle="今日充值额(单位:元)">
+                <i nz-tooltip nz-icon nzType="info-circle"></i>
+              </nz-tooltip>
+            </div>
+            <div nz-col [nzSpan]="24">
+              <p class="statistic-num color-red"><i nz-icon nzType="account-book"
+                  nzTheme="outline"></i>&nbsp;{{rechargeInfo&&rechargeInfo.amountToday?(rechargeInfo.amountToday|rmbConversion):'--'}}
+              </p>
+            </div>
+            <div nz-col [nzSpan]="24">
+              <span>日同比</span>&nbsp;&nbsp;
+              <span
+                [ngStyle]="{'color': getFlagByNum(rechargeInfo?.dayOnDay)?'red':'green'}">{{(rechargeInfo&&rechargeInfo.dayOnDay)?rechargeInfo.dayOnDay:'--'}}
+                <i *ngIf="getFlagByNum(rechargeInfo?.dayOnDay)" nz-icon nzType="caret-up" nzTheme="outline"></i>
+                <i *ngIf="!getFlagByNum(rechargeInfo?.dayOnDay)" nz-icon nzType="caret-down" nzTheme="outline"></i>
+              </span>
+            </div>
+            <div nz-col [nzSpan]="24">
+              <span>周同比</span>&nbsp;&nbsp;
+              <span
+                [ngStyle]="{'color': getFlagByNum(rechargeInfo?.weekOnWeek)?'red':'green'}">{{(rechargeInfo&&rechargeInfo.weekOnWeek)?rechargeInfo.weekOnWeek:'--'}}
+                <i *ngIf="getFlagByNum(rechargeInfo?.weekOnWeek)" nz-icon nzType="caret-up" nzTheme="outline"></i>
+                <i *ngIf="!getFlagByNum(rechargeInfo?.weekOnWeek)" nz-icon nzType="caret-down" nzTheme="outline"></i>
+              </span>
+            </div>
+            <div nz-col [nzSpan]="24" class="mt-15">
+              <span>今年充值额：</span><span class="statistic-allnum color-red"><i nz-icon nzType="account-book"
+                  nzTheme="outline"></i>&nbsp;{{rechargeInfo&&rechargeInfo.amountYear?(rechargeInfo.amountYear|rmbConversion):'--'}}</span>
+            </div>
           </div>
-          <div nz-col [nzSpan]="24">
-            <span>日同比</span>&nbsp;&nbsp;<span
-              [ngStyle]="{'color': getFlagByNum(activeUserInfo?.dayOnDay)?'red':'green'}">{{(activeUserInfo&&activeUserInfo.dayOnDay)?activeUserInfo.dayOnDay:'--'}}
-              <i *ngIf="getFlagByNum(activeUserInfo?.dayOnDay)" nz-icon nzType="caret-up" nzTheme="outline"></i>
-              <i *ngIf="!getFlagByNum(activeUserInfo?.dayOnDay)" nz-icon nzType="caret-down" nzTheme="outline"></i>
-            </span>
+          <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.rechargeInfo" style="margin-top: 58px;">
+            <nz-spin nzSimple></nz-spin>
           </div>
-          <div nz-col [nzSpan]="24">
-            <span>周同比</span>&nbsp;&nbsp;<span
-              [ngStyle]="{'color': getFlagByNum(activeUserInfo?.weekOnWeek)?'red':'green'}">{{(activeUserInfo&&activeUserInfo.weekOnWeek)?activeUserInfo.weekOnWeek:'--'}}
-              <i *ngIf="getFlagByNum(activeUserInfo?.weekOnWeek)" nz-icon nzType="caret-up" nzTheme="outline"></i>
-              <i *ngIf="!getFlagByNum(activeUserInfo?.weekOnWeek)" nz-icon nzType="caret-down" nzTheme="outline"></i>
-            </span>
-          </div>
-          <div nz-col [nzSpan]="24" class="mt-15">
-            <span>七日|活跃玩家：</span><span class="statistic-allnum color-purple"><i nz-icon nzType="team"
-                nzTheme="outline"></i>&nbsp;{{(activeUserInfo&&activeUserInfo?.userCountOfThisWeek)?activeUserInfo.userCountOfThisWeek:0}}人</span>
-          </div>
-        </div>
-        <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.activeUserInfo" style="margin-top: 58px;">
-          <nz-spin nzSimple></nz-spin>
-        </div>
-        <ng-container *ngIf="!activeUserInfo">
-          <nz-empty></nz-empty>
-        </ng-container>
-      </nz-card>
-    </div>
-    <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
-      <nz-card class="card-box">
-        <div nz-col [nzSpan]="24" class="card-body" *ngIf="!monitorLoading.userRetainInfo&&userRetainInfo">
-          <div nz-col [nzSpan]="19">
-            次日玩家留存
-          </div>
-          <div nz-col [nzSpan]="4">
-            <nz-tooltip nzTitle="次日玩家留存">
-              <i nz-tooltip nz-icon nzType="info-circle"></i>
-            </nz-tooltip>
-          </div>
+          <ng-container *ngIf="!rechargeInfo">
+            <nz-empty></nz-empty>
+          </ng-container>
+        </nz-card>
+      </div>
+      <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" class="dashboard-box">
+        <nz-card class="card-box">
+          <div nz-col [nzSpan]="24" class="card-body" *ngIf="!monitorLoading.activeUserInfo&&activeUserInfo">
+            <div nz-col [nzSpan]="19">
+              今日|活跃玩家
+            </div>
+            <div nz-col [nzSpan]="5" class="text-right">
+              <nz-tooltip nzTitle="今日活跃玩家人数">
+                <i nz-tooltip nz-icon nzType="info-circle"></i>
+              </nz-tooltip>
+            </div>
 
-          <div nz-col [nzSpan]="24">
-            <p class="statistic-num color-cyan-blue"><i nz-icon nzType="alert"
-                nzTheme="outline"></i>&nbsp;{{userRetainInfo&&userRetainInfo.userRetentionOfYesterday?userRetainInfo.userRetentionOfYesterday:'--'}}人
-            </p>
+            <div nz-col [nzSpan]="24">
+              <p class="statistic-num color-purple"><i nz-icon nzType="team"
+                  nzTheme="outline"></i>&nbsp;{{(activeUserInfo&&activeUserInfo?.userCountOfToday)?activeUserInfo.userCountOfToday:0}}人
+              </p>
+            </div>
+            <div nz-col [nzSpan]="24">
+              <span>日同比</span>&nbsp;&nbsp;<span
+                [ngStyle]="{'color': getFlagByNum(activeUserInfo?.dayOnDay)?'red':'green'}">{{(activeUserInfo&&activeUserInfo.dayOnDay)?activeUserInfo.dayOnDay:'--'}}
+                <i *ngIf="getFlagByNum(activeUserInfo?.dayOnDay)" nz-icon nzType="caret-up" nzTheme="outline"></i>
+                <i *ngIf="!getFlagByNum(activeUserInfo?.dayOnDay)" nz-icon nzType="caret-down" nzTheme="outline"></i>
+              </span>
+            </div>
+            <div nz-col [nzSpan]="24">
+              <span>周同比</span>&nbsp;&nbsp;<span
+                [ngStyle]="{'color': getFlagByNum(activeUserInfo?.weekOnWeek)?'red':'green'}">{{(activeUserInfo&&activeUserInfo.weekOnWeek)?activeUserInfo.weekOnWeek:'--'}}
+                <i *ngIf="getFlagByNum(activeUserInfo?.weekOnWeek)" nz-icon nzType="caret-up" nzTheme="outline"></i>
+                <i *ngIf="!getFlagByNum(activeUserInfo?.weekOnWeek)" nz-icon nzType="caret-down" nzTheme="outline"></i>
+              </span>
+            </div>
+            <div nz-col [nzSpan]="24" class="mt-15">
+              <span>七日|活跃玩家：</span><span class="statistic-allnum color-purple"><i nz-icon nzType="team"
+                  nzTheme="outline"></i>&nbsp;{{(activeUserInfo&&activeUserInfo?.userCountOfThisWeek)?activeUserInfo.userCountOfThisWeek:0}}人</span>
+            </div>
           </div>
-          <div nz-col [nzSpan]="24">
-            <span>次日留存率</span>&nbsp;&nbsp;<span
-              [ngStyle]="{'color': getFlagByNum(userRetainInfo?.retentionRateOfYesterday)?'red':'green'}">{{(userRetainInfo&&userRetainInfo.retentionRateOfYesterday)?userRetainInfo.retentionRateOfYesterday:'--'}}
-              <i *ngIf="getFlagByNum(userRetainInfo?.retentionRateOfYesterday)" nz-icon nzType="caret-up"
-                nzTheme="outline"></i>
-              <i *ngIf="!getFlagByNum(userRetainInfo?.retentionRateOfYesterday)" nz-icon nzType="caret-down"
-                nzTheme="outline"></i>
-            </span>
+          <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.activeUserInfo" style="margin-top: 58px;">
+            <nz-spin nzSimple></nz-spin>
           </div>
-          <div nz-col [nzSpan]="24">
-            <span>七日留存率</span>&nbsp;&nbsp;<span
-              [ngStyle]="{'color': getFlagByNum(userRetainInfo?.retentionRateSevenDays)?'red':'green'}">{{(userRetainInfo&&userRetainInfo.retentionRateSevenDays)?userRetainInfo.retentionRateSevenDays:'--'}}
-              <i *ngIf="getFlagByNum(userRetainInfo?.retentionRateSevenDays)" nz-icon nzType="caret-up"
-                nzTheme="outline"></i>
-              <i *ngIf="!getFlagByNum(userRetainInfo?.retentionRateSevenDays)" nz-icon nzType="caret-down"
-                nzTheme="outline"></i>
-            </span>
-          </div>
-        </div>
-        <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.userRetainInfo" style="margin-top: 58px;">
-          <nz-spin nzSimple></nz-spin>
-        </div>
-        <ng-container *ngIf="!userRetainInfo">
-          <nz-empty></nz-empty>
-        </ng-container>
-      </nz-card>
-    </div>
+          <ng-container *ngIf="!activeUserInfo">
+            <nz-empty></nz-empty>
+          </ng-container>
+        </nz-card>
+      </div>
+      <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" class="box-right">
+        <nz-card class="card-box">
+          <div nz-col [nzSpan]="24" class="card-body" *ngIf="!monitorLoading.userRetainInfo&&userRetainInfo">
+            <div nz-col [nzSpan]="19">
+              次日玩家留存
+            </div>
+            <div nz-col [nzSpan]="5" class="text-right" style="padding-right: 0px !important;">
+              <nz-tooltip nzTitle="次日玩家留存">
+                <i nz-tooltip nz-icon nzType="info-circle"></i>
+              </nz-tooltip>
+            </div>
 
+            <div nz-col [nzSpan]="24">
+              <p class="statistic-num color-cyan-blue"><i nz-icon nzType="alert"
+                  nzTheme="outline"></i>&nbsp;{{userRetainInfo&&userRetainInfo.userRetentionOfYesterday?userRetainInfo.userRetentionOfYesterday:'--'}}人
+              </p>
+            </div>
+            <div nz-col [nzSpan]="24">
+              <span>次日留存率</span>&nbsp;&nbsp;<span
+                [ngStyle]="{'color': getFlagByNum(userRetainInfo?.retentionRateOfYesterday)?'red':'green'}">{{(userRetainInfo&&userRetainInfo.retentionRateOfYesterday)?userRetainInfo.retentionRateOfYesterday:'--'}}
+                <i *ngIf="getFlagByNum(userRetainInfo?.retentionRateOfYesterday)" nz-icon nzType="caret-up"
+                  nzTheme="outline"></i>
+                <i *ngIf="!getFlagByNum(userRetainInfo?.retentionRateOfYesterday)" nz-icon nzType="caret-down"
+                  nzTheme="outline"></i>
+              </span>
+            </div>
+            <div nz-col [nzSpan]="24">
+              <span>七日留存率</span>&nbsp;&nbsp;<span
+                [ngStyle]="{'color': getFlagByNum(userRetainInfo?.retentionRateSevenDays)?'red':'green'}">{{(userRetainInfo&&userRetainInfo.retentionRateSevenDays)?userRetainInfo.retentionRateSevenDays:'--'}}
+                <i *ngIf="getFlagByNum(userRetainInfo?.retentionRateSevenDays)" nz-icon nzType="caret-up"
+                  nzTheme="outline"></i>
+                <i *ngIf="!getFlagByNum(userRetainInfo?.retentionRateSevenDays)" nz-icon nzType="caret-down"
+                  nzTheme="outline"></i>
+              </span>
+            </div>
+          </div>
+          <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.userRetainInfo" style="margin-top: 58px;">
+            <nz-spin nzSimple></nz-spin>
+          </div>
+          <ng-container *ngIf="!userRetainInfo">
+            <nz-empty></nz-empty>
+          </ng-container>
+        </nz-card>
+      </div>
+
+    </div>
   </div>
-</div>
 
-<div nz-row nzGutter="15">
-  <div nz-col nzSpan="12" class="gutter-row">
+  <div nz-row nzGutter="15">
+    <div nz-col nzSpan="12" class="gutter-row dashboard-box">
 
-    <nz-card class="card-large-chart">
-      <h4 style="margin-bottom: 0px;">玩家活跃趋势</h4>
-      <div nz-col [nzSpan]="24" class="none-padding">
-        <div nz-col [nzSpan]="12" class="none-padding">
-          <span>{{curTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>当前在线人数：</span><span class="statistic-num"
-            style="color: #4ecb73">{{userActiveInfo?.userCountOfNow}}</span><span>人</span>
+      <nz-card class="card-large-chart">
+        <h4 style="margin-bottom: 0px;">玩家活跃趋势</h4>
+        <div nz-col [nzSpan]="24" class="none-padding">
+          <div nz-col [nzSpan]="12" class="none-padding">
+            <span>{{curTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>当前在线人数：</span><span class="statistic-num"
+              style="color: #4ecb73">{{userActiveInfo?.userCountOfNow}}</span><span>人</span>
+          </div>
+          <div nz-col [nzSpan]="11" class="mt-15 text-right">
+            <nz-radio-group [(ngModel)]="trendUnit" [nzButtonStyle]="'solid'" (ngModelChange)="changeTrendUnit($event)"
+              style="margin-right: -10px;">
+              <label nz-radio-button nzValue="hour">今日</label>
+              <label nz-radio-button nzValue="day">7天</label>
+              <label nz-radio-button nzValue="week">30天</label>
+            </nz-radio-group>
+          </div>
         </div>
-        <div nz-col [nzSpan]="12" class="mt-15 text-right">
-          <nz-radio-group [(ngModel)]="trendUnit" [nzButtonStyle]="'solid'" (ngModelChange)="changeTrendUnit($event)">
+
+        <div nz-col [nzSpan]="24" class="none-padding">
+          <div nz-col [nzSpan]="24" class="text-left mt-15 none-padding">
+            <div nz-col [nzSpan]="24" class="none-padding">
+              <span>均值：</span><span
+                class="stress-font">{{userActiveInfo?.userAvg}}</span><span>人/{{trendUnit=='hour'?'小时':'天'}}&emsp;</span>
+              <span>合计：</span><span class="stress-font">{{userActiveInfo?.userCount}}</span><span>人</span>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="userTrendInfo && !monitorLoading.userTrendInfo">
+          <div nz-col [nzSpan]="24">
+            <div echarts [options]="userTrendInfo" style="height: 400px"></div>
+          </div>
+        </ng-container>
+        <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.userTrendInfo" style="margin-top: 100px;">
+          <nz-spin nzSimple></nz-spin>
+        </div>
+        <ng-container *ngIf="!userTrendInfo">
+          <nz-empty></nz-empty>
+        </ng-container>
+      </nz-card>
+    </div>
+
+    <div nz-col nzSpan="12" class="gutter-row dashboard-box">
+      <nz-card class="card-large-chart">
+        <h4>玩家在线时长统计（人）</h4>
+        <div nz-col [nzSpan]="24" class="mt-15 text-right">
+          <nz-radio-group [(ngModel)]="onlineUnit" [nzButtonStyle]="'solid'" (ngModelChange)="changeOnlineUnit($event)">
             <label nz-radio-button nzValue="hour">今日</label>
             <label nz-radio-button nzValue="day">7天</label>
             <label nz-radio-button nzValue="week">30天</label>
           </nz-radio-group>
         </div>
-      </div>
 
-      <div nz-col [nzSpan]="24" class="none-padding">
-        <div nz-col [nzSpan]="24" class="text-left mt-15 none-padding">
-          <div nz-col [nzSpan]="24" class="none-padding">
-            <span>均值：</span><span
-              class="stress-font">{{userActiveInfo?.userAvg}}</span><span>人/{{trendUnit=='hour'?'小时':'天'}}&emsp;</span>
-            <span>合计：</span><span class="stress-font">{{userActiveInfo?.userCount}}</span><span>人</span>
+        <ng-container *ngIf="onlineTimeInfo && !monitorLoading.onlineTimeInfo">
+          <div nz-col [nzSpan]="24">
+            <div echarts [options]="onlineTimeInfo" class="mt-15" style="height: 400px"></div>
           </div>
+        </ng-container>
+        <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.onlineTimeInfo" style="margin-top: 100px;">
+          <nz-spin nzSimple></nz-spin>
         </div>
-      </div>
-      <ng-container *ngIf="userTrendInfo && !monitorLoading.userTrendInfo">
-        <div nz-col [nzSpan]="24">
-          <div echarts [options]="userTrendInfo" style="height: 400px"></div>
+        <ng-container *ngIf="!onlineTimeInfo">
+          <nz-empty></nz-empty>
+        </ng-container>
+      </nz-card>
+    </div>
+  </div>
+
+  <div nz-row nzGutter="15">
+    <div nz-col nzSpan="12" class="gutter-row dashboard-box">
+      <nz-card class="card-chart">
+        <h4>操作系统|活跃用户分布</h4>
+        <p class="card-dec">2019-11-17</p>
+        <div echarts [options]="operatSystem" style="height: 400px"></div>
+      </nz-card>
+    </div>
+
+    <div nz-col nzSpan="12" class="gutter-row dashboard-box">
+      <nz-card class="card-chart">
+        <h4>服务器|使用率</h4>
+        <p class="card-dec">{{curTime}}</p>
+        <div echarts [options]="serverSystem" style="height: 400px"></div>
+        <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.serverSystem" style="margin-top: 100px;">
+          <nz-spin nzSimple></nz-spin>
         </div>
-      </ng-container>
-      <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.userTrendInfo" style="margin-top: 100px;">
-        <nz-spin nzSimple></nz-spin>
-      </div>
-      <ng-container *ngIf="!userTrendInfo">
-        <nz-empty></nz-empty>
-      </ng-container>
-    </nz-card>
+        <ng-container *ngIf="!serverSystem">
+          <nz-empty></nz-empty>
+        </ng-container>
+      </nz-card>
+    </div>
   </div>
-
-  <div nz-col nzSpan="12" class="gutter-row">
-    <nz-card class="card-large-chart">
-      <h4>玩家在线时长统计（人）</h4>
-      <div nz-col [nzSpan]="24" class="mt-15 text-right">
-        <nz-radio-group [(ngModel)]="onlineUnit" [nzButtonStyle]="'solid'" (ngModelChange)="changeOnlineUnit($event)">
-          <label nz-radio-button nzValue="hour">今日</label>
-          <label nz-radio-button nzValue="day">7天</label>
-          <label nz-radio-button nzValue="week">30天</label>
-        </nz-radio-group>
-      </div>
-
-      <ng-container *ngIf="onlineTimeInfo && !monitorLoading.onlineTimeInfo">
-        <div nz-col [nzSpan]="24">
-          <div echarts [options]="onlineTimeInfo" class="mt-15" style="height: 400px"></div>
-        </div>
-      </ng-container>
-      <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.onlineTimeInfo" style="margin-top: 100px;">
-        <nz-spin nzSimple></nz-spin>
-      </div>
-      <ng-container *ngIf="!onlineTimeInfo">
-        <nz-empty></nz-empty>
-      </ng-container>
-    </nz-card>
-  </div>
-</div>
-
-<div nz-row nzGutter="15">
-  <div nz-col nzSpan="12" class="gutter-row mt-15">
-    <nz-card class="card-chart">
-      <h4>操作系统|活跃用户分布</h4>
-      <p class="card-dec">2019-11-17</p>
-      <div echarts [options]="operatSystem" style="height: 400px"></div>
-    </nz-card>
-  </div>
-
-  <div nz-col nzSpan="12" class="gutter-row mt-15">
-    <nz-card class="card-chart">
-      <h4>服务器|使用率</h4>
-      <p class="card-dec">{{curTime}}</p>
-      <div echarts [options]="serverSystem" style="height: 400px"></div>
-      <div nz-col [nzSpan]="24" class="text-center" *ngIf="monitorLoading.serverSystem" style="margin-top: 100px;">
-        <nz-spin nzSimple></nz-spin>
-      </div>
-      <ng-container *ngIf="!serverSystem">
-        <nz-empty></nz-empty>
-      </ng-container>
-    </nz-card>
-  </div>
-</div>
-<div nz-row>
-  <div nz-col nzSpan="24">
-    <nz-card>
-      <h4>服务器信息</h4>
-      <nz-table nzBordered nzShowSizeChanger="true" [nzFrontPagination]="false" [nzData]="serverInfoList"
-        [nzLoading]="monitorLoading.serverInfo" [nzTotal]="totals" [(nzPageIndex)]="pageNum" [(nzPageSize)]="pageSize"
-        nzShowPagination="true" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
-        (nzPageSizeChange)="changePageSize($event)">
-        <thead>
-          <tr>
-            <th>服务器</th>
-            <th>IP</th>
-            <th>CPU</th>
-            <th>GPU</th>
-            <th>内存</th>
-            <th>在线玩家</th>
-            <th>更新时间</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of serverInfoList;let i=index">
-            <td>{{ item.serverName }}</td>
-            <td>{{ item.ip }}</td>
-            <td>{{ item.cUsePercent }}</td>
-            <td>{{ item.gpuUsePercents }}</td>
-            <td>{{ item.mUsePercent }}</td>
-            <td>{{ item.userCount }}</td>
-            <td>{{item.createTime | timeTransform:'YYYY-MM-DD HH:mm:ss'}}</td>
-          </tr>
-        </tbody>
-      </nz-table>
-    </nz-card>
+  <div nz-row style="margin-left: -7px; margin-right: -7px;">
+    <div nz-col nzSpan="24" dashboard-box>
+      <nz-card>
+        <h4>服务器信息</h4>
+        <nz-table nzBordered nzShowSizeChanger="true" [nzFrontPagination]="false" [nzData]="serverInfoList"
+          [nzLoading]="monitorLoading.serverInfo" [nzTotal]="totals" [(nzPageIndex)]="pageNum" [(nzPageSize)]="pageSize"
+          nzShowPagination="true" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+          (nzPageSizeChange)="changePageSize($event)">
+          <thead>
+            <tr>
+              <th>服务器</th>
+              <th>IP</th>
+              <th>CPU</th>
+              <th>GPU</th>
+              <th>内存</th>
+              <th>在线玩家</th>
+              <th>更新时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of serverInfoList;let i=index">
+              <td>{{ item.serverName }}</td>
+              <td>{{ item.ip }}</td>
+              <td>{{ item.cUsePercent }}</td>
+              <td>{{ item.gpuUsePercents }}</td>
+              <td>{{ item.mUsePercent }}</td>
+              <td>{{ item.userCount }}</td>
+              <td>{{item.createTime | timeTransform:'YYYY-MM-DD HH:mm:ss'}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-card>
+    </div>
   </div>
 </div>

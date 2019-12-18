@@ -27,8 +27,7 @@ import { Component } from '@angular/core';
                 background-size: 25% auto;
                 position: relative;
                 overflow: hidden;
-                min-height: 1025px;
-                margin-top: -60px;
+                min-height: 1000px;
                 zoom: 1;
               }
               .home-page:after{
@@ -53,7 +52,7 @@ import { Component } from '@angular/core';
                 color: #ffffff;
                 font-size: 14px;
                 margin-bottom:0px;
-              }
+              }      
 
         `
   ]

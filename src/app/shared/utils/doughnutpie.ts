@@ -23,7 +23,7 @@ export function DoughnutPie(params: any): any {
                 name: seriesName,
                 type: 'pie',
                 radius: ['50%', '70%'],
-                avoidLabelOverlap: false,
+                avoidLabelOverlap: true,
                 label: {
                     normal: {
                         show: true,

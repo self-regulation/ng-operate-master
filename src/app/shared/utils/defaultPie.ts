@@ -5,7 +5,10 @@ export function DefaultPie(params: any): any {
         title: {
             text: title,
             subtext: '',
-            x: 'center'
+            x: 'center',
+            textStyle: {
+                color: '#58afff',
+            }
         },
         tooltip: {
             trigger: 'item',
@@ -24,8 +27,9 @@ export function DefaultPie(params: any): any {
             {
                 name: '服务器使用率',
                 type: 'pie',
-                radius: '55%',
-                center: ['50%', '60%'],
+                radius: '70%',
+                center: ['50%', '50%'],
+                avoidLabelOverlap: true,
                 data: seriesData,
                 itemStyle: {
                     emphasis: {
