@@ -4,24 +4,22 @@ import { SharedModule } from '@shared';
 
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { CloudProductComponent } from './cloud-product/cloud-product.component';
+import { ProductManageRoutingModule } from './productmanage-routing.module';
 import { NzBadgeModule } from 'ng-zorro-antd';
-import { GameManageRoutingModule } from './gamemanage-routing.module';
-import { PictureManageComponent } from './picture-manage/picture-manage.component';
-import { DeviceManageComponent } from './device-manage/device-manage.component';
+import { OrderManageComponent } from './order-manage/order-manage.component';
 
 
 const THIRDMODULES = [NzBreadCrumbModule, NzDatePickerModule, NzBadgeModule];
 
-const COMPONENTS = [PictureManageComponent, DeviceManageComponent];
+const COMPONENTS = [CloudProductComponent, OrderManageComponent];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({
-    imports: [SharedModule, GameManageRoutingModule, ...THIRDMODULES],
+    imports: [SharedModule, ProductManageRoutingModule, ...THIRDMODULES],
     exports: [...THIRDMODULES],
     providers: [],
     declarations: [...COMPONENTS, ...COMPONENTS_NOROUNT],
     entryComponents: COMPONENTS_NOROUNT,
 })
-export class GameManageModule { }
-
-
+export class ProductManageModule { }

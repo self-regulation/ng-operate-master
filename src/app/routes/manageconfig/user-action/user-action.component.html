@@ -79,7 +79,7 @@
         <td nz-tooltip [nzTitle]="data?.user">{{ data?.user }}</td>
         <td>{{ data?.gameId }}</td>
         <td>{{ formatOnline(data.online) }}</td>
-        <td>{{ formatTaskStatus(data.status) }}</td>
+        <td>{{ data.statusName }}</td>
         <td>{{ data.userServer }}</td>
         <td>{{ data.controlServer }}</td>
         <td nz-tooltip [nzTitle]="data.gameServer">{{ data.gameServer }}</td>

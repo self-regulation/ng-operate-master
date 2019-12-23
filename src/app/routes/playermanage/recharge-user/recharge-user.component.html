@@ -46,7 +46,6 @@
     (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
     <thead>
       <tr>
-        <th>游戏id</th>
         <th>游戏用户名称</th>
         <th>游戏状态</th>
         <th>游戏类型</th>
@@ -56,7 +55,6 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of chargeUserList;let i=index">
-        <td>{{ user.gameId }}</td>
         <td>{{ user.userName }}</td>
         <td>{{ online[user.online] }}</td>
         <td>{{ status[user.status] }}</td>

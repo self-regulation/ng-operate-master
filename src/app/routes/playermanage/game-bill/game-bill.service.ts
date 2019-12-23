@@ -18,10 +18,10 @@ export class GameBillService {
                 pageSize: params.pageSize
             };
             if (params.userName) {
-                httpParams.data["userName"] = params.userName;
+                httpParams.data["user"] = params.userName;
             }
             if (params.type) {
-                httpParams.data["type"] = params.type;
+                httpParams.data["status"] = params.type;
             }
             if (params.gameId) {
                 httpParams.data["gameId"] = params.gameId;
@@ -31,6 +31,12 @@ export class GameBillService {
             }
             if (params.resource) {
                 httpParams.data["resource"] = params.resource;
+            }
+            if (params.startTime) {
+                httpParams.data["startTime"] = params.startTime;
+            }
+            if (params.endTime) {
+                httpParams.data["endTime"] = params.endTime;
             }
             httpParams.callback = ((response: any) => {
                 observer.next(response);

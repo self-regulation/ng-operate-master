@@ -1,0 +1,62 @@
+<page-header [title]="'订单管理'">
+</page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="orderForm">
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="orderId">订单ID</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="orderId" placeholder="请输入订单ID" />
+        </nz-form-control>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="userName">玩家名称</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="userName" placeholder="请输入玩家名称" />
+        </nz-form-control>
+
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="productName">产品名称</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <input nz-input formControlName="productName" placeholder="请输入产品名称" />
+        </nz-form-control>
+
+      </nz-form-item>
+
+      <div nz-col [nzSpan]="24" class="text-right mb-15">
+        <button nz-button type="submit" [nzType]="'primary'" (click)="getOrderList()">查询</button>
+      </div>
+    </div>
+
+  </form>
+  <nz-table nzBordered="true" nzShowPagination="true" nzShowSizeChanger="true" [nzData]="orderList"
+    [nzFrontPagination]="false" [nzLoading]="tableLoading" [nzTotal]="total" [(nzPageIndex)]="pageNum"
+    [(nzPageSize)]="pageSize" [nzPageSizeOptions]="pageSizeOptions" (nzPageIndexChange)="changePage($event)"
+    (nzPageSizeChange)="changePageSize($event)" [nzScroll]="{ x: '1300px' }">
+    <thead>
+      <tr>
+        <th>订单ID</th>
+        <th>产品名称</th>
+        <th>产品数量</th>
+        <th>玩家名称</th>
+        <th>支付订单ID</th>
+        <th>订单状态</th>
+        <th>赠送</th>
+        <th>支付金额</th>
+        <th>日期</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of orderList;let i=index">
+        <td>{{item.orderId}}</td>
+        <td>{{ item.productName }}</td>
+        <td>{{ item.productQuantity }}</td>
+        <td>{{ item.userName }}</td>
+        <td>{{ item.payOrderId }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.present }}</td>
+        <td>{{ item.paidAmount }}</td>
+        <td>{{ item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

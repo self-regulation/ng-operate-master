@@ -65,6 +65,9 @@ export class WhiteListService {
             if (params.playerType) {
                 httpParams.data["type"] = params.playerType;
             }
+            if (params.userName) {
+                httpParams.data["userName"] = params.userName;
+            }
             httpParams.callback = ((response: any) => {
                 observer.next(response);
                 observer.complete();

@@ -124,7 +124,8 @@ export class WhiteListComponent implements OnInit {
             let params = {
                 id: this.modifyUser.id,
                 status: this.whiteModalForm.value.status,
-                playerType: this.whiteModalForm.value.playerType
+                playerType: this.whiteModalForm.value.playerType,
+                userName: this.whiteModalForm.value.userName
             };
             this.whiteListService.updateUser(params).subscribe((res: any) => {
                 if (res.code == 0) {
@@ -151,7 +152,7 @@ export class WhiteListComponent implements OnInit {
         this.modalTitle = "更新玩家状态";
         this.whiteModalForm = this.fb.group({
             gameId: [{ value: user.gameId, disabled: true }],
-            userName: [{ value: user.userName, disabled: true }],
+            userName: [user.userName],
             status: [user.status + "", [Validators.required]],
             playerType: [user.type + "", [Validators.required]],
             disGameId: [true]

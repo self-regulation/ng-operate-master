@@ -25,6 +25,7 @@ const routes: Routes = [
       { path: 'gamemanage', loadChildren: () => import('./gamemanage/gamemanage.module').then(m => m.GameManageModule) },//游戏管理
       { path: 'playermanage', loadChildren: () => import('./playermanage/playermanage.module').then(m => m.PlayerManageModule) },//玩家白名单管理
       { path: 'analysis', loadChildren: () => import('./dataanalysis/analysis.module').then(m => m.AnalysisModule) },//数据分析
+      { path: 'roductmanage', loadChildren: () => import('./productmanage/productmanage.module').then(m => m.ProductManageModule) },
       { path: 'operation', loadChildren: () => import('./operation/operation.module').then(m => m.OperationModule) },
       { path: 'config', loadChildren: () => import('./manageconfig/manageconfig.module').then(m => m.SetGameModule) },
       { path: 'system', loadChildren: () => import('./system/system.module').then(m => m.SystemModule) },

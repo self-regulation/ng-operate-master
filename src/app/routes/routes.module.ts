@@ -14,10 +14,7 @@ import { HomePageComponent } from './home/home.component';
 
 const COMPONENTS = [
   HomePageComponent,
-  // DashboardComponent,
-  // passport pages
   UserLoginComponent,
-  // single pages
   CallbackComponent,
   UserLockComponent,
 ];

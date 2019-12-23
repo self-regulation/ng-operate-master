@@ -4,7 +4,6 @@ import { OperationRoutingModule } from './operation-routing.module';
 import { OperationActionComponent } from './operation-action/operation-action.component';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
-import { DeviceManageComponent } from './device-manage/device-manage.component';
 import { ServerUpdateComponent } from './server-update/server-update.component';
 import { NzBadgeModule, NzTimelineModule } from 'ng-zorro-antd';
 import { ServerRecordComponent } from './server-record/server-record.component';
@@ -13,7 +12,7 @@ import { ServerRecordComponent } from './server-record/server-record.component';
 const THIRDMODULES = [NzBreadCrumbModule, NzBadgeModule, NzDatePickerModule, NzTimelineModule];
 
 
-const COMPONENTS = [OperationActionComponent, DeviceManageComponent, ServerUpdateComponent, ServerRecordComponent];
+const COMPONENTS = [OperationActionComponent, ServerUpdateComponent, ServerRecordComponent];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({

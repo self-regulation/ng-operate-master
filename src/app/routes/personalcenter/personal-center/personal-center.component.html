@@ -7,21 +7,22 @@
       <div class="avatarHolder" nz-col nzSpan="24" nzOffset="5">
         <img src="../../../../assets/tmp/img/avatar.jpg" nz-col nzSpan="6" />
         <div class="ml-15 name" nz-col nzSpan="18">
-          <h3>Admin</h3>
-          <p><i nz-icon nzType="contacts" nzTheme="outline"></i>&nbsp;&nbsp;&nbsp;系统管理员</p>
-          <nz-upload nzAction="/user/avatar" [nzShowUploadList]="false">
+          <h3>{{userInfo.loginName}}</h3>
+          <p><i nz-icon nzType="contacts" nzTheme="outline"></i>&nbsp;&nbsp;&nbsp;{{userInfo.name}}</p>
+          <p><i nz-icon nzType="phone" nzTheme="outline"></i>&nbsp;&nbsp;&nbsp;{{userInfo.mobile}}</p>
+          <!-- <nz-upload nzAction="/user/avatar" [nzShowUploadList]="false"><i nz-icon nzType="phone" nzTheme="outline"></i>
             <button nz-button class="button_view">
               <i nz-icon nzType="upload"></i>
               <span>更换头像</span>
             </button>
-          </nz-upload>
+          </nz-upload> -->
         </div>
         <!-- <div>{{ user.signature }}</div> -->
       </div>
     </div>
 
   </ng-container>
-  <form nz-form [formGroup]="validateForm">
+  <!-- <form nz-form [formGroup]="personalForm">
 
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="username">用户名</nz-form-label>
@@ -56,5 +57,5 @@
         <button nz-button nzType="primary">更新基本信息</button>
       </nz-form-control>
     </nz-form-item>
-  </form>
+  </form> -->
 </nz-card>

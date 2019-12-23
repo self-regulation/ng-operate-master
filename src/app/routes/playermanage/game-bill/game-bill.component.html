@@ -13,8 +13,8 @@
         <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
           <nz-select formControlName="type" nzPlaceHolder="请选择" (ngModelChange)="getChargeLogList()">
             <nz-option nzValue="" nzLabel="请选择"></nz-option>
-            <nz-option nzValue="0" nzLabel="结束"></nz-option>
-            <nz-option nzValue="1" nzLabel="开始"></nz-option>
+            <nz-option nzValue="0" nzLabel="开始"></nz-option>
+            <nz-option nzValue="1" nzLabel="结束"></nz-option>
           </nz-select>
         </nz-form-control>
 
@@ -42,6 +42,20 @@
           <input nz-input formControlName="resource" placeholder="请输入正整数" type="number" />
         </nz-form-control>
 
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="startTime">开始计费时间</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-date-picker nzShowTime="true" nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="请选择"
+            formControlName="startTime" (nzOnOk)="onChangeStartTime($event)">
+          </nz-date-picker>
+        </nz-form-control>
+        <nz-form-label nz-col nzSm="4" nzLg="3" nzXXl="2" nzFor="endTime">停止计费时间</nz-form-label>
+        <nz-form-control nz-col nzSm="8" nzLg="5" nzXXl="4">
+          <nz-date-picker nzShowTime="true" nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="请选择" formControlName="endTime"
+            (nzOnOk)="onChangeEndTime($event)"></nz-date-picker>
+        </nz-form-control>
+
+
+
       </nz-form-item>
 
       <div nz-col [nzSpan]="24" class="text-right mb-15">
@@ -57,25 +71,27 @@
     <thead>
       <tr>
         <th>taskId</th>
-        <th>充值时间</th>
+        <!-- <th>充值时间</th> -->
         <th>游戏id</th>
-        <th>游戏用户名称</th>
+        <th>玩家名称</th>
         <th>计费状态</th>
         <th>游戏画质</th>
         <th>所需资源</th>
-        <th>创建时间</th>
+        <th>开始计费时间</th>
+        <th>停止计费时间</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of chargeLogList;let i=index">
         <td>{{ item.taskId }}</td>
-        <td>{{ item.timingTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <!-- <td>{{ item.timingTime | date:'yyyy-MM-dd HH:mm:ss'}}</td> -->
         <td>{{ item.gameId }}</td>
-        <td>{{ item.userName }}</td>
-        <td>{{ type[item.type] }}</td>
+        <td>{{ item.user }}</td>
+        <td>{{ type[item.status] }}</td>
         <td>{{ allPictureTypes[item.picture] }}</td>
         <td>{{ item.resource }}</td>
-        <td>{{ item.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td>{{ item.startTimingTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td>{{ item.endTimingTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
       </tr>
     </tbody>
   </nz-table>

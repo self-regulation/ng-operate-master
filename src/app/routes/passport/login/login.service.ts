@@ -93,21 +93,14 @@ export class LoginService {
                             newCurrent['link'] = "/operation/action";
                             newCurrent.order = 1;
                             break;
-
-
-                        case 'DeviceManager': //设备管理
-                            newCurrent['link'] = "/operation/devicemanage";
-                            newCurrent.order = 2;
-                            break;
                         case 'ServerUpdate': //更新服务器
                             newCurrent['link'] = "/operation/serverupdate";
-                            newCurrent.order = 3;
+                            newCurrent.order = 2;
                             break;
 
                         /**------------------------4数据分析------------------------- */
                         case "DataAnalysis":
                             newCurrent.icon = "anticon-pie-chart";
-                            newCurrent['link'] = "/analysis";
                             newCurrent.order = 4;
                             break;
                         //数据分析---子项
@@ -120,22 +113,45 @@ export class LoginService {
                             newCurrent.order = 2;
                             break;
 
-                        /**------------------------5游戏管理------------------------- */
+
+                        /**------------------------5云产品管理------------------------- */
+
+                        case "ProductManage":
+                            newCurrent.icon = "anticon-cloud";
+                            // newCurrent['link'] = "/roductmanage";
+                            newCurrent.order = 5;
+                            break;
+                        //云产品管理---子项
+                        case "CloudProduct": //"产品管理"
+                            newCurrent['link'] = "/roductmanage/cloudproduct";
+                            newCurrent.order = 1;
+                            break;
+                        case "OrderManage": //"订单管理"
+                            newCurrent['link'] = "/roductmanage/ordermanage";
+                            newCurrent.order = 2;
+                            break;
+
+                        /**------------------------6游戏管理------------------------- */
                         case "GameManage":
                             newCurrent.icon = "anticon-laptop";
-                            newCurrent['link'] = "/gamemanage";
-                            newCurrent.order = 5;
+                            // newCurrent['link'] = "/gamemanage";
+                            newCurrent.order = 6;
                             break;
 
                         case 'PictureManager': //画质管理
                             newCurrent['link'] = "/gamemanage/picturemanage";
                             newCurrent.order = 1;
                             break;
-                        /**------------------------6云玩家管理------------------------- */
+
+                        case 'DeviceManager': //设备管理
+                            newCurrent['link'] = "/gamemanage/devicemanage";
+                            newCurrent.order = 2;
+                            break;
+                        /**------------------------7云玩家管理------------------------- */
                         case "PlayerManage":
                             newCurrent.icon = "anticon-team";
-                            newCurrent['link'] = "/playermanage";
-                            newCurrent.order = 6;
+                            // newCurrent['link'] = "/playermanage";
+                            newCurrent.order = 7;
                             break;
                         //玩家白名单管理
                         case "WhiteList":
@@ -157,10 +173,10 @@ export class LoginService {
                             newCurrent['link'] = "/playermanage/playerquestion";
                             newCurrent.order = 4;
                             break;
-                        /**------------------------7 配置管理------------------------- */
+                        /**------------------------8 配置管理------------------------- */
                         case "Configuration":   //配置管理
                             newCurrent.icon = "anticon-tool";
-                            newCurrent.order = 7;
+                            newCurrent.order = 8;
                             break;
                         //配置管理---子项      
                         case "GameManager":   //"管理配置"
@@ -176,10 +192,10 @@ export class LoginService {
                             newCurrent.order = 3;
                             break;
 
-                        /**------------------------8 平台日志------------------------- */
+                        /**------------------------9 平台日志------------------------- */
                         case "PlatformLog":
                             newCurrent.icon = "anticon-bug";
-                            newCurrent.order = 8;
+                            newCurrent.order = 9;
                             break;
                         case 'ExceptionLog': //服务器异常
                             newCurrent['link'] = "/platformlog/exceptionLog";
@@ -191,10 +207,10 @@ export class LoginService {
                             break;
 
 
-                        /**------------------------9 系统管理------------------------- */
+                        /**------------------------10 系统管理------------------------- */
                         case "System":
                             newCurrent.icon = "anticon-setting";
-                            newCurrent.order = 9;
+                            newCurrent.order = 10;
                             break;
                         //系统管理---子项
                         case "UserManager": //用户管理
@@ -227,10 +243,10 @@ export class LoginService {
                             newCurrent.order = 7;
                             break;
 
-                        /**------------------------10 个人中心------------------------- */
+                        /**------------------------11 个人中心------------------------- */
                         case "PersonInfo":  //个人中心
                             newCurrent.icon = "anticon-user";
-                            newCurrent.order = 10;
+                            newCurrent.order = 11;
                             break;
 
                         //个人中心---子项

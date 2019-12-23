@@ -15,11 +15,11 @@ export class CallbackComponent implements OnInit {
     private socialService: SocialService,
     private settingsSrv: SettingsService,
     private route: ActivatedRoute,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.type = this.route.snapshot.params.type;
-    this.mockModel();
+    // this.mockModel();
   }
 
   private mockModel() {
