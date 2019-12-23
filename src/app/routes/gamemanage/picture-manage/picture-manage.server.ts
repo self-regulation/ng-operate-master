@@ -70,26 +70,25 @@ export class PictureManageServer {
         });
     }
     //更新游戏画质
-    updatePicture(param: any) {
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        console.log(param);
+    updatePicture(params: any) {
         return new Observable((observer) => {
-            const params = new AgentHttpParams();
-            params.url = '/admin/picture/update';
-            params.data = {
-                gameId: param.gameId,
-                pictureType: param.pictureType,
-                needGpu: param.needGpu,
-                needCpu: param.needCpu,
-                needMemory: param.needMemory,
-                needResources: param.needSources,
-                id: param.id
+            const httpParams = new AgentHttpParams();
+            httpParams.url = '/admin/picture/update';
+            httpParams.data = {
+                gameId: params.gameId,
+                pictureType: params.pictureType,
+                needGpu: params.needGpu,
+                needCpu: params.needCpu,
+                needMemory: params.needMemory,
+                needResources: params.needSources,
+                id: params.id,
+                pictureDesc: params.pictureDesc
             };
-            params.callback = ((response: any) => {
+            httpParams.callback = ((response: any) => {
                 observer.next(response);
                 observer.complete();
             });
-            this.httpBaseService.postJson(params);
+            this.httpBaseService.postJson(httpParams);
         });
     }
 }

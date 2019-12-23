@@ -78,12 +78,12 @@
         <td>{{ data?.taskId }}</td>
         <td nz-tooltip [nzTitle]="data?.user">{{ data?.user }}</td>
         <td>{{ data?.gameId }}</td>
-        <td>{{ formatOnline(data.online) }}</td>
+        <td>{{ onlineStatus[data.online] }}</td>
         <td>{{ data.statusName }}</td>
         <td>{{ data.userServer }}</td>
         <td>{{ data.controlServer }}</td>
         <td nz-tooltip [nzTitle]="data.gameServer">{{ data.gameServer }}</td>
-        <td>{{ formatPicture(data.pictureQuality) }}</td>
+        <td>{{ pictureList[data?.pictureQuality] }}</td>
         <td><a (click)="showParamDetail(data.param)">详情</a></td>
         <td nz-tooltip [nzTitle]="data.connectInfo">{{ data.connectInfo }}</td>
         <td>{{ data.errorData }}</td>

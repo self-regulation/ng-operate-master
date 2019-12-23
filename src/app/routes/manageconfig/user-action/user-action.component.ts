@@ -25,7 +25,7 @@ export class UserActionComponent implements OnInit {
 
     dateFormat: any = null;
 
-    pictureList: any = {
+    pictureList = {
         1: "最简",
         2: "简约",
         3: "均衡",
@@ -82,9 +82,9 @@ export class UserActionComponent implements OnInit {
                 this.message.create('error', res.message ? res.message : '查询失败!');
             }
 
-            if (res[1].code == 0) {
-                this.pictureList = res[1].data;
-            }
+            // if (res[1].code == 0) {
+            //     this.pictureList = res[1].data;
+            // }
 
             if (res[2].code == 0) {
                 this.taskStatusList = res[2].data;
@@ -145,7 +145,7 @@ export class UserActionComponent implements OnInit {
     }
 
     formatPicture(types) {
-        return types ? (this.pictureList[types]) : '--';
+        return types ? (this.pictureList[types + ""]) : '--';
     }
 
     formatTaskStatus(status) {

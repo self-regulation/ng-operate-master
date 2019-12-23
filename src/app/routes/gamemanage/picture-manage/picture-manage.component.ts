@@ -113,11 +113,9 @@ export class PictureManageComponent implements OnInit {
             this.addPictureForm.controls[i].updateValueAndValidity();
         }
         if (this.addPictureForm.status === "INVALID") {
-            console.log(this.addPictureForm);
             this.message.create('warring', '请完整填写数据!');
             return
         }
-        console.log(this.addPictureForm.value);
         this.modalLoading = true;
         if (this.isAddPicture) {
             this.pictureManageServer.addPicture(this.addPictureForm.value).subscribe((res: any) => {
@@ -133,6 +131,7 @@ export class PictureManageComponent implements OnInit {
         } else {
             let params = this.addPictureForm.value;
             params['id'] = this.pictureData.id;
+            params["pictureDesc"] = this.allPictureTypes[this.addPictureForm.value.pictureType];
             this.pictureManageServer.updatePicture(params).subscribe((res: any) => {
                 this.modalLoading = false;
                 if (res.code == 0) {
